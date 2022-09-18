@@ -1,0 +1,24 @@
+load("@python_deps//:requirements.bzl", "entry_point","requirement")
+
+filegroup(
+  name = "sources",
+  srcs = glob(["src/**/*"]) + [
+    "theme.ini"
+  ]
+)
+
+py_binary(
+    name = "compile",
+    srcs = ["dotfiles.py"],
+    main = "dotfiles.py",
+    srcs_version = "PY3",
+    args = [
+        "compile",
+    ],
+    data = [
+        ":sources",
+    ], 
+    deps = [
+        requirement("Jinja2"),
+    ],
+)

@@ -1,0 +1,33 @@
+- hosts: localhost
+  tasks:
+
+  - name: Global
+    block:
+    - name: Get repository path
+      ansible.builtin.command: git rev-parse --show-toplevel
+      changed_when: false
+      register: repo_path_cmd
+
+  - name: Tools
+    block:
+      - name: Install dev-tools
+        become: true
+        community.general.pacman:
+          update_cache: true
+          name:
+            - neovim
+            - git
+            - lazygit
+            - taskwarrior-tui
+            - task
+            - terraform
+            - packer
+          state: present
+
+  - name: Check tools
+    block:
+      - command: nvim --version
+      - command: lazygit --version
+      - command: terraform --version
+      - command: packer --version
+      - command: task --version

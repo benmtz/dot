@@ -1,0 +1,18 @@
+# Common search engines
+g: https://www.google.com/search?q=%s
+w: https://en.wikipedia.org/wiki/Special:Search?search=%s Wikipedia
+d: https://duckduckgo.com/?q=%s DuckDuckGo
+svg: https://www.google.com/search?tbm=isch&sclient=img&q=%s&tbs=ift:svg
+
+# Work specifics
+doc: https://techsoft3d.atlassian.net/wiki/search?text=%s
+mydlv: https://techsoft3d.atlassian.net/jira/software/c/projects/DLV/issues/?jql=project%20%3D%20%22DLV%22%20AND%20reporter%20IN%20%28currentUser%28%29%29%20AND%20%28SUMMARY%20~%20%22%s%22%20OR%20description%20~%20%22%s%22%29%20ORDER%20BY%20created%20DESC
+
+# Spoken languages
+dic: https://www.collinsdictionary.com/dictionary/english/%s
+syn: https://www.collinsdictionary.com/dictionary/english-thesaurus/%s
+
+# Package related
+pkg: https://pkgs.org/search/?q=%s
+az: https://docs.microsoft.com/en-us/search/?view=azure-pipelines&terms=%s&filter-products=azure&products=%2Fdevrel%2F68ec7f3a-2bc6-459f-b959-19beb729907d
+ansible: https://docs.ansible.com/ansible/latest/search.html?q=%s
