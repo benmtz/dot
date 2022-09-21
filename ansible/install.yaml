@@ -37,9 +37,11 @@
     when: is_centos
     block:
       - name: plugins-core
+        become: true
         yum:
           name: dnf-plugins-core
           state: present
+
       - shell: dnf config-manager --set-enabled crb
         become: true
         changed_when: false
@@ -48,10 +50,12 @@
           name: epel-release
           state: present
           update_cache: true
+        become: true
 
       - name: Hashicorp
         block:
           - name: Setup hashicorp repository
+            become: true
             ansible.builtin.yum_repository:
               name: hashicorp
               description: Hashicorp Stable - $basearch
@@ -60,6 +64,7 @@
               gpgcheck: true
               gpgkey: [https://rpm.releases.hashicorp.com/gpg]
           - name: Install hashicorp tools
+            become: true
             ansible.builtin.yum:
               name:
                 - terraform
@@ -79,11 +84,13 @@
                 #         state: present
 
       - name: Other packages
+        become: true
         ansible.builtin.yum:
           name:
             - neovim
             - python3-neovim
       - name: Other packages [dnf]
+        become: true
         ansible.builtin.dnf:
           name:
             - fish

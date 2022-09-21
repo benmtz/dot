@@ -3,11 +3,13 @@
     state: directory
     recurse: true
     mode: 0755
+  become: true
 
 - ansible.builtin.unarchive:
     src: "{{ release_archive }}"
     dest: /opt/{{ release_name }}/{{ release_version }}
     remote_src: yes
+  become: true
 
 - shell: ls -al /opt/{{ release_name }}/{{ release_version }}
 
@@ -15,4 +17,5 @@
     path: /usr/bin/{{ release_name }}
     src: /opt/{{ release_name }}/{{ release_version }}/{{ release_name }}
     state: link
+  become: true
 
