@@ -1,0 +1,18 @@
+- ansible.builtin.file:
+    path: "/opt/{{ release_name }}/{{ release_version }}"
+    state: directory
+    recurse: true
+    mode: 0755
+
+- ansible.builtin.unarchive:
+    src: "{{ release_archive }}"
+    dest: /opt/{{ release_name }}/{{ release_version }}
+    remote_src: yes
+
+- shell: ls -al /opt/{{ release_name }}/{{ release_version }}
+
+- ansible.builtin.file:
+    path: /usr/bin/{{ release_name }}
+    src: /opt/{{ release_name }}/{{ release_version }}/{{ release_name }}
+    state: link
+

@@ -1,0 +1,116 @@
+- hosts: localhost
+  tasks:
+
+  - name: Global
+    block:
+    - name: Get repository path
+      ansible.builtin.command: git rev-parse --show-toplevel
+      changed_when: false
+      register: repo_path_cmd
+    - name: Find distro
+      command: cat /etc/os-release
+      register: os
+    - name: Set lin
+      ansible.builtin.set_fact:
+        is_arch: "{{ 'arch' in os.stdout or 'manjaro' in os.stdout }}"
+        is_centos: "{{ 'centos' in os.stdout }}"
+
+  - name: Tools in arch
+    when: is_arch
+    block:
+      - name: Install dev-tools
+        become: true
+        community.general.pacman:
+          update_cache: true
+          name:
+            - neovim
+            - git
+            - lazygit
+            - taskwarrior-tui
+            - task
+            - terraform
+            - packer
+            - fish
+          state: present
+
+  - name: Tools in centos
+    when: is_centos
+    block:
+      - name: plugins-core
+        yum:
+          name: dnf-plugins-core
+          state: present
+      - shell: dnf config-manager --set-enabled crb
+        become: true
+        changed_when: false
+
+      - ansible.builtin.dnf:
+          name: epel-release
+          state: present
+          update_cache: true
+
+      - name: Hashicorp
+        block:
+          - name: Setup hashicorp repository
+            ansible.builtin.yum_repository:
+              name: hashicorp
+              description: Hashicorp Stable - $basearch
+              baseurl: https://rpm.releases.hashicorp.com/RHEL/$releasever/$basearch/stable
+              enabled: true
+              gpgcheck: true
+              gpgkey: [https://rpm.releases.hashicorp.com/gpg]
+          - name: Install hashicorp tools
+            ansible.builtin.yum:
+              name:
+                - terraform
+                - packer
+              update_cache: true
+              state: present
+                # - name: Lazygit
+                #   block:
+                #     - name: Enable project Test of the user schlupov
+                #       community.general.copr:
+                #         host: copr.fedorainfracloud.org
+                #         state: enabled
+                #         name: atim/lazygit
+                #     - name: Install lazygit
+                #       ansible.builtin.dnf:
+                #         name: [lazygit]
+                #         state: present
+
+      - name: Other packages
+        ansible.builtin.yum:
+          name:
+            - neovim
+            - python3-neovim
+      - name: Other packages [dnf]
+        ansible.builtin.dnf:
+          name:
+            - fish
+      - name: Install lazygit
+        ansible.builtin.include_tasks: install-github-release.yaml
+        vars:
+          release_version: v0.35
+          release_name: lazygit
+          release_archive: https://github.com/jesseduffield/lazygit/releases/download/v0.35/lazygit_0.35_Linux_x86_64.tar.gz
+
+              #       - name: Rust programs
+              #         community.general.cargo:
+              #           name:
+              #             - taskwarrior-tui
+              #             - fd-find
+              #             - ripgrep
+
+  - name: Check tools
+    block:
+      - command: nvim --version
+      - command: lazygit --version
+      - command: terraform --version
+      - command: packer --version
+        # - command: task --version
+  - name: Install dotfiles
+    block:
+      - shell: python3 {{ repo_path_cmd.stdout }}/dotfiles.py install-font
+      - shell: python3 {{ repo_path_cmd.stdout }}/dotfiles.py compile
+      - shell: python3 {{ repo_path_cmd.stdout }}/dotfiles.py link --force
+

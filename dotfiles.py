@@ -36,7 +36,7 @@ class CustomFormatter(logging.Formatter):
 
 # create logger with 'spam_application'
 log = logging.getLogger("dotfiles")
-log.setLevel(logging.INFO)
+log.setLevel(logging.DEBUG)
 
 # create console handler with a higher log level
 ch = logging.StreamHandler()
@@ -72,9 +72,11 @@ def link_config(src: str, dest: str, options: DotfilesOptions):
       elif os.path.isdir(dest):
         log.debug(f"rmdir {dest}")
         shutil.rmtree(dest)
-      else:
-        log.debug(f"rm    {dest}")
+      elif os.path.isfile(dest):
+        log.debug(f"rm {dest}")
         os.remove(dest)
+      else:
+        log.debug(f"nothing to clean")
       return os.symlink(src, dest)
     log.debug(options)
     log.error(f"""Cannot link to {dest} because this \
