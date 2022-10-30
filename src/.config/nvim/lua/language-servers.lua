@@ -79,7 +79,7 @@ require("lspconfig")["yamlls"].setup {
   settings = {
     yaml = {
       schemas = {
-          ["https://dev.azure.com/benmertz/_apis/distributedtask/yamlschema"] = {"*azure*ya?ml"},
+          ["https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json"] = {"*azure*ya?ml",".pipelines*.yml",".pipelines/*.yml"},
           ["https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/prometheus.json"] = {"*prom*.config.ya?ml","*prometheus.ya?ml", "*prometheus.yml.j2"},
           ["https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/prometheus.rules.json"] = {"*prom*.rules.ya?ml"},
       }
