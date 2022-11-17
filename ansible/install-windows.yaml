@@ -1,0 +1,7 @@
+- hosts: localhost
+  tasks:
+
+  - name: Tools
+    block:
+    - win_shell: echo hello
+
