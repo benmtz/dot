@@ -26,11 +26,12 @@
             - neovim
             - git
             - lazygit
-            - taskwarrior-tui
-            - task
             - terraform
             - packer
             - fish
+            - ripgrep
+            - p7zip
+            - direnv
           state: present
 
   - name: Tools in centos
