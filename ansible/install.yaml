@@ -1,19 +1,20 @@
 - hosts: localhost
+  name: Install environment on linux
   tasks:
 
   - name: Global
     block:
-    - name: Get repository path
-      ansible.builtin.command: git rev-parse --show-toplevel
-      changed_when: false
-      register: repo_path_cmd
-    - name: Find distro
-      command: cat /etc/os-release
-      register: os
-    - name: Set lin
-      ansible.builtin.set_fact:
-        is_arch: "{{ 'arch' in os.stdout or 'manjaro' in os.stdout }}"
-        is_centos: "{{ 'centos' in os.stdout }}"
+      - name: Get repositcpath
+        ansible.builtin.command: git rev-parse --show-toplevel
+        changed_when: false
+        register: repo_path_cmd
+      - name: Find distro
+        command: cat /etc/os-release
+        register: os
+      - name: Set lin
+        ansible.builtin.set_fact:
+          is_arch: "{{ 'arch' in os.stdout or 'manjaro' in os.stdout }}"
+          is_centos: "{{ 'centos' in os.stdout }}"
 
   - name: Tools in arch
     when: is_arch
@@ -37,13 +38,14 @@
   - name: Tools in centos
     when: is_centos
     block:
-      - name: plugins-core
+      - name: Install plugin-cpre
         become: true
         yum:
           name: dnf-plugins-core
           state: present
 
-      - shell: dnf config-manager --set-enabled crb
+      - name: Enable CRB
+        shell: dnf config-manager --set-enabled crb
         become: true
         changed_when: false
 
