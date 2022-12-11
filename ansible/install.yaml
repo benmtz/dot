@@ -3,6 +3,7 @@
   tasks:
 
   - name: Global
+    tags: [ always ]
     block:
       - name: Get repositcpath
         ansible.builtin.command: git rev-parse --show-toplevel
@@ -18,6 +19,7 @@
 
   - name: Tools in arch
     when: is_arch
+    tags: [ install ]
     block:
       - name: Install dev-tools
         become: true
@@ -33,9 +35,11 @@
             - ripgrep
             - p7zip
             - direnv
+            - unzip # needed for some terraform related stuff
           state: present
 
   - name: Tools in centos
+    tags: [ install ]
     when: is_centos
     block:
       - name: Install plugin-cpre
@@ -112,6 +116,7 @@
               #             - ripgrep
 
   - name: Check tools
+    tags: [ install ]
     block:
       - command: nvim --version
       - command: lazygit --version
@@ -119,6 +124,7 @@
       - command: packer --version
         # - command: task --version
   - name: Install dotfiles
+    tags: [ dotfiles ]
     block:
       - shell: python3 {{ repo_path_cmd.stdout }}/dotfiles.py install-font
       - shell: python3 {{ repo_path_cmd.stdout }}/dotfiles.py compile

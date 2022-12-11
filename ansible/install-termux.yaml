@@ -1,0 +1,9 @@
+- name: Install on termux
+  hosts: localhost
+  tasks:
+  - name: Install dotfiles
+    tags: [ always, dotfiles ]
+    block:
+      - shell: python3 {{ repo_path_cmd.stdout }}/dotfiles.py install-font
+      - shell: python3 {{ repo_path_cmd.stdout }}/dotfiles.py compile
+      - shell: python3 {{ repo_path_cmd.stdout }}/dotfiles.py link --force
