@@ -3,7 +3,7 @@
 REPO_URL=https://github.com/benmtz/dot.git
 DEST=~/.dots
 
-pkg install -y python git
+pkg install -y python git jq
 
 git clone $REPO_URL $DEST 
 cd $DEST 

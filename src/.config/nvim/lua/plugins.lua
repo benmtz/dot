@@ -28,10 +28,10 @@ return require('packer').startup(function()
 			'hrsh7th/cmp-buffer',
 			'hrsh7th/cmp-path',
 			'hrsh7th/cmp-cmdline',
+			'dcampos/cmp-snippy',
+			'dcampos/nvim-snippy',
 		}
 	}
-
-	use 'L3MON4D3/LuaSnip'
 
 	use {
 	  'nvim-telescope/telescope.nvim',

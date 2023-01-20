@@ -1,0 +1,35 @@
+# Logging
+snippet azdologgroup
+    echo "##[group]${1:group}"
+
+snippet azdowarn
+    echo "##[warning]${1:message}"
+
+snippet azdoerror
+    echo "##[error]${1:message}"
+
+snippet azdologsection
+    echo "##[section]${1:section}"
+
+snippet azdodebug
+    echo "##[debug]${1:message}"
+
+snippet azdocommand
+    echo "##[command]${1:commandName}"
+
+snippet azdologgroupend
+    echo "##[endgroup]"
+
+snippet azdotagbuild
+    echo "##vso[build.addbuildtag]${1:tag}"
+
+snippet azdosetbuildnumber
+    echo "##vso[build.updatebuildnumber]${1:number}"
+
+# Pipeline utils
+snippet azdostageoutput
+    - script: |
+        echo "##vso[task.setvariable variable=imageId;isOutput=true]$(imageId)"
+      name: packerTask
+      displayName: Set imageId in outputs
+
