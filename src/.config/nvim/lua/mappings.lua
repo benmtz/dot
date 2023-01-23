@@ -4,7 +4,6 @@ local function set_keymap(...) vim.api.nvim_set_keymap('n', ...) end
 
 vim.g.mapleader=" "
 vim.api.nvim_set_keymap('n', '<SPACE>', '<Nop>', {noremap = true})
-vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', {noremap = true})
 
 vim.api.nvim_set_keymap('n', '<C-j>', '<C-w><C-j>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-w><C-h>', {noremap = true})
@@ -12,6 +11,7 @@ vim.api.nvim_set_keymap('n', '<C-k>', '<C-w><C-k>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w><C-l>', {noremap = true})
 -- vim.api.nvim_set_keymap('i', '<C-j>', '<C-w><C-j>', {noremap = true})
 
+vim.api.nvim_set_keymap('t', '<A-ESC>', '<C-\\><C-n>', {noremap = true})
 -- f for find
 set_keymap(k.search_file_all,'<cmd>lua require("telescope.builtin").git_files()<cr>', opts)
 set_keymap(k.search_file_git,'<cmd>lua require("telescope.builtin").find_files({follow = true})<cr>', opts)
@@ -46,8 +46,8 @@ set_keymap(k.tab_next,'<cmd>tabn<cr>', opts)
 set_keymap(k.tab_previous,'<cmd>tabp<cr>', opts)
 
 -- w for floattermW
-set_keymap('<leader>wg', '<cmd>FloatermNew lazygit<cr>', opts)
-set_keymap('<leader>we', '<cmd>FloatermNew ranger<cr>', opts)
+set_keymap('<leader>wg', '<cmd>FloatermNew --width=0.9 --height=0.9 lazygit<cr>', opts)
+set_keymap('<leader>we', '<cmd>FloatermNew --width=0.9 --height=0.9 ranger<cr>', opts)
 set_keymap('<leader>wt', '<cmd>FloatermNew taskwarrior-tui<cr>', opts)
 -- set_keymap('<leader>wt', '<cmd>FloatermToggle<cr>', opts)
 
