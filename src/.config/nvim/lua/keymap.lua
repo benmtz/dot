@@ -1,30 +1,8 @@
 local keymap
 
 keymap = {
-  switch_buffer_to_terminal = "<leader>zn",
-  search_file_all           = "<leader>fh",
-  search_file_git           = "<leader>ff",
-  search_marks              = "<leader>fm",
-  live_grep                 = "<leader>fg",
-  telescope_project         = "<leader>fp",
-  explorer                  = "<leader>fe",
-  search_buffers            = "<leader>fb",
-  search_run_tasks          = "<leader>fr",
-  search_git_branches       = "<leader>gb",
-  search_git_commits        = "<leader>gc",
-  search_git_status         = "<leader>gs", -- ?
   git_file_path             = "<leader>yg",
   edit_tasks                = "<leader>te",
-
-  -- term (z for zsh)
-  term_buffer               = "<leader>ze",
-  term_bottom               = "<leader>zx",
-  term_right                = "<leader>zv",
-
-  -- tabs
-  tab_new                   = "<leader>te",
-  tab_next                  = "<leader>tn",
-  tab_previous              = "<leader>tp",
 
   -- ide capabilities
   code_format               = "<leader>cfm",
@@ -44,10 +22,6 @@ keymap = {
   issue_previous            = "<leader>ip",
   issue_list                = "<leader>il",
 
-  -- yank
-  yank_path                 = "<leader>yp",
-  yank_buffer               = "<leader>yb",
-  yank_git                  = "<leader>yg",
 }
 
 return keymap
