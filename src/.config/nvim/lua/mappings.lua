@@ -26,9 +26,9 @@ wk.register({
     },
     z = {
       name = "Terminal",
-      e = {'<cmd>15sp term://fish<cr>', 'Term in split'},
-      x = {'<cmd>vsp term://fish<cr>', 'Term in vsplit' },
-      v = {'<cmd>e term://fish<cr>', 'Term in buffer' }
+      x = {'<cmd>15sp term://fish<cr>', 'Term in split'},
+      v = {'<cmd>vsp term://fish<cr>', 'Term in vsplit' },
+      e = {'<cmd>e term://fish<cr>', 'Term in buffer' }
     },
     w = {
       name = "External Apps",
