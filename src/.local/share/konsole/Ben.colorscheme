@@ -27,19 +27,19 @@ Color=120,50,40
 Color=192,57,43
 
 [Color2]
-Color={{ orange_dark | hex_to_rgb }}
+Color={{ orange | hex_to_rgb }}
 
 [Color2Faint]
-Color={{ orange_light | hex_to_rgb }}
+Color={{ orange_faint | hex_to_rgb }}
 
 [Color2Intense]
 Color=28,220,154
 
 [Color3]
-Color={{ green_dark | hex_to_rgb }}
+Color={{ green | hex_to_rgb }}
 
 [Color3Faint]
-Color={{ green_light | hex_to_rgb }}
+Color={{ green_faint | hex_to_rgb }}
 
 [Color3Intense]
 Color=253,188,75
@@ -54,10 +54,10 @@ Color=27,102,143
 Color=61,174,233
 
 [Color5]
-Color={{ blue_dark | hex_to_rgb }}
+Color={{ blue | hex_to_rgb }}
 
 [Color5Faint]
-Color={{ blue_light | hex_to_rgb }}
+Color={{ blue_faint | hex_to_rgb }}
 
 [Color5Intense]
 Color=142,68,173
