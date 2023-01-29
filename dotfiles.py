@@ -100,9 +100,9 @@ def compile():
   options = read_config()
   target_root = get_filepath("dist")
   src_root = get_filepath("src")
-  log.debug("options", options)
-  log.debug("src", src_root)
-  log.debug("target", target_root)
+  log.debug(f"options {options}")
+  log.debug(f"src {src_root}")
+  log.debug(f"target {target_root}")
   for file_root, file_dirs, file_files in os.walk(src_root, topdown=False):
     new_root = file_root.replace(src_root, target_root)
     for filename in file_files:
