@@ -54,11 +54,13 @@ return require('packer').startup(function()
 		requires = { 'kyazdani42/nvim-web-devicons', opt = true }
 	}
 
-	use 'kyazdani42/nvim-web-devicons'
-
 	use 'voldikss/vim-floaterm'
 
-	use 'goolord/alpha-nvim'
+	-- use 'goolord/alpha-nvim'
+	use {
+  'glepnir/dashboard-nvim',
+  requires = {'nvim-tree/nvim-web-devicons'}
+}
 
 	-- Themes --
 	-- use 'morhetz/gruvbox'
