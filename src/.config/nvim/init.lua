@@ -36,7 +36,7 @@ require("neogit").setup {
 }
 
 -- Theming
-require("startup-screen").setup()
+require("dashboard-setup")
 require("lualine-config")
 
 
