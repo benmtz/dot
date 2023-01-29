@@ -94,6 +94,7 @@ def hydrate(src: str, dest: str, values: dict):
         f.close()
   else:
     shutil.copyfile(src, dest)
+    shutil.copymode(src, dest)
 
 def compile():
   print("compiling dotfiles")
