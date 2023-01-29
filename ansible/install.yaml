@@ -3,19 +3,60 @@
   tasks:
 
   - name: Global
-    tags: [ always ]
+    tags: [always]
     block:
-      - name: Get repositcpath
+      - name: Get repositcpath #noqa
         ansible.builtin.command: git rev-parse --show-toplevel
         changed_when: false
         register: repo_path_cmd
       - name: Find distro
         command: cat /etc/os-release
+        changed_when: false
         register: os
       - name: Set lin
         ansible.builtin.set_fact:
           is_arch: "{{ 'arch' in os.stdout or 'manjaro' in os.stdout }}"
           is_centos: "{{ 'centos' in os.stdout }}"
+
+  - name: Install stuff with zypper
+    when: ansible_pkg_mgr == 'zypper'
+    become: true
+    block:
+      - name: Add snappy repository
+        community.general.zypper_repository:
+          name: snappy
+          repo: https://download.opensuse.org/repositories/system:/snappy/openSUSE_Tumbleweed/
+          state: present
+          auto_import_keys: true
+      - name: Install packages
+        community.general.zypper:
+          name:
+            - fish
+            - neovim
+            - rclone
+            - 7zip
+            - unzip
+            - terraform
+            - direnv
+            - ripgrep
+            - ranger
+            - unzip
+            - snapd
+              # - fff
+            - go
+      - name: Add gobin
+        ansible.builtin.lineinfile:
+          path: ~/.profile
+          line: export PATH=$PATH:$HOME/go/bin
+          state: present
+          mode: "0755"
+          create: true
+      - name: Refresh connection
+        ansible.builtin.meta: reset_connection
+
+      - name: shell
+        ansible.builtin.shell: echo $PATH
+
 
   - name: Tools in arch
     when: is_arch
