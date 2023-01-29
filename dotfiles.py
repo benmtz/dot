@@ -2,7 +2,6 @@ from ast import parse
 from configparser import ConfigParser, ExtendedInterpolation
 import jinja2
 from dataclasses import dataclass
-import logging 
 from pathlib import Path
 import zipfile
 import argparse
@@ -10,41 +9,11 @@ import argparse
 import os
 import shutil
 from urllib import request
+from utility.logger import log
+from utility.jinja_templates import hex_to_rgb
+from jinja2.filters import FILTERS
+FILTERS["hex_to_rgb"] = hex_to_rgb
 
-
-class CustomFormatter(logging.Formatter):
-
-    grey = "\x1b[38;20m"
-    yellow = "\x1b[33;20m"
-    red = "\x1b[31;20m"
-    bold_red = "\x1b[31;1m"
-    reset = "\x1b[0m"
-    format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s (%(filename)s:%(lineno)d)"
-
-    FORMATS = {
-        logging.DEBUG: grey + format + reset,
-        logging.INFO: grey + format + reset,
-        logging.WARNING: yellow + format + reset,
-        logging.ERROR: red + format + reset,
-        logging.CRITICAL: bold_red + format + reset
-    }
-
-    def format(self, record):
-        log_fmt = self.FORMATS.get(record.levelno)
-        formatter = logging.Formatter(log_fmt)
-        return formatter.format(record)
-
-# create logger with 'spam_application'
-log = logging.getLogger("dotfiles")
-log.setLevel(logging.DEBUG)
-
-# create console handler with a higher log level
-ch = logging.StreamHandler()
-ch.setLevel(logging.DEBUG)
-
-ch.setFormatter(CustomFormatter())
-
-log.addHandler(ch)
 
 @dataclass
 class DotfilesOptions:
@@ -131,9 +100,9 @@ def compile():
   options = read_config()
   target_root = get_filepath("dist")
   src_root = get_filepath("src")
-  log.debug("options", options)
-  log.debug("src", src_root)
-  log.debug("target", target_root)
+  log.debug(f"options {options}")
+  log.debug(f"src {src_root}")
+  log.debug(f"target {target_root}")
   for file_root, file_dirs, file_files in os.walk(src_root, topdown=False):
     new_root = file_root.replace(src_root, target_root)
     for filename in file_files:
