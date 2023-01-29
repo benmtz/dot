@@ -8,7 +8,7 @@ return require('packer').startup(function()
 
   use 'wbthomason/packer.nvim'
 
-	use 'sheerun/vim-polyglot'                                 
+	use 'sheerun/vim-polyglot'
 
 	use {
     "folke/trouble.nvim",
@@ -33,6 +33,7 @@ return require('packer').startup(function()
 		}
 	}
 
+	-- Telescope
 	use {
 	  'nvim-telescope/telescope.nvim',
 	  requires = {
@@ -45,33 +46,26 @@ return require('packer').startup(function()
 
 	use 'saadparwaiz1/cmp_luasnip'
 
+	-- Task management
 	use 'skywind3000/asynctasks.vim'                           -- Task management system
 	use 'skywind3000/asyncrun.vim'
 	use 'GustavoKatel/telescope-asynctasks.nvim'
 
+	-- UI plugins
 	use {
 		'nvim-lualine/lualine.nvim',
 		requires = { 'kyazdani42/nvim-web-devicons', opt = true }
 	}
+	use {
+		'glepnir/dashboard-nvim',
+		requires = {'nvim-tree/nvim-web-devicons'}
+	}
+	use 'folke/tokyonight.nvim'
 
 	use 'voldikss/vim-floaterm'
 
-	-- use 'goolord/alpha-nvim'
-	use {
-  'glepnir/dashboard-nvim',
-  requires = {'nvim-tree/nvim-web-devicons'}
-}
-
-	-- Themes --
-	-- use 'morhetz/gruvbox'
-	-- use 'joshdick/onedark.vim'
-	-- use { "catppuccin/nvim", as = "catppuccin" }
-  -- use "EdenEast/nightfox.nvim" -- Packer
-	use 'folke/tokyonight.nvim'
 
 	use "folke/which-key.nvim"
-
-	use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
 
 
 	if packer_bootstrap then
