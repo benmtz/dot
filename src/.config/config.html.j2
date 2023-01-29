@@ -1,0 +1,78 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<title>Colors</title>
+</head>
+
+<body>
+
+  <style>
+    .color-card {
+      display: flex;
+      flex-direction: column;
+    }
+    .row {
+      display: flex;
+    }
+    .box {
+      width: 30px;
+      height: 30px;
+    }
+  </style>
+
+  <div class="color-card">
+    <div class="row">
+      <div class="box" style="background-color:{{ glob.foreground }};"></div>
+      <div class="box" style="background-color:{{ glob.foreground_intense }};"></div>
+      <div class="box" style="background-color:{{ glob.foreground_faint }};"></div>
+    </div>
+    <div class="row">
+      <div class="box" style="background-color:{{ glob.background }};"></div>
+      <div class="box" style="background-color:{{ glob.background_intense }};"></div>
+      <div class="box" style="background-color:{{ glob.background_faint }};"></div>
+    </div>
+    <div class="row">
+      <div class="box" style="background-color:{{ glob.grey }};"></div>
+      <div class="box" style="background-color:{{ glob.grey_intense }};"></div>
+      <div class="box" style="background-color:{{ glob.grey_faint }};"></div>
+    </div>
+    <div class="row">
+      <div class="box" style="background-color:{{ glob.red }};"></div>
+      <div class="box" style="background-color:{{ glob.red_intense }};"></div>
+      <div class="box" style="background-color:{{ glob.red_faint }};"></div>
+    </div>
+    <div class="row">
+      <div class="box" style="background-color:{{ glob.green }};"></div>
+      <div class="box" style="background-color:{{ glob.green_intense }};"></div>
+      <div class="box" style="background-color:{{ glob.green_faint }};"></div>
+    </div>
+    <div class="row">
+      <div class="box" style="background-color:{{ glob.orange }};"></div>
+      <div class="box" style="background-color:{{ glob.orange_intense }};"></div>
+      <div class="box" style="background-color:{{ glob.orange_faint }};"></div>
+    </div>
+    <div class="row">
+      <div class="box" style="background-color:{{ glob.blue }};"></div>
+      <div class="box" style="background-color:{{ glob.blue_light }};"></div>
+      <div class="box" style="background-color:{{ glob.blue_dark }};"></div>
+    </div>
+    <div class="row">
+      <div class="box" style="background-color:{{ glob.pink }};"></div>
+      <div class="box" style="background-color:{{ glob.pink_light }};"></div>
+      <div class="box" style="background-color:{{ glob.pink_dark }};"></div>
+    </div>
+    <div class="row">
+      <div class="box" style="background-color:{{ glob.cyan }};"></div>
+      <div class="box" style="background-color:{{ glob.cyan_faint }};"></div>
+      <div class="box" style="background-color:{{ glob.cyan_intense }};"></div>
+    </div>
+    <div class="row">
+      <div class="box" style="background-color:{{ glob.white }};"></div>
+      <div class="box" style="background-color:{{ glob.white_intense }};"></div>
+      <div class="box" style="background-color:{{ glob.white_faint }};"></div>
+    </div>
+  </div>
+
+</body>
+
+</html> 
