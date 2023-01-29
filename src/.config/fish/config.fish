@@ -9,6 +9,7 @@ if status is-interactive
 end
 
 set PATH $HOME/.cargo/bin $PATH
+set PATH $HOME/go/bin $PATH
 
 direnv hook fish | source
 
