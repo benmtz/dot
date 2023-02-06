@@ -1,7 +1,3 @@
-local k = require("keymap")
-local opts = { noremap=true, silent=true }
-local function set_keymap(...) vim.api.nvim_set_keymap('n', ...) end
-
 vim.g.mapleader=" "
 vim.api.nvim_set_keymap('n', '<SPACE>', '<Nop>', {noremap = true})
 
@@ -24,6 +20,12 @@ wk.register({
       n = { "<cmd>tabn<cr>", "Next tab"},
       p = { "<cmd>tabp<cr>", "Previous tab" },
     },
+    i = {
+      s = { '<cmd>lua vim.diagnostic.open_float()<CR>', 'Show issues' },
+      p = { '<cmd>lua vim.diagnostic.goto_prev()<CR>', 'Previous issue' },
+      n = { '<cmd>lua vim.diagnostic.goto_next()<CR>', 'Next issue'},
+      l = { '<cmd>lua vim.diagnostic.setloclist()<CR>', 'List issues' },
+    },
     z = {
       name = "Terminal",
       x = {'<cmd>15sp term://fish<cr>', 'Term in split'},
@@ -35,6 +37,23 @@ wk.register({
       g = {'<cmd>FloatermNew --width=0.9 --height=0.9 lazygit<cr>', 'lazygit'},
       e = {'<cmd>FloatermNew --width=0.9 --height=0.9 ranger<cr>', 'ranger'},
       t = {'<cmd>FloatermNew taskwarrior-tui<cr>', 'taskwarrior'}
+    },
+
+    c = {
+      name = "Code",
+      gD = {'<cmd>lua vim.lsp.buf.declaration()<CR>', 'Go to declaration'},
+      gd = {'<cmd>lua vim.lsp.buf.definition()<CR>', 'Go to definition'},
+      ho = {'<cmd>lua vim.lsp.buf.hover()<CR>', 'Hover code'},
+      gi = { '<cmd>lua vim.lsp.buf.implementation()<CR>', 'Go to impl'},
+      he = { '<cmd>lua vim.lsp.buf.signature_help()<CR>', 'Signature'},
+      wa = { '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', 'Workspace add folder'},
+      wr = { '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', 'Workspace remove folder'},
+      wl = { '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', 'Workspace list'},
+      -- vim.api.nvim_buf_set_keymap(bufnr, 'n', k.type_definition, '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+      rn = { '<cmd>lua vim.lsp.buf.rename()<CR>', 'Rename symbol'},
+      a = { '<cmd>lua vim.lsp.buf.code_action()<CR>', 'Actions'},
+      r = { '<cmd>lua vim.lsp.buf.references()<CR>', 'References'},
+      fm = { '<cmd>lua vim.lsp.buf.formatting()<CR>', 'Format'}
     },
     f = {
       name = "Find",
