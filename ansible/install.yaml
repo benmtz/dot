@@ -38,7 +38,6 @@
             - unzip
             - terraform
             - direnv
-            - ripgrep
             - ranger
             - unzip
             - snapd
@@ -67,15 +66,9 @@
         community.general.pacman:
           update_cache: true
           name:
-            - neovim
             - git
-            - lazygit
-            - terraform
-            - packer
             - fish
-            - ripgrep
             - p7zip
-            - direnv
             - unzip # needed for some terraform related stuff
           state: present
 
@@ -100,61 +93,11 @@
           update_cache: true
         become: true
 
-      - name: Hashicorp
-        block:
-          - name: Setup hashicorp repository
-            become: true
-            ansible.builtin.yum_repository:
-              name: hashicorp
-              description: Hashicorp Stable - $basearch
-              baseurl: https://rpm.releases.hashicorp.com/RHEL/$releasever/$basearch/stable
-              enabled: true
-              gpgcheck: true
-              gpgkey: [https://rpm.releases.hashicorp.com/gpg]
-          - name: Install hashicorp tools
-            become: true
-            ansible.builtin.yum:
-              name:
-                - terraform
-                - packer
-              update_cache: true
-              state: present
-                # - name: Lazygit
-                #   block:
-                #     - name: Enable project Test of the user schlupov
-                #       community.general.copr:
-                #         host: copr.fedorainfracloud.org
-                #         state: enabled
-                #         name: atim/lazygit
-                #     - name: Install lazygit
-                #       ansible.builtin.dnf:
-                #         name: [lazygit]
-                #         state: present
-
-      - name: Other packages
-        become: true
-        ansible.builtin.yum:
-          name:
-            - neovim
-            - python3-neovim
       - name: Other packages [dnf]
         become: true
         ansible.builtin.dnf:
           name:
             - fish
-      - name: Install lazygit
-        ansible.builtin.include_tasks: install-github-release.yaml
-        vars:
-          release_version: v0.35
-          release_name: lazygit
-          release_archive: https://github.com/jesseduffield/lazygit/releases/download/v0.35/lazygit_0.35_Linux_x86_64.tar.gz
-
-              #       - name: Rust programs
-              #         community.general.cargo:
-              #           name:
-              #             - taskwarrior-tui
-              #             - fd-find
-              #             - ripgrep
 
   - name: Check tools
     tags: [ install ]
