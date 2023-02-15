@@ -1,5 +1,6 @@
 from ast import parse
 from configparser import ConfigParser, ExtendedInterpolation
+from os.path import islink
 import jinja2
 from dataclasses import dataclass
 from pathlib import Path
@@ -11,6 +12,7 @@ import shutil
 from urllib import request
 from utility.logger import log
 from utility.jinja_templates import hex_to_rgb
+from utility.files import flat_walk, ensure_dir
 from jinja2.filters import FILTERS
 FILTERS["hex_to_rgb"] = hex_to_rgb
 
@@ -19,9 +21,11 @@ FILTERS["hex_to_rgb"] = hex_to_rgb
 class DotfilesOptions:
   force: bool
 
+
 def get_filepath(filename: str):
   env_dotfiles_dir = os.path.dirname(os.path.abspath(__file__))
   return os.path.join(env_dotfiles_dir, filename)
+
 
 def read_config():
   parser = ConfigParser(interpolation = ExtendedInterpolation())
@@ -57,18 +61,20 @@ file exists, use the --force option if you are sure""")
 
 
 def link_configs(options: DotfilesOptions):
-  config_dir = get_filepath("dist/.config")
-  for config in os.listdir(config_dir):
-    link_src = os.path.join(config_dir, config)
-    link_dest = os.path.join(Path.home(), ".config",config)
-    link_config(link_src, link_dest, options)
+  """
+  link_configs link files from the dist folder to the home user directory
+  """
+  config_dir = get_filepath("dist")
+  directories, files = flat_walk(config_dir)
+  for directory in directories:
+      target_dir = directory.replace(config_dir, os.getenv("HOME"))
+      if os.path.islink(target_dir):
+          os.unlink(target_dir)
+      ensure_dir(target_dir)
+  for link_to in files:
+      link_from = link_to.replace(config_dir, os.getenv("HOME"))
+      link_config(link_to, link_from, options)
 
-def ensure_dir(path: str):
-  try: 
-    os.makedirs(path)
-  except:
-    log.debug("Directory already present, skipping")
-  return
 
 def download_font_to(font_url: str, target_path: str):
   log.info("Downloading nerdfont...")
