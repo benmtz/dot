@@ -30,6 +30,10 @@ def read_config():
 
 
 def link_config(src: str, dest: str, options: DotfilesOptions):
+  """
+  link_config create a symlink from dest to src and handle edge cases, unlinking
+  or removing the files found in dest if needed
+  """
   try:
     log.info(f"Linking {dest} to {src}")
     os.symlink(src, dest)
@@ -82,6 +86,9 @@ def install_font(font: str, options: DotfilesOptions):
   install_font_from(temp_zip_path)
 
 def hydrate(src: str, dest: str, values: dict):
+  """
+  Hydrate replace values in src into the dest file 
+  """
   log.debug(f"hydrating {src} to {dest}")
   file_dir = os.path.split(dest)[0]
   ensure_dir(file_dir)
@@ -97,6 +104,9 @@ def hydrate(src: str, dest: str, values: dict):
     shutil.copymode(src, dest)
 
 def compile():
+  """
+  Compile takes files from the src directory and hydrate to the dist folder
+  """
   print("compiling dotfiles")
   options = read_config()
   target_root = get_filepath("dist")
@@ -111,7 +121,6 @@ def compile():
       new_path = old_path.replace(src_root, target_root)
       hydrate(old_path, new_path, options)
 
-    # hydrate(files)
 
 parser = argparse.ArgumentParser()
 parser.add_argument("action")
