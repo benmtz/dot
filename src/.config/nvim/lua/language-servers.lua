@@ -1,5 +1,4 @@
 local wk = require("which-key")
-local k = require('keymap')
 
 local opts = { noremap = true, silent = true }
 
@@ -92,7 +91,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
-require('lspconfig')["sumneko_lua"].setup {
+require('lspconfig')["lua_ls"].setup {
   on_attach = on_attach,
   settings = {
     Lua = {
