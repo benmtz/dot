@@ -7,6 +7,7 @@ vim.api.nvim_set_keymap('n', '<C-k>', '<C-w><C-k>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w><C-l>', {noremap = true})
 
 vim.api.nvim_set_keymap('t', '<A-ESC>', '<C-\\><C-n>', {noremap = true})
+vim.api.nvim_set_keymap('t', '<C-A-q>', '<C-\\><C-n>', {noremap = true})
 
 local wk = require("which-key")
 wk.register({
