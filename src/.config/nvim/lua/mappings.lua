@@ -31,12 +31,14 @@ wk.register({
       name = "Terminal",
       x = {'<cmd>15sp term://fish<cr>', 'Term in split'},
       v = {'<cmd>vsp term://fish<cr>', 'Term in vsplit' },
-      e = {'<cmd>e term://fish<cr>', 'Term in buffer' }
+      e = {'<cmd>e term://fish<cr>', 'Term in buffer' },
+      t = {'<cmd>tabe term://fish<cr>', 'Term in tab' }
     },
     w = {
       name = "External Apps",
       g = {'<cmd>FloatermNew --width=0.9 --height=0.9 lazygit<cr>', 'lazygit'},
       e = {'<cmd>FloatermNew --width=0.9 --height=0.9 ranger<cr>', 'ranger'},
+      k = {'<cmd>FloatermNew --width=0.9 --height=0.9 k9s<cr>', 'k9s'},
       t = {'<cmd>FloatermNew taskwarrior-tui<cr>', 'taskwarrior'}
     },
 
