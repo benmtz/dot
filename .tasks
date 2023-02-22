@@ -1,0 +1,7 @@
+[compile]
+command=python3 dotfiles.py compile --force
+cwd=$(VIM_ROOT)
+
+[link]
+command=python3 dotfiles.py link --force
+cwd=$(VIM_ROOT)
