@@ -8,7 +8,10 @@ require("telescope-config")
 require("trouble").setup { }
 require("autocompletion")
 require("language-servers")
---
+
+-- Comments
+require('nvim_comment').setup()
+
 -- Theming
 require("dashboard-setup")
 require("lualine-config")

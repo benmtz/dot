@@ -46,6 +46,9 @@ return require('packer').startup(function()
 
 	use 'saadparwaiz1/cmp_luasnip'
 
+	-- Comments
+	use "terrortylor/nvim-comment"
+
 	-- Task management
 	use 'skywind3000/asynctasks.vim'                           -- Task management system
 	use 'skywind3000/asyncrun.vim'
