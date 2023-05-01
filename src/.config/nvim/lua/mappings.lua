@@ -22,10 +22,17 @@ wk.register({
       p = { "<cmd>tabp<cr>", "Previous tab" },
     },
     i = {
+      name = "Issues",
       s = { '<cmd>lua vim.diagnostic.open_float()<CR>', 'Show issues' },
       p = { '<cmd>lua vim.diagnostic.goto_prev()<CR>', 'Previous issue' },
-      n = { '<cmd>lua vim.diagnostic.goto_next()<CR>', 'Next issue'},
-      l = { '<cmd>lua vim.diagnostic.setloclist()<CR>', 'List issues' },
+      n = { '<cmd>lua vim.diagnostic.goto_next()<CR>', 'Next issue' },
+      -- l = { '<cmd>lua vim.diagnostic.setloclist()<CR>', 'List issues' },
+      -- nnoremap <leader>xx <cmd>TroubleToggle<cr>
+      w = {'<cmd>TroubleToggle workspace_diagnostics<cr>', 'Toggle trouble workspace' },
+      d = {'<cmd>TroubleToggle document_diagnostics<cr>', 'Toggle trouble focument'},
+      q = {'<cmd>TroubleToggle quickfix<cr>', 'Toggle trouble quickfix'},
+      l = {'<cmd>TroubleToggle loclist<cr>','Toggle trouble loclist' },
+      -- R = {'<cmd>TroubleToggle lsp_references<cr>'}
     },
     z = {
       name = "Terminal",
