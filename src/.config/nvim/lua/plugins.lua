@@ -33,6 +33,9 @@ return require('packer').startup(function()
 		}
 	}
 
+	-- Jenkins linting
+	use({'ckipp01/nvim-jenkinsfile-linter', requires = { "nvim-lua/plenary.nvim" } })
+
 	-- Telescope
 	use {
 	  'nvim-telescope/telescope.nvim',
