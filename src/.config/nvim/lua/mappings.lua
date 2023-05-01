@@ -73,6 +73,13 @@ wk.register({
       p = { '<cmd>let @+=expand("%")<cr>', 'Yank path' },
       g = { '<cmd>let @+=system("git-remote-url " . expand("%") . " -l " . line("."))<cr>', 'Yank git path' },
       b = { [[ mzggVG"+y'z ]], 'Yank buffer' },
+    },
+    m = {
+      name = "Misc",
+      n = {
+        name = "Nvim",
+        r = { '<cmd>source $MYVIMRC<cr>', 'Reload nvim config' }
+      }
     }
   }
 })
