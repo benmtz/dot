@@ -43,19 +43,28 @@ wk.register({
     },
     c = {
       name = "Code",
-      gD = {'<cmd>lua vim.lsp.buf.declaration()<CR>', 'Go to declaration'},
-      gd = {'<cmd>lua vim.lsp.buf.definition()<CR>', 'Go to definition'},
-      ho = {'<cmd>lua vim.lsp.buf.hover()<CR>', 'Hover code'},
-      gi = { '<cmd>lua vim.lsp.buf.implementation()<CR>', 'Go to impl'},
-      he = { '<cmd>lua vim.lsp.buf.signature_help()<CR>', 'Signature'},
-      wa = { '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', 'Workspace add folder'},
-      wr = { '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', 'Workspace remove folder'},
-      wl = { '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', 'Workspace list'},
+      g = {
+        name = "Go to...",
+        D = { '<cmd>lua vim.lsp.buf.declaration()<CR>', 'declaration' },
+        d = { '<cmd>lua vim.lsp.buf.definition()<CR>', 'definition' },
+        i = { '<cmd>lua vim.lsp.buf.implementation()<CR>', 'implementation' },
+        r = { '<cmd>lua vim.lsp.buf.references()<CR>', 'References' },
+      },
+      h = {
+        name = "Help",
+        o = { '<cmd>lua vim.lsp.buf.hover()<CR>', 'Hover code' },
+        e = { '<cmd>lua vim.lsp.buf.signature_help()<CR>', 'Signature' },
+      },
+      w = {
+        name = "Workspace",
+        a = { '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', 'Add folder to workspace' },
+        r = { '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', 'Remove folder from workspace' },
+        l = { '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', 'List folder workspaces' },
+      },
       -- vim.api.nvim_buf_set_keymap(bufnr, 'n', k.type_definition, '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-      rn = { '<cmd>lua vim.lsp.buf.rename()<CR>', 'Rename symbol'},
-      a = { '<cmd>lua vim.lsp.buf.code_action()<CR>', 'Actions'},
-      r = { '<cmd>lua vim.lsp.buf.references()<CR>', 'References'},
-      fm = { '<cmd>lua vim.lsp.buf.formatting()<CR>', 'Format'}
+      rn = { '<cmd>lua vim.lsp.buf.rename()<CR>', 'Rename symbol' },
+      a = { '<cmd>lua vim.lsp.buf.code_action()<CR>', 'Actions' },
+      fm = { '<cmd>lua vim.lsp.buf.formatting()<CR>', 'Format' }
     },
     f = {
       name = "Find",
