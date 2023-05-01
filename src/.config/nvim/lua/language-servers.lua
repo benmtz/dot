@@ -23,7 +23,7 @@ require("mason-lspconfig").setup({
     "yamlls",
     "terraformls",
     "tflint",
-    "sumneko_lua",
+    "lua_ls",
     "rust_analyzer"
   }
 })
