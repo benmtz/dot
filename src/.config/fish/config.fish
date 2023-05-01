@@ -10,6 +10,7 @@ end
 
 set PATH $HOME/.cargo/bin $PATH
 set PATH $HOME/go/bin $PATH
+set PATH /opt/homebrew/opt/openjdk/bin $PATH
 
 direnv hook fish | source
 
