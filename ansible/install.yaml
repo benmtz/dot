@@ -2,115 +2,117 @@
   name: Install environment on linux
   tasks:
 
-  - name: Global
-    tags: [always]
-    block:
-      - name: Get repositcpath #noqa
-        ansible.builtin.command: git rev-parse --show-toplevel
-        changed_when: false
-        register: repo_path_cmd
-      - name: Find distro
-        command: cat /etc/os-release
-        changed_when: false
-        register: os
-      - name: Set lin
-        ansible.builtin.set_fact:
-          is_arch: "{{ 'arch' in os.stdout or 'manjaro' in os.stdout }}"
-          is_centos: "{{ 'centos' in os.stdout }}"
+    - name: Global
+      tags: [always]
+      block:
+        - name: Get repositcpath #noqa
+          ansible.builtin.command: git rev-parse --show-toplevel
+          changed_when: false
+          register: repo_path_cmd
+        - name: Find distro
+          command: cat /etc/os-release
+          changed_when: false
+          register: os
+        - name: Set lin
+          ansible.builtin.set_fact:
+            is_arch: "{{ 'arch' in os.stdout or 'manjaro' in os.stdout }}"
+            is_centos: "{{ 'centos' in os.stdout }}"
 
-  - name: Install stuff with zypper
-    when: ansible_pkg_mgr == 'zypper'
-    become: true
-    block:
-      - name: Add snappy repository
-        community.general.zypper_repository:
-          name: snappy
-          repo: https://download.opensuse.org/repositories/system:/snappy/openSUSE_Tumbleweed/
-          state: present
-          auto_import_keys: true
-      - name: Install packages
-        community.general.zypper:
-          name:
-            - fish
-            - neovim
-            - rclone
-            - 7zip
-            - unzip
-            - terraform
-            - direnv
-            - ranger
-            - unzip
-            - snapd
-              # - fff
-            - go
-      - name: Add gobin
-        ansible.builtin.lineinfile:
-          path: ~/.profile
-          line: export PATH=$PATH:$HOME/go/bin
-          state: present
-          mode: "0755"
-          create: true
-      - name: Refresh connection
-        ansible.builtin.meta: reset_connection
+    - name: Install stuff with zypper
+      when: ansible_pkg_mgr == 'zypper'
+      become: true
+      block:
+        - name: Add snappy repository
+          community.general.zypper_repository:
+            name: snappy
+            repo: https://download.opensuse.org/repositories/system:/snappy/openSUSE_Tumbleweed/
+            state: present
+            auto_import_keys: true
+        - name: Install packages
+          community.general.zypper:
+            name:
+              - fish
+              - neovim
+              - rclone
+              - 7zip
+              - unzip
+              - terraform
+              - direnv
+              - ranger
+              - unzip
+              - snapd
+                # - fff
+              - go
+        - name: Add gobin
+          ansible.builtin.lineinfile:
+            path: ~/.profile
+            line: export PATH=$PATH:$HOME/go/bin
+            state: present
+            mode: "0755"
+            create: true
+        - name: Refresh connection
+          ansible.builtin.meta: reset_connection
 
-      - name: shell
-        ansible.builtin.shell: echo $PATH
+    - name: Tools in arch
+      when: is_arch
+      tags: [ install ]
+      block:
+        - name: Install dev-tools
+          become: true
+          community.general.pacman:
+            update_cache: true
+            name:
+              - git
+              - fish
+              - p7zip
+              - unzip # needed for some terraform related stuff
+            state: present
 
+    - name: Tools in centos
+      tags: [install]
+      when: is_centos
+      block:
+        - name: Install plugin-cpre
+          become: true
+          ansible.builtin.yum:
+            name: dnf-plugins-core
+            state: present
 
-  - name: Tools in arch
-    when: is_arch
-    tags: [ install ]
-    block:
-      - name: Install dev-tools
-        become: true
-        community.general.pacman:
-          update_cache: true
-          name:
-            - git
-            - fish
-            - p7zip
-            - unzip # needed for some terraform related stuff
-          state: present
+        - name: Enable CRB #noqa
+          ansible.builtin.shell: dnf config-manager --set-enabled crb
+          become: true
+          changed_when: false
 
-  - name: Tools in centos
-    tags: [ install ]
-    when: is_centos
-    block:
-      - name: Install plugin-cpre
-        become: true
-        yum:
-          name: dnf-plugins-core
-          state: present
+        - name: Add epel-release
+          ansible.builtin.dnf:
+            name: epel-release
+            state: present
+            update_cache: true
+          become: true
 
-      - name: Enable CRB
-        shell: dnf config-manager --set-enabled crb
-        become: true
-        changed_when: false
+        - name: Other packages [dnf]
+          become: true
+          ansible.builtin.dnf:
+            name:
+              - fish
 
-      - ansible.builtin.dnf:
-          name: epel-release
-          state: present
-          update_cache: true
-        become: true
-
-      - name: Other packages [dnf]
-        become: true
-        ansible.builtin.dnf:
-          name:
-            - fish
-
-  - name: Check tools
-    tags: [ install ]
-    block:
-      - command: nvim --version
-      - command: lazygit --version
-      - command: terraform --version
-      - command: packer --version
-        # - command: task --version
-  - name: Install dotfiles
-    tags: [ dotfiles ]
-    block:
-      - shell: python3 {{ repo_path_cmd.stdout }}/dotfiles.py install-font
-      - shell: python3 {{ repo_path_cmd.stdout }}/dotfiles.py compile
-      - shell: python3 {{ repo_path_cmd.stdout }}/dotfiles.py link --force
-
+    - name: Check tools
+      tags: [install]
+      block:
+        - command: nvim --version
+        - command: lazygit --version
+        - command: terraform --version
+        - command: packer --version
+          # - command: task --version
+    - name: Install dotfiles
+      tags: [dotfiles]
+      block:
+        - name: Install prerequisites
+          ansible.builtin.shell: python3 {{ repo_path_cmd.stdout }}/dotfiles.py install-font
+          changed_when: false
+        - name: Compile the dotfiles
+          ansible.builtin.shell: python3 {{ repo_path_cmd.stdout }}/dotfiles.py compile
+          changed_when: false
+        - name: Link the dotfiles
+          ansible.builtin.shell: python3 {{ repo_path_cmd.stdout }}/dotfiles.py link --force
+          changed_when: false
