@@ -1,0 +1,58 @@
+{
+  "builders": [
+    {
+      "type": "docker",
+      "image": "ubuntu:20.04",
+      "pull": true,
+      "commit": true,
+      "run_command": [
+        "-d",
+        "--rm",
+        "-i",
+        "-t",
+        "--name",
+        "ubuntu-bld",
+        "{{.Image}}",
+        "/bin/bash"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "apt update && apt install -y python3 python3-pip git"
+      ]
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "ls -al",
+        "exit 1"
+      ]
+    },
+    {
+      "type": "ansible",
+      "playbook_file": "ansible/install.yaml",
+      "extra_arguments": [
+        "-e",
+        "ansible_host=ubuntu-bld",
+        "-e",
+        "ansible_connection=docker",
+        "-e",
+        "ansible_python_interpreter=/usr/bin/python3",
+        "-vvv"
+      ]
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "docker-tag",
+      "repository": "benmtz/dev_container"
+    },
+    {
+      "type": "shell-local",
+      "inline": "docker image inspect benmtz/dev_container  --format='{{ .Size }}'"
+    }
+  ]
+  }

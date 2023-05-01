@@ -1,3 +1,7 @@
+[docker]
+command=packer build dev_container.json
+cwd=$(VIM_ROOT)
+
 [compile]
 command=python3 dotfiles.py compile --force
 cwd=$(VIM_ROOT)
