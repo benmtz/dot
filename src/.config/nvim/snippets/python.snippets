@@ -1,4 +1,28 @@
-snippet ifmain
+snippet pyifmain
 		if __file__ == '__main__':
 			${1}
+
+snippet pyargs
+	import argparse
+
+	def decrypt_secrets(args):
+			print("decrypt")
+
+	def encryot_secrets(args):
+			print("encrypt")
+
+	parser = argparse.ArgumentParser()
+	subparsers = parser.add_subparsers()
+
+	decrypt_parser = subparsers.add_parser('decrypt', help='decrypt secrets')
+	decrypt_parser.set_defaults(func=decrypt_secrets)
+
+	encrypt_parser = subparsers.add_parser('encrypt', help='encrypt secrets')
+	encrypt_parser.set_defaults(func=encryot_secrets)
+
+	if __name__ == '__main__':
+			args = parser.parse_args()
+			args.func(args)
+
+
 
