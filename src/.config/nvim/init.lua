@@ -13,6 +13,6 @@ require("language-servers")
 require('nvim_comment').setup()
 
 -- Theming
-require("dashboard-setup")
+-- require("dashboard-setup")
 require("lualine-config")
 
