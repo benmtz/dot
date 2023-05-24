@@ -71,7 +71,8 @@ wk.register({
       -- vim.api.nvim_buf_set_keymap(bufnr, 'n', k.type_definition, '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
       rn = { '<cmd>lua vim.lsp.buf.rename()<CR>', 'Rename symbol' },
       a = { '<cmd>lua vim.lsp.buf.code_action()<CR>', 'Actions' },
-      fm = { '<cmd>lua vim.lsp.buf.formatting()<CR>', 'Format' }
+      fm = { '<cmd>lua vim.lsp.buf.formatting()<CR>', 'Format' },
+      vj = { '<cmd>lua require("jenkinsfile_linter").validate()<CR>', 'Validate Jenkinsfile' }
     },
     f = {
       name = "Find",

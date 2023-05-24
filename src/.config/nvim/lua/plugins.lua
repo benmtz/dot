@@ -70,9 +70,9 @@ return require('packer').startup(function()
 
 	use 'voldikss/vim-floaterm'
 
+	use "lukas-reineke/indent-blankline.nvim"
 
 	use "folke/which-key.nvim"
-
 
 	if packer_bootstrap then
     require('packer').sync()
