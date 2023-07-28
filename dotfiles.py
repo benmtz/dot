@@ -4,6 +4,7 @@ from os.path import islink
 import jinja2
 from dataclasses import dataclass
 from pathlib import Path
+import tempfile
 import zipfile
 import argparse
 import argparse
@@ -80,16 +81,28 @@ def download_font_to(font_url: str, target_path: str):
   log.info("Downloading nerdfont...")
   request.urlretrieve(font_url, target_path)
 
-def install_font_from(zip_path: str):
+def install_linux_font_from(zip_path: str):
   font_dir = os.path.join(Path.home(), ".fonts")
   ensure_dir(font_dir)
   with zipfile.ZipFile(zip_path, 'r') as zip_ref:
     zip_ref.extractall(font_dir)
 
-def install_font(font: str, options: DotfilesOptions):
-  temp_zip_path = f"/tmp/{font}.zip"
-  download_font_to(f"https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/{font}.zip", temp_zip_path)
-  install_font_from(temp_zip_path)
+def install_termux_font_from(zip_path:str, theme_data):
+  font_dir = os.path.join(Path.home(), ".termux")
+  main_font_file = theme_data["font"]["main"]
+  ensure_dir(font_dir)
+  with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+    zip_ref.extract(main_font_file, path=font_dir)
+    os.replace(f"{font_dir}/{main_font_file}", f"{font_dir}/font.ttf")
+
+
+
+def install_font(theme_data, options: DotfilesOptions):
+  with tempfile.TemporaryDirectory() as tmpdir:
+    temp_zip_path = f"{tmpdir}/font.zip"
+    download_font_to(theme_data["font"]["zip_url"], temp_zip_path)
+    install_linux_font_from(temp_zip_path)
+    install_termux_font_from(temp_zip_path, theme_data)
 
 def hydrate(src: str, dest: str, values: dict):
   """
@@ -139,7 +152,8 @@ options = DotfilesOptions(
 if args.action == "link":
   link_configs(options)
 elif args.action == "install-font":
-  install_font("Cousine", options)
+  theme_data = read_config()
+  install_font(theme_data, options)
 elif args.action == "compile":
   compile()
 else:
