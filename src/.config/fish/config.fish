@@ -18,5 +18,5 @@ set PATH /opt/homebrew/opt/openjdk/bin $PATH
 
 direnv hook fish | source
 
-
+starship init fish | source
 
