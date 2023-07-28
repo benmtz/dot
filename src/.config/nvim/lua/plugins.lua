@@ -8,6 +8,8 @@ return require('packer').startup(function()
 
   use 'wbthomason/packer.nvim'
 
+	use 'norcalli/nvim-colorizer.lua'
+
 	use 'sheerun/vim-polyglot'
 
 	use {
