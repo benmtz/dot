@@ -9,3 +9,7 @@ cwd=$(VIM_ROOT)
 [link]
 command=python3 dotfiles.py link --force
 cwd=$(VIM_ROOT)
+
+[install-font]
+command=python3 dotfiles.py install-font
+cwd=$(VIM_ROOT)
