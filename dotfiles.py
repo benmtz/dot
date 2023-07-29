@@ -98,7 +98,7 @@ def install_termux_font_from(zip_path:str, theme_data):
 
 
 
-def install_font(theme_data, options: DotfilesOptions):
+def install_font(theme_data):
   with tempfile.TemporaryDirectory() as tmpdir:
     temp_zip_path = f"{tmpdir}/font.zip"
     download_font_to(theme_data["font"]["zip_url"], temp_zip_path)
@@ -158,7 +158,7 @@ if args.action == "link":
   link_configs(options)
 elif args.action == "install-font":
   theme_data = read_config()
-  install_font(theme_data, options)
+  install_font(theme_data)
 elif args.action == "compile":
   compile()
 else:
