@@ -162,5 +162,5 @@ elif args.action == "install-font":
 elif args.action == "compile":
   compile()
 else:
-  raise f"No such action {args.action}"
+  raise Exception(f"No such action {args.action}")
 
