@@ -8,12 +8,15 @@ vim.api.nvim_set_keymap('n', '<C-l>', '<C-w><C-l>', { noremap = true })
 
 vim.api.nvim_set_keymap('t', '<A-ESC>', '<C-\\><C-n>', { noremap = true })
 vim.api.nvim_set_keymap('t', '<F12>', '<C-\\><C-n><ESC>', { noremap = true })
+vim.api.nvim_set_keymap('i', '<F12>', '<ESC>', { noremap = true })
 
 local wk = require("which-key")
 wk.register({
   ["<leader>"] = {
     r = {
+      name = "Tasks",
       e = { "<cmd>e .tasks<cr>", "Edit tasks" },
+      r = { '<cmd>lua require("telescope").extensions.asynctasks.all()<cr>', 'Find asynctask' },
     },
     t = {
       name = "Tabs",
@@ -58,7 +61,7 @@ wk.register({
         r = { '<cmd>lua vim.lsp.buf.references()<CR>', 'References' },
       },
       h = {
-        name = "Help",
+        name = "Code help and suggestions",
         o = { '<cmd>lua vim.lsp.buf.hover()<CR>', 'Hover code' },
         e = { '<cmd>lua vim.lsp.buf.signature_help()<CR>', 'Signature' },
       },
@@ -71,8 +74,14 @@ wk.register({
       -- vim.api.nvim_buf_set_keymap(bufnr, 'n', k.type_definition, '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
       rn = { '<cmd>lua vim.lsp.buf.rename()<CR>', 'Rename symbol' },
       a = { '<cmd>lua vim.lsp.buf.code_action()<CR>', 'Actions' },
-      fm = { '<cmd>lua vim.lsp.buf.formatting()<CR>', 'Format' },
-      vj = { '<cmd>lua require("jenkinsfile_linter").validate()<CR>', 'Validate Jenkinsfile' }
+      f = {
+        name = "Format",
+        m = {'<cmd>lua vim.lsp.buf.formatting()<CR>', 'Format' }
+      },
+      l = {
+        name = "Lint",
+        j = { '<cmd>lua require("jenkinsfile_linter").validate()<CR>', 'Validate Jenkinsfile' }
+      }
     },
     f = {
       name = "Find",
