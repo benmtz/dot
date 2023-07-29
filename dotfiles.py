@@ -11,6 +11,7 @@ import argparse
 import os
 import shutil
 from urllib import request
+from utility.current_os import get_current_os
 from utility.logger import log
 from utility.jinja_templates import hex_to_rgb
 from utility.files import flat_walk, ensure_dir
@@ -101,8 +102,12 @@ def install_font(theme_data, options: DotfilesOptions):
   with tempfile.TemporaryDirectory() as tmpdir:
     temp_zip_path = f"{tmpdir}/font.zip"
     download_font_to(theme_data["font"]["zip_url"], temp_zip_path)
-    install_linux_font_from(temp_zip_path)
-    install_termux_font_from(temp_zip_path, theme_data)
+    current_os = get_current_os()
+    log.debug(f"{current_os} font install")
+    if current_os == "linux":
+        install_linux_font_from(temp_zip_path)
+    elif current_os == "termux":
+        install_termux_font_from(temp_zip_path, theme_data)
 
 def hydrate(src: str, dest: str, values: dict):
   """
