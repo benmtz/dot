@@ -59,6 +59,7 @@ wk.register({
         d = { '<cmd>lua vim.lsp.buf.definition()<CR>', 'definition' },
         i = { '<cmd>lua vim.lsp.buf.implementation()<CR>', 'implementation' },
         r = { '<cmd>lua vim.lsp.buf.references()<CR>', 'References' },
+
       },
       h = {
         name = "Code help and suggestions",
@@ -74,6 +75,8 @@ wk.register({
       -- vim.api.nvim_buf_set_keymap(bufnr, 'n', k.type_definition, '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
       rn = { '<cmd>lua vim.lsp.buf.rename()<CR>', 'Rename symbol' },
       a = { '<cmd>lua vim.lsp.buf.code_action()<CR>', 'Actions' },
+      o = { '<cmd>copen<cr>', 'Open quickfixes' },
+      c = { '<cmd>cclose<cr>', 'Close quickfixes' },
       f = {
         name = "Format",
         m = {'<cmd>lua vim.lsp.buf.formatting()<CR>', 'Format' }
