@@ -1,0 +1,67 @@
+snippet struct_builder_basic
+	// ${2} cargo add https://crates.io/crates/derive_builder
+	#[derive(Builder, Default, Debug)]
+	pub struct ${1} {
+		${3}
+	}
+
+snippet init_cli
+	// anyhow = "1.0.71"
+	// thiserror = "1.0.43"
+	// derive_builder = "0.12.0"
+	// reqwest = { version = "0.11", features = ["json"] }
+	// tokio = { version = "1.29.1", features = ["full"] }
+	// clap = { version = "4.3.11", features = ["derive", "env"] }
+	// sqlx = { version = "0.7.0", features = ["runtime-tokio-rustls", "postgres", "time", "uuid"] }
+	// chrono = { version = "0.4.26", features = ["time"] }
+	// time = { version = "0.3.23" }
+	// log = { version = "0.4.19" }
+	// env_logger = { version = "0.10.0" }
+	// dotenvy = "0.15.7"⏎
+	use clap::{Parser, Subcommand};
+	use sqlx::postgres::PgPoolOptions;
+	use anyhow::Context;
+
+	#[derive(Debug, Parser)]
+	#[command(author, version, about, long_about = None)]
+	struct Cli {
+			#[arg(long, env="DATABASE_URL")]
+			pub database_url: String,
+
+			#[command(subcommand)]
+			command: Commands,
+
+	}
+
+	#[derive(Debug, Subcommand)]
+	enum Commands {
+			#[command(arg_required_else_help = true)]
+			ScanMultibranch {
+					job: String
+			},
+			#[command(arg_required_else_help = true)]
+			ScanRunStages {
+					#[arg(long)]
+					job: String,
+					#[arg(long)]
+					id: Option<String>
+			},
+	}
+
+	#[tokio::main]
+	async fn main() -> anyhow::Result<()> {
+			dotenvy::dotenv()?;
+			let args = Cli::parse();
+			match args.command {
+					Commands::ScanMultibranch {job} => {
+							println!("Do something with job");
+					}
+					Commands::ScanRunStages { job, id } => {
+							match id {
+									None => println!("No id provided"),
+									Some(id) => println!("Some id were provided"),
+							}
+					}
+			}
+			return Ok(());
+	}
