@@ -46,9 +46,9 @@ wk.register({
     },
     w = {
       name = "External Apps",
-      g = { '<cmd>FloatermNew --width=0.9 --height=0.9 lazygit<cr>', 'lazygit' },
-      e = { '<cmd>FloatermNew --width=0.9 --height=0.9 ranger<cr>', 'ranger' },
-      k = { '<cmd>FloatermNew --width=0.9 --height=0.9 k9s<cr>', 'k9s' },
+      g = { '<cmd>FloatermNew --width=0.98 --height=0.98 lazygit<cr>', 'lazygit' },
+      e = { '<cmd>FloatermNew --width=0.98 --height=0.98 ranger<cr>', 'ranger' },
+      k = { '<cmd>FloatermNew --width=0.98 --height=0.98 k9s<cr>', 'k9s' },
       t = { '<cmd>FloatermNew taskwarrior-tui<cr>', 'taskwarrior' }
     },
     c = {
