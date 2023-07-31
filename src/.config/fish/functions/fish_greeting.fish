@@ -1,3 +1,4 @@
 function fish_greeting
-  cat ~/.config/greeter.txt | cut -c -$(tput cols) | lolcat
+  set file $(random choice ~/.config/fish/greeters/*)
+  cat $file | awk "{print substr(\$0,0,$(tput cols)) }" | lolcat
 end
