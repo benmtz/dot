@@ -13,3 +13,6 @@ cwd=$(VIM_ROOT)
 [install-font]
 command=python3 dotfiles.py install-font
 cwd=$(VIM_ROOT)
+
+[full]
+command=rm -rf dist && python3 dotfiles.py compile --force && python3 dotfiles.py link --force
