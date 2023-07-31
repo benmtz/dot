@@ -10,6 +10,7 @@ packages=(
   yq
   neovim
   lazygit
+  git-delta
   tmux
   # Lang
   go

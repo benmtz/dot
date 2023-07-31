@@ -12,6 +12,7 @@ if test -d /home/linuxbrew/.linuxbrew
 	eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 end
 
+set XDG_CONFIG_HOME "$HOME/.config"
 set PATH $HOME/.cargo/bin $PATH
 set PATH $HOME/go/bin $PATH
 set PATH /opt/homebrew/opt/openjdk/bin $PATH
