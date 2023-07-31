@@ -7,6 +7,7 @@ DEST=~/.dots
 packages=(
   python
   git
+  git-delta
   jq
   ranger
   lazygit
