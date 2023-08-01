@@ -82,6 +82,12 @@ def download_font_to(font_url: str, target_path: str):
   log.info("Downloading nerdfont...")
   request.urlretrieve(font_url, target_path)
 
+def install_macos_font_from(zip_path: str):
+  font_dir = os.path.join(Path.home(), ".fonts")
+  ensure_dir(font_dir)
+  with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+    zip_ref.extractall(font_dir)
+
 def install_linux_font_from(zip_path: str):
   font_dir = os.path.join(Path.home(), ".fonts")
   ensure_dir(font_dir)
