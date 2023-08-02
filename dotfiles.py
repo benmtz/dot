@@ -83,7 +83,7 @@ def download_font_to(font_url: str, target_path: str):
   request.urlretrieve(font_url, target_path)
 
 def install_macos_font_from(zip_path: str):
-  font_dir = os.path.join(Path.home(), ".fonts")
+  font_dir = os.path.join(Path.home(), "Library", "Fonts")
   ensure_dir(font_dir)
   with zipfile.ZipFile(zip_path, 'r') as zip_ref:
     zip_ref.extractall(font_dir)
@@ -114,6 +114,8 @@ def install_font(theme_data):
         install_linux_font_from(temp_zip_path)
     elif current_os == "termux":
         install_termux_font_from(temp_zip_path, theme_data)
+    elif current_os == "macos":
+        install_macos_font_from(temp_zip_path)
 
 def hydrate(src: str, dest: str, values: dict):
   """
