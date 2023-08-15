@@ -1,0 +1,31 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  link:
+    cmds:
+      - python3 dotfiles.py link --force
+
+  build:
+    cmds:
+      - python3 dotfiles.py compile --force
+
+  install-fonts:
+    cmds:
+      - python3 dotfiles.py install-font --force
+
+  extract-code-settings:
+    cmds:
+      - python3 dotfiles.py extract ~/.config/code/settings.json
+
+  extract-code-keybindings:
+    cmds:
+      - python3 dotfiles.py extract ~/.config/code/keybindings.json
+
+  full:
+    cmds:
+      - rm -rf dist && python3 dotfiles.py compile --force && python3 dotfiles.py link --force

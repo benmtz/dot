@@ -15,6 +15,7 @@ from utility.current_os import get_current_os
 from utility.logger import log
 from utility.jinja_templates import hex_to_rgb
 from utility.files import flat_walk, ensure_dir
+from utility.dict_util import flatten_dict_with_dots
 from jinja2.filters import FILTERS
 FILTERS["hex_to_rgb"] = hex_to_rgb
 
@@ -35,7 +36,7 @@ def read_config():
   return {section: dict(parser.items(section)) for section in parser.sections()}
 
 
-def link_config(src: str, dest: str, options: DotfilesOptions):
+def link_config(src: str, dest: str, options):
   """
   link_config create a symlink from dest to src and handle edge cases, unlinking
   or removing the files found in dest if needed
@@ -62,7 +63,7 @@ def link_config(src: str, dest: str, options: DotfilesOptions):
 file exists, use the --force option if you are sure""")
 
 
-def link_configs(options: DotfilesOptions):
+def link_configs(options):
   """
   link_configs link files from the dist folder to the home user directory
   """
@@ -103,8 +104,8 @@ def install_termux_font_from(zip_path:str, theme_data):
     os.replace(f"{font_dir}/{main_font_file}", f"{font_dir}/font.ttf")
 
 
-
 def install_font(theme_data):
+  theme_data = read_config()
   with tempfile.TemporaryDirectory() as tmpdir:
     temp_zip_path = f"{tmpdir}/font.zip"
     download_font_to(theme_data["font"]["zip_url"], temp_zip_path)
@@ -119,7 +120,7 @@ def install_font(theme_data):
 
 def hydrate(src: str, dest: str, values: dict):
   """
-  Hydrate replace values in src into the dest file 
+  Hydrate replace values in src into the dest file
   """
   log.debug(f"hydrating {src} to {dest}")
   file_dir = os.path.split(dest)[0]
@@ -135,7 +136,7 @@ def hydrate(src: str, dest: str, values: dict):
     shutil.copyfile(src, dest)
     shutil.copymode(src, dest)
 
-def compile():
+def compile(args):
   """
   Compile takes files from the src directory and hydrate to the dist folder
   """
@@ -153,22 +154,35 @@ def compile():
       new_path = old_path.replace(src_root, target_root)
       hydrate(old_path, new_path, options)
 
+def extract(args):
+  src_dir = get_filepath("src")
+  config = read_config()
+  target_path = args.path.replace(os.getenv("HOME"), src_dir)
+  log.debug(f"extract {args.path} to {target_path}")
+  with open(args.path, "r") as f:
+    content = f.read()
+    for key, value in flatten_dict_with_dots(config).items():
+      content = content.replace(value, "{{ " + key + " }}")
+      with open(target_path, "w") as t:
+        t.write(content)
+
 
 parser = argparse.ArgumentParser()
-parser.add_argument("action")
-parser.add_argument("--force", action=argparse.BooleanOptionalAction)
+subparsers = parser.add_subparsers(required=True)
+
+link_parser = subparsers.add_parser('link', help='Link configuration files')
+link_parser.set_defaults(func=link_configs)
+link_parser.add_argument("--force", action=argparse.BooleanOptionalAction)
+
+compile_parser = subparsers.add_parser('compile', help='Compile configuration files')
+compile_parser.set_defaults(func=compile)
+compile_parser.add_argument("--force", action=argparse.BooleanOptionalAction)
+
+extract_parser = subparsers.add_parser('extract', help='Extract a configuration file')
+extract_parser.set_defaults(func=extract)
+extract_parser.add_argument("path",type=str)
+
+install_font_parser = subparsers.add_parser('install-font', help='Install dotfiles fonts')
+
 args = parser.parse_args()
-options = DotfilesOptions(
-  force=args.force
-)
-
-if args.action == "link":
-  link_configs(options)
-elif args.action == "install-font":
-  theme_data = read_config()
-  install_font(theme_data)
-elif args.action == "compile":
-  compile()
-else:
-  raise Exception(f"No such action {args.action}")
-
+args.func(args)
