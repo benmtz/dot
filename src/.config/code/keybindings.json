@@ -1,0 +1,11 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "key": "shift shift",
+        "command": "workbench.action.showCommands"
+    },
+    {
+        "key": "cmd+k r",
+        "command": "workbench.action.tasks.runTask"
+    }
+]
