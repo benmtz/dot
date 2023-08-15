@@ -1,0 +1,174 @@
+{
+    "workbench.colorTheme": "Visual Studio Dark",
+    "redhat.telemetry.enabled": false,
+    "editor.renderWhitespace": "all",
+    "explorer.confirmDragAndDrop": false,
+    "[python]": {
+        "editor.formatOnType": true
+    },
+    "workbench.sideBar.location": "right",
+    "editor.scrollbar.horizontal": "hidden",
+    "editor.scrollbar.vertical": "hidden",
+    "git.confirmSync": false,
+    "diffEditor.renderSideBySide": false,
+    "terminal.integrated.enableMultiLinePasteWarning": false,
+    "git.enableSmartCommit": true,
+    "editor.minimap.enabled": false,
+    "explorer.confirmDelete": false,
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.fontFamily": "{{ font.name }}, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontLigatures": true,
+    "diffEditor.codeLens": true,
+    "files.trimFinalNewlines": true,
+    "workbench.tree.indent": 12,
+    "workbench.tree.renderIndentGuides": "none",
+    "workbench.settings.editor": "json",
+    "files.trimTrailingWhitespace": true,
+    "editor.tokenColorCustomizations": {
+        "[Visual Studio Dark]": {
+            "strings": "{{ glob.orange_faint }}",
+            // "variables": "#FF0000",
+            "comments": "{{ glob.grey_faint }}",
+            "numbers": "{{ glob.green_faint }}",
+            // "types": "#FF0000",
+            // "functions": "#FF0000",
+            "keywords": "{{ glob.orange_intense }}",
+            "textMateRules": [
+                {
+                    "name": "Comment",
+                    "scope": "comment",
+                    "settings": {
+                        "foreground": "#{{ rofi.column_count }}c6370",
+                        "fontStyle": "italic"
+                    }
+                },
+                {
+                    "name": "Json properties",
+                    "scope": [
+                        "support.type.property-name.json.comments",
+                        "string.json.comments",
+                        "meta.structure.dictionary.json.comments",
+                        "meta.structure.dictionary.value.json.comments",
+                        "meta.structure.dictionary.json.comments",
+                        "meta.structure.dictionary.value.json.comments",
+                        "meta.structure.dictionary.json.comments",
+                        "punctuation.definition.seperator.key-value.groovy",
+                        "source.json.comments"
+                    ],
+                    "settings": {
+                        "foreground": "{{ glob.green }}"
+                    }
+                },
+                {
+                    "name": "Functions",
+                    "scope": [
+                        "entity.name.function.python",
+                        "meta.function.python"
+                    ],
+                    "settings": {
+                        "foreground": "{{ glob.cyan_intense }}",
+                        "fontStyle": "italic"
+                    }
+                },
+                {
+                    "name": "Method body",
+                    "scope": [
+                        "meta.method.body.java"
+                    ],
+                    "settings": {
+                        "foreground": "{{ glob.green_faint }}"
+                    }
+                },
+                {
+                    "name": "Groovy parameters",
+                    "scope": [
+                        "constant.other.groovy",
+                        "meta.structure.groovy",
+                        "meta.method-call.groovy",
+                        // "meta.method.body.java",
+                        "meta.definition.method.groovy",
+                        "source.groovy"
+                    ],
+                    "settings": {
+                        "foreground": "{{ glob.cyan_faint }}"
+                    }
+                }
+            ]
+        }
+    },
+    "workbench.colorCustomizations": {
+        "[Visual Studio Dark]": {
+            "tree.indentGuidesStroke": "{{ glob.background }}",
+            "activityBar.activeBackground": "{{ glob.green }}",
+            "activityBar.background": "{{ glob.background }}",
+            "activityBarBadge.background": "{{ glob.green }}",
+            "badge.background": "{{ glob.pink_dark }}",
+            "banner.background": "{{ glob.background }}",
+            "breadcrumb.background": "{{ glob.background }}",
+            "button.background": "{{ glob.green }}",
+            "checkbox.background": "{{ glob.grey }}",
+            "commandCenter.activeBackground": "{{ glob.background }}",
+            "commandCenter.background": "{{ glob.background }}",
+            "dropdown.background": "{{ glob.grey }}",
+            "editor.background": "{{ glob.background }}",
+            "editor.foldBackground": "{{ glob.background }}",
+            "editor.selectionBackground": "{{ glob.grey }}",
+            "editorCursor.background": "{{ glob.background }}",
+            "editorGhostText.background": "#ff0000",
+            "editorGroup.border": "{{ glob.background }}",
+            "editorGroup.dropBackground": "{{ glob.background }}",
+            "editorGroupHeader.tabsBackground": "{{ glob.background }}", // The thing behind tabs
+            "editorGutter.background": "{{ glob.background }}",
+            "editorInfo.background": "{{ glob.background }}",
+            "editorPane.background": "{{ glob.background }}",
+            "editorWidget.background": "{{ glob.background_intense }}",
+            "input.background": "{{ glob.grey }}",
+            "list.dropBackground": "{{ glob.background }}",
+            "menu.background": "{{ glob.background }}",
+            "menu.selectionBackground": "{{ glob.background }}",
+            "menubar.selectionBackground": "{{ glob.background }}",
+            "minimap.background": "#ff0000",
+            "panel.background": "{{ glob.background }}",
+            "panel.border": "{{ glob.background }}",
+            "panelSection.border": "{{ glob.background_intense }}",
+            "panelSection.dropBackground": "{{ glob.background }}",
+            "panelSectionHeader.background": "{{ glob.background }}",
+            "peekViewEditor.background": "{{ glob.background }}",
+            "peekViewEditorGutter.background": "#00ff00",
+            "quickInput.background": "{{ glob.background }}", // Command palette
+            "scrollbarSlider.background": "{{ glob.grey }}",
+            "sideBar.background": "{{ glob.background }}",
+            "sideBar.dropBackground": "#ff0000",
+            "sideBarSectionHeader.background": "{{ glob.background }}",
+            "statusBar.background": "{{ glob.background }}",
+            "statusBar.noFolderBackground": "#ff0000",
+            "statusBarItem.errorBackground": "{{ glob.red_faint }}",
+            "statusBarItem.remoteBackground": "{{ glob.green }}",
+            "tab.activeBackground": "{{ glob.green_darker }}",
+            "tab.activeForeground": "{{ glob.foreground_faint }}",
+            "tab.hoverBackground": "{{ glob.background_intense }}",
+            "tab.inactiveBackground": "{{ glob.background }}",
+            "tab.inactiveModifiedBorder": "{{ glob.background }}",
+            "tab.unfocusedActiveBackground": "{{ glob.background_darker }}",
+            "tab.unfocusedActiveForeground": "{{ glob.foreground_faint }}",
+            "tab.border": "{{ glob.background_darker }}00",
+            "terminal.background": "{{ glob.background }}",
+            "terminal.dropBackground": "{{ glob.background }}",
+            "textCodeBlock.background": "#ff0000",
+            "titleBar.activeBackground": "{{ glob.background }}",
+            "titleBar.inactiveBackground": "#ff0000",
+            "toolbar.activeBackground": "#ff0000",
+            "toolbar.hoverBackground": "#ff0000",
+            "welcomePage.background": "{{ glob.background }}",
+            "welcomePage.tileBackground": "{{ glob.background_darker }}",
+            "editorLineNumber.foreground": "{{ glob.yellow }}"
+        }
+    },
+    "vscode-color-picker.languages": [
+        "ini",
+        "python",
+        "javascript",
+        "typescript"
+    ],
+    "editor.lineNumbers": "relative"
+}
