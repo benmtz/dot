@@ -28,4 +28,5 @@ tasks:
 
   full:
     cmds:
+      - rm -rf ~/.config/fish/greeters
       - rm -rf dist && python3 dotfiles.py compile --force && python3 dotfiles.py link --force
