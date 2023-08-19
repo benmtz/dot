@@ -163,7 +163,7 @@ def extract(args):
     content = f.read()
     for key, value in flatten_dict_with_dots(config).items():
       content = content.replace(value, "{{ " + key + " }}")
-      with open(target_path, "w") as t:
+      with open(f"{target_path}.j2", "w") as t:
         t.write(content)
 
 
