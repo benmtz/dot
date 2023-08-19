@@ -183,6 +183,7 @@ extract_parser.set_defaults(func=extract)
 extract_parser.add_argument("path",type=str)
 
 install_font_parser = subparsers.add_parser('install-font', help='Install dotfiles fonts')
+install_font_parser.set_defaults(func=install_font)
 
 args = parser.parse_args()
 args.func(args)
