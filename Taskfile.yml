@@ -16,7 +16,7 @@ tasks:
 
   install-fonts:
     cmds:
-      - python3 dotfiles.py install-font --force
+      - python3 dotfiles.py install-font
 
   extract-code-settings:
     cmds:
