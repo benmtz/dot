@@ -5,8 +5,10 @@ DEST=~/.dots
 
 # shellcheck disable=SC2054
 packages=(
+  fish
   python
   git
+  which
   git-delta
   jq
   ranger
@@ -14,7 +16,10 @@ packages=(
   nodejs
   golang
   starship
+  direnv
 )
+
+fish -s $(which fish) $(whoami)
 
 pkg upgrade -y
 pkg install -y "${packages[@]}"
