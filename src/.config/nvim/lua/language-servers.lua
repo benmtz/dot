@@ -1,4 +1,5 @@
 local wk = require("which-key")
+local sys = require("current_environment")
 
 local opts = { noremap = true, silent = true }
 
@@ -6,26 +7,30 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 end
 
+local ensure_installed = {
+  "bashls",
+  "cmake",
+  "dockerls",
+  "eslint",
+  "gopls",
+  "pyright",
+  "html",
+  "jsonls",
+  "tsserver",
+  "yamlls",
+  "terraformls",
+  "tflint"
+}
+
+if not sys.is_termux then
+  table.insert(ensure_installed, "rust_analyzer")
+  table.insert(ensure_installed, "lua_ls")
+  table.insert(ensure_installed, "ansiblels")
+end
 
 require("mason").setup()
 require("mason-lspconfig").setup({
-  ensure_installed = {
-    "ansiblels",
-    "bashls",
-    "cmake",
-    "dockerls",
-    "eslint",
-    "gopls",
-    "pyright",
-    "html",
-    "jsonls",
-    "tsserver",
-    "yamlls",
-    "terraformls",
-    "tflint",
-    "lua_ls",
-    "rust_analyzer"
-  }
+  ensure_installed = ensure_installed
 })
 
 
