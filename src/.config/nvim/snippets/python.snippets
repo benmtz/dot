@@ -1,6 +1,12 @@
+# Python main function
 snippet pyifmain
 		if __file__ == '__main__':
 			${1}
+
+# Encode a base64 string
+snippet pyb64
+	import base64
+	basic_token = base64.standard_b64encode(f"${1:text}".encode("ascii")).decode("ascii")
 
 snippet pyargs
 	import argparse
