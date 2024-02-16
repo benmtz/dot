@@ -1,34 +1,13 @@
 format = """
 [󰽰]({{ glob.cyan }}) \
-$os\
-$username\
-[󰽬](fg:{{ glob.cyan }})\
 $directory\
-[](fg:{{ glob.red_intense }})\
-$git_branch\
-$git_status\
-[](fg:#86BBD8)\
-$c\
-$elixir\
-$elm\
-$golang\
-$gradle\
-$haskell\
-$java\
-$julia\
-$nodejs\
-$nim\
-$rust\
-$scala\
-[](fg:#86BBD8)\
-$docker_context\
-[](fg:#06969A)\
-$time\
-[󱃲](fg:#33658A)\
-"""
+(fg:{{ glob.red_intense }})\
+$azure\
+$git_branch
+\\$"""
 
 # Disable the blank line at the start of the prompt
-add_newline = false
+add_newline = true
 
 # You can also replace your username with a neat symbol like   or disable this
 # and use the os module below
@@ -142,3 +121,9 @@ disabled = false
 time_format = "%R" # Hour:Minute Format
 style = "fg:#33658A"
 format = '[  $time ]($style)'
+
+[azure]
+disabled = false
+format = 'on [$symbol($subscription)]($style) '
+symbol = '󰠅 '
+style = 'blue bold'
