@@ -1,10 +1,10 @@
 set INFRA_MANAGEMENT_DIR "~/Code/repos/infra_management"
 
 function is-jetbrains-terminal 
-  if set -q JEDITERM_ARGS
-    return 1
-  else
+  if set -q JEDITERM_SOURCE_ARGS
     return 0
+  else
+    return 1
   end
 end
 
@@ -26,9 +26,20 @@ set XDG_CONFIG_HOME "$HOME/.config"
 set PATH $HOME/.cargo/bin $PATH
 set PATH $HOME/go/bin $PATH
 set PATH /opt/homebrew/opt/openjdk/bin $PATH
+set PATH $HOME/.asdf/shims $HOME/.asdf/bin $PATH
 
 direnv hook fish | source
 
 starship init fish | source
 
-echo is-jetbrains-terminal()
+if test $(uname -s)="Darwin"
+  set -x ANDROID_HOME $HOME/Library/Android/sdk
+  set PATH $ANDROID_HOME/emulator $PATH
+  set PATH $ANDROID_HOME/platform-tools $PATH
+end
+
+if not is-jetbrains-terminal;
+  set USE_CUSTOM_GREETER 0
+end
+
+source ~/.asdf/asdf.fish
