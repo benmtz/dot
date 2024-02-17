@@ -10,7 +10,7 @@ direnv 2.32.2
 kubectl 1.29.2
 fd 8.6.0
 azure-cli 2.45.0
-awscli 2.9.23
+awscli 2.15.21
 rclone 1.61.1
 trivy 0.49.1
 helm 3.11.1
