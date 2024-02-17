@@ -7,7 +7,7 @@ bitwarden v1.22.1
 flux2 0.39.0
 neovim 0.8.3
 direnv 2.32.2
-kubectl 1.26.1
+kubectl 1.29.2
 fd 8.6.0
 azure-cli 2.45.0
 awscli 2.9.23
