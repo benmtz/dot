@@ -1,0 +1,14 @@
+version: '3'
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+
+
+  install-asdf-plugins:
+    cmds:
+      - cmd: cat ~/.tool-versions | cut -d ' ' -f 1 | xargs -I@ bash -c 'asdf plugin-add @'
+        ignore_error: true
+      - asdf install
+      - asdf reshim
