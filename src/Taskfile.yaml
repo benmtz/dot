@@ -12,3 +12,18 @@ tasks:
         ignore_error: true
       - asdf install
       - asdf reshim
+
+  doctor:
+    silent: true
+    cmds:
+      - |
+        clear
+        echo '
+        #=====================#
+        # Basic system doctor #
+        #---------------------#
+        '
+        echo -n "Ansible install..." && ansible --version > /dev/null 2>&1 && echo "OK" || echo "KO"
+        echo -n "Ansible modules..." && ansible-doc --list | grep docker > /dev/null 2>&1 && echo "OK" || echo "KO"
+
+        echo
