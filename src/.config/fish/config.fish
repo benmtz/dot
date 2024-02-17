@@ -41,5 +41,3 @@ end
 if not is-jetbrains-terminal;
   set USE_CUSTOM_GREETER 0
 end
-
-source ~/.asdf/asdf.fish
