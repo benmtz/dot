@@ -20,11 +20,14 @@ set showmode
 set so=5
 set incsearch
 set nu
+set clipboard+=unnamed
+set timeoutlen=5000
 
 """ Idea specific settings ------------------
 set ideajoin
 set ideastatusicon=gray
 set idearefactormode=keep
+set which-key
 
 """ Mappings --------------------------------
 map <leader>f <Plug>(easymotion-s)
@@ -42,3 +45,32 @@ map <S-Space> <Action>(GotoNextError)
 
 map <leader>b <Action>(ToggleLineBreakpoint)
 map <leader>o <Action>(FileStructurePopup)
+
+map <leader>yg <Action>(Bitbucket.CopyFileUrlInBitbucket)
+map <leader>go <Action>(Bitbucket.OpenFileInBitbucket)
+map <leader>gc <Action>(Git.ResolveConflicts)
+map <leader>gb <Action>(Git.Branches)
+map <leader>gr <Action>(Compare.Selected)
+
+
+map <leader>rr <Action>(IdeaVim.ReloadVimRc.reload)
+
+" m for mark
+map <leader>mo <Action>(ShowBookmarks)
+map <leader>mt <Action>(ToggleBookmark)
+
+" f for find
+unmap <leader>f
+map <leader>ff <Action>(GotoFile)
+map <leader>fg <Action>(FindInPath)
+
+" I used to use t for terminal, now it's for changing focus to a side pane
+map <leader>ta <Action>(ActivateAIAssistantToolWindow)
+map <leader>tt <Action>(ActivateTerminalToolWindow)
+map <leader>tz <Action>(ToggleZenMode)
+
+" c code actions
+map <leader>cf <Action>(ReformatCode)
+
+" CloseAllUnpinnedEditors
+map <leader>qa <Action>(CloseAllUnpinnedEditors)
