@@ -55,7 +55,7 @@ return require('packer').startup(function()
 		  {'nvim-lua/plenary.nvim'},
 		  {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'},
 			{'nvim-telescope/telescope-file-browser.nvim'},
-			{'benmtz/telescope-project.nvim'},
+-- 			{'benmtz/telescope-project.nvim'},
 	  }
 	}
 
