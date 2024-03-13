@@ -1,6 +1,6 @@
 set INFRA_MANAGEMENT_DIR "~/Code/repos/infra_management"
 
-function is-jetbrains-terminal 
+function is-jetbrains-terminal
   if set -q JEDITERM_SOURCE_ARGS
     return 0
   else
@@ -18,7 +18,7 @@ end
 
 fish_vi_key_bindings
 
-if test -d /home/linuxbrew/.linuxbrew 
+if test -d /home/linuxbrew/.linuxbrew
 	eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 end
 
@@ -32,7 +32,7 @@ direnv hook fish | source
 
 starship init fish | source
 
-if test $(uname -s)="Darwin"
+if test (uname -s)="Darwin"
   set -x ANDROID_HOME $HOME/Library/Android/sdk
   set PATH $ANDROID_HOME/emulator $PATH
   set PATH $ANDROID_HOME/platform-tools $PATH
