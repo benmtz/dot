@@ -36,6 +36,7 @@ if test $(uname -s)="Darwin"
   set -x ANDROID_HOME $HOME/Library/Android/sdk
   set PATH $ANDROID_HOME/emulator $PATH
   set PATH $ANDROID_HOME/platform-tools $PATH
+  set -x DOCKER_HOST unix://$HOME/.colima/docker.sock
 end
 
 if not is-jetbrains-terminal;
