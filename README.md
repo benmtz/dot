@@ -1,3 +1,20 @@
+## Debian setup
+
+```
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
+. "$HOME/.asdf/asdf.sh"
+. "$HOME/.asdf/completions/asdf.bash"
+asdf plugin-add task python
+asdf install
+# git clone here
+python3 -m venv venv
+. ./venv/bin/activate
+python3 -m pip install -r requirements.txt
+
+# random
+sudo apt install fish
+```
+
 ## Termux
 
 in order to install ansible on termux follow the following 
