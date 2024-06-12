@@ -5,3 +5,8 @@ if not test -d $HOME/.asdf
 end
 source ~/.asdf/asdf.fish
 
+fish_add_path $HOME/.asdf/bin
+
+# We add asdf at then end so it acts as a fallback
+fish_add_path -a $HOME/.asdf/shims 
+

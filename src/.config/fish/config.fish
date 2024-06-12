@@ -25,15 +25,12 @@ end
 set XDG_CONFIG_HOME "$HOME/.config"
 set PATH $HOME/.cargo/bin $PATH
 set PATH $HOME/go/bin $PATH
-set PATH /opt/homebrew/opt/openjdk/bin $PATH
-set PATH $HOME/.asdf/shims $HOME/.asdf/bin $PATH
 
 direnv hook fish | source
 
-starship init fish | source
-
 if test (uname -s)="Darwin"
   set -x ANDROID_HOME $HOME/Library/Android/sdk
+  set -x OBJC_DISABLE_INITIALIZE_FORK_SAFETY YES
   set PATH $ANDROID_HOME/emulator $PATH
   set PATH $ANDROID_HOME/platform-tools $PATH
   set -x DOCKER_HOST unix://$HOME/.colima/docker.sock
