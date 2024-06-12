@@ -11,6 +11,7 @@ set textobj-entire
 set ReplaceWithRegister
 set relativenumber
 set number
+set matchit
 
 """ Plugin settings -------------------------
 let g:argtextobj_pairs="[:],(:),<:>"
