@@ -47,7 +47,7 @@ wk.register({
     w = {
       name = "External Apps",
       g = { '<cmd>FloatermNew --width=0.98 --height=0.98 lazygit<cr>', 'lazygit' },
-      e = { '<cmd>FloatermNew --width=0.98 --height=0.98 ranger<cr>', 'ranger' },
+      e = { '<cmd>FloatermNew --width=0.98 --height=0.98 yazi<cr>', 'yazi' },
       k = { '<cmd>FloatermNew --width=0.98 --height=0.98 k9s<cr>', 'k9s' },
       t = { '<cmd>FloatermNew taskwarrior-tui<cr>', 'taskwarrior' }
     },
@@ -95,7 +95,8 @@ wk.register({
       e = { '<cmd>Telescope file_browser<cr>', 'File browser' },
       b = { '<cmd>lua require("telescope.builtin").buffers()<cr>', 'Find browser' },
       r = { '<cmd>lua require("telescope").extensions.asynctasks.all()<cr>', 'Find asynctask' },
-      p = { '<cmd>lua require("telescope").extensions.project.project{}<cr>', 'Find project' }
+      p = { '<cmd>lua require("telescope").extensions.project.project{}<cr>', 'Find project' },
+      t = { '<cmd>lua require("telescope").extensions.go_task.go_task{}<cr>', 'Run task' }
     },
     y = {
       name = "Yank",

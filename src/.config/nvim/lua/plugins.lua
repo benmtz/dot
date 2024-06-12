@@ -8,6 +8,7 @@ return require('packer').startup(function()
 
   use 'wbthomason/packer.nvim'
 
+	use 'nvim-treesitter/nvim-treesitter'
 	use 'norcalli/nvim-colorizer.lua'
 
 	use {
@@ -53,9 +54,9 @@ return require('packer').startup(function()
 	  'nvim-telescope/telescope.nvim',
 	  requires = {
 		  {'nvim-lua/plenary.nvim'},
-		  {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'},
 			{'nvim-telescope/telescope-file-browser.nvim'},
--- 			{'benmtz/telescope-project.nvim'},
+			-- {'~/Code/ben/telescope-go-task.nvim'}
+			{ 'benmtz/telescope-go-task.nvim' }
 	  }
 	}
 
