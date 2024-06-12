@@ -92,6 +92,8 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   command = "set ft=yaml.ansible",
 })
 
+require'lspconfig'.clangd.setup{}
+
 
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")

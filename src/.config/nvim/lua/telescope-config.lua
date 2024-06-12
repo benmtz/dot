@@ -1,7 +1,7 @@
 local telescope = require('telescope')
 
+telescope.load_extension "go_task"
 telescope.load_extension "file_browser"
-telescope.load_extension "project"
 
 telescope.setup {
 	defaults = {
@@ -18,18 +18,6 @@ telescope.setup {
 				  ["<C-D>"] = "delete_buffer",
 				}
 			}
-		}
-	},
-	extensions = {
-	  project = {
-		  base_dirs = {
-			  { path = "~/Code", max_depths = 1},
-			},
-			hidden_files = true, -- show hidden files
-			on_project_selected_callback = function()
-				return function()
-				end
-			end
 		}
 	}
 }

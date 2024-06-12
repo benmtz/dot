@@ -1,0 +1,67 @@
+snippet fori
+	for (int i=${1}; i<${2}; i++) {
+		${3}
+	}
+
+snippet forof
+	for (auto ${1}: ${2}) {
+		${3}
+	}
+
+snippet ifelse
+	if (${1:condition}) {
+		${2}
+	} else {
+		${3}
+	}
+
+snippet if
+	if (${1:condition}) {
+		${2}
+	}
+
+snippet ifelseif
+	if (${1:condition}) {
+		${2}
+	} else if (${4}) {
+		${4}
+	} else {
+		${5}
+	}
+
+snippet switch
+	switch (${1:statement}) {
+		case ${2}:
+			${3}
+			break;
+		default:
+			std::cout << "Default" << std::endl;
+	}
+
+snippet fncopy
+	int addition (int a, int b=0) {
+		int r;
+		r=a+b;
+		return r;
+	}
+
+snippet fnref
+	int add(const int& a, const int& b) {
+		return a + b;
+	}
+
+snippet arrnoinit
+	${1:type} foo [${2:size}];
+
+snippet terary
+	result = ${1:condition} ? ${2:ifTrue}: ${3:ifFalse};
+
+snippet print
+	std::cout << ${1} << std::endl;
+
+snippet max
+	${1:type} ${2:name} = std::max(${3}, ${4}) 
+
+snippet min
+	${1:type} ${2:name} = std::max(${3}, ${4}) 
+
