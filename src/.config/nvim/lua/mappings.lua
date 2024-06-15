@@ -44,9 +44,11 @@ wk.register({
       e = { '<cmd>e term://fish<cr>', 'Term in buffer' },
       t = { '<cmd>tabe term://fish<cr>', 'Term in tab' }
     },
+    g = {
+      g = { '<cmd>FloatermNew --width=0.98 --height=0.98 lazygit<cr>', 'lazygit' },
+    },
     w = {
       name = "External Apps",
-      g = { '<cmd>FloatermNew --width=0.98 --height=0.98 lazygit<cr>', 'lazygit' },
       e = { '<cmd>FloatermNew --width=0.98 --height=0.98 yazi<cr>', 'yazi' },
       k = { '<cmd>FloatermNew --width=0.98 --height=0.98 k9s<cr>', 'k9s' },
       t = { '<cmd>FloatermNew taskwarrior-tui<cr>', 'taskwarrior' }
