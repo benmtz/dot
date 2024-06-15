@@ -28,7 +28,10 @@ set PATH $HOME/go/bin $PATH
 
 direnv hook fish | source
 
-if test (uname -s)="Darwin"
+starship init fish | source
+
+if test $(uname -s) = "Darwin"
+  echo "DARWIN"
   set -x ANDROID_HOME $HOME/Library/Android/sdk
   set -x OBJC_DISABLE_INITIALIZE_FORK_SAFETY YES
   set PATH $ANDROID_HOME/emulator $PATH
