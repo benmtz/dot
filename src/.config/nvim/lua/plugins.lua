@@ -14,35 +14,15 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   --  INIT plugins --
 	{ 'nvim-treesitter/nvim-treesitter', lazy = false, priority = 1000 },
-  { 'folke/tokyonight.nvim', lazy = false, priority = 1000,
-      config = function()
-        require("tokyonight").setup({
-          style = "night",
-          transparent = true,
-          floats = "dark",
-          on_colors = function(colors)
-            -- colors.fg_gutter = "#5081c0"
-            colors.comment = "#709db2"
-            colors.dark5 = "#709db2"
-            colors.border = "#fefefe"
-            colors.bg_float = colors.none
-          end,
-          on_highlights = function(hl, colors)
-            hl.LineNr = {
-              fg = "#ffba00"
-              -- fg = "#5081c0"
-            }
-            hl.qfLineNr = {
-              -- fg = "#737aa2"
-              fg = "#ffba00"
-            }
-            hl.CursorLineNr = {
-              fg = "#ffba00"
-            }
-          end
-        })
-      vim.cmd([[colorscheme tokyonight]])
-    end,
+  {
+    'sainnhe/gruvbox-material',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.g.gruvbox_material_background = 'hard'
+      vim.g.gruvbox_material_enable_italic = true
+      vim.cmd.colorscheme('gruvbox-material')
+    end
   },
 	{ 'norcalli/nvim-colorizer.lua' },
 	{ 'folke/which-key.nvim', lazy = true },
@@ -79,10 +59,15 @@ require("lazy").setup({
        }
      end
   },
-	{ 'terrortylor/nvim-comment' },
   { "lukas-reineke/indent-blankline.nvim" },
   { "folke/trouble.nvim", dependencies = { "kyazdani42/nvim-web-devicons" } },
   { 'ckipp01/nvim-jenkinsfile-linter', dependencies = { "nvim-lua/plenary.nvim" } },
-  { 'nvim-lualine/lualine.nvim', dependencies = { 'kyazdani42/nvim-web-devicons' } }
+  { 'nvim-lualine/lualine.nvim', dependencies = { 'kyazdani42/nvim-web-devicons' } },
+  {
+    'numToStr/Comment.nvim',
+    config = function()
+        require('Comment').setup()
+    end
+  }
 })
 
