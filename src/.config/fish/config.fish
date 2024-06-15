@@ -28,8 +28,6 @@ set PATH $HOME/go/bin $PATH
 
 direnv hook fish | source
 
-starship init fish | source
-
 if test $(uname -s) = "Darwin"
   echo "DARWIN"
   set -x ANDROID_HOME $HOME/Library/Android/sdk
