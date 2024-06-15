@@ -27,9 +27,6 @@ require("ibl").setup {
 
 require'colorizer'.setup()
 
--- Comments
-require('nvim_comment').setup()
-
 
 -- Theming
 -- require("dashboard-setup")
