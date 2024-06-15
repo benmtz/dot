@@ -2,31 +2,49 @@
 
 version: '3'
 
-vars:
-  GREETING: Hello, World!
-
 tasks:
+
+  setup:
+    sources:
+      - requirements.txt
+    generates:
+      - requirements.lock.txt
+    cmds:
+      - |
+        python3 -m pip install -r requirements.txt
+        python3 -m pip freeze > requirements.lock.txt
+
   link:
+    deps: [ setup ]
     cmds:
       - python3 dotfiles.py link --force
 
   build:
+    deps: [ setup ]
     cmds:
       - python3 dotfiles.py compile --force
 
   install-fonts:
+    deps: [ setup ]
     cmds:
       - python3 dotfiles.py install-font
 
   extract-code-settings:
+    deps: [ setup ]
     cmds:
       - python3 dotfiles.py extract ~/.config/code/settings.json
 
   extract-code-keybindings:
+    deps: [ setup ]
     cmds:
       - python3 dotfiles.py extract ~/.config/code/keybindings.json
 
   full:
+    deps: [ setup ]
     cmds:
-      - rm -rf ~/.config/fish/greeters
-      - rm -rf dist && python3 dotfiles.py compile --force && python3 dotfiles.py link --force
+      - |
+        rm -rf ~/.config/fish/greeters
+        rm -rf dist
+        python3 dotfiles.py compile --force
+        python3 dotfiles.py link --force
+
