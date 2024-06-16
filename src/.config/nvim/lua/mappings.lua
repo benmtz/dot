@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+
 vim.api.nvim_set_keymap('n', '<SPACE>', '<Nop>', { noremap = true })
 
 vim.api.nvim_set_keymap('n', '<C-j>', '<C-w><C-j>', { noremap = true })
@@ -6,15 +7,12 @@ vim.api.nvim_set_keymap('n', '<C-h>', '<C-w><C-h>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-k>', '<C-w><C-k>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w><C-l>', { noremap = true })
 
-vim.api.nvim_set_keymap('n', '<c-_>', 'gc', { noremap = true })
-vim.api.nvim_set_keymap('v', '<c-_>', 'gc', { noremap = true })
-vim.api.nvim_set_keymap('n', '<c-/>', 'gc', { noremap = true })
-vim.api.nvim_set_keymap('v', '<c-/>', 'gc', { noremap = true })
+vim.api.nvim_set_keymap('', '<F2>', '<cmd>lua vim.diagnostic.goto_next()<CR>', { noremap = true } )
 
-
-vim.api.nvim_set_keymap('t', '<A-ESC>', '<C-\\><C-n>', { noremap = true })
 vim.api.nvim_set_keymap('t', '<F12>', '<C-\\><C-n><ESC>', { noremap = true })
 vim.api.nvim_set_keymap('i', '<F12>', '<ESC>', { noremap = true })
+vim.api.nvim_set_keymap('', '<C-_>', 'gc', { })
+vim.api.nvim_set_keymap('t', '<A-ESC>', '<C-\\><C-n>', { noremap = true })
 
 local wk = require("which-key")
 wk.register({
