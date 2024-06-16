@@ -97,7 +97,7 @@ wk.register({
       f = { '<cmd>lua require("telescope.builtin").git_files()<cr>', 'Find file (.gitignored)' },
       a = { '<cmd>lua require("telescope.builtin").find_files({follow = true})<cr>', 'Find file (All)' },
       m = { '<cmd>lua require("telescope.builtin").marks()<cr>', 'Find mark' },
-      g = { '<cmd>lua require("telescope.builtin").live_grep()<cr>', 'Find text (grep)' },
+      g = { '<cmd>lua require("telescope.builtin").live_grep({additional_args="--no-ignore-vcs"})<cr>', 'Find text (grep)' },
       e = { '<cmd>Telescope file_browser<cr>', 'File browser' },
       b = { '<cmd>lua require("telescope.builtin").buffers()<cr>', 'Find browser' },
       r = { '<cmd>lua require("telescope").extensions.asynctasks.all()<cr>', 'Find asynctask' },
