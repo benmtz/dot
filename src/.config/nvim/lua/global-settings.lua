@@ -16,11 +16,8 @@ set.foldlevel           = 99        -- no weird vertical split position
 set.splitright          = true      -- no weird horizontal split position 
 set.shortmess           = "AF"
 set.ff                  = "unix"    -- Will make wsl experience less painfull
-vim.g.asyncrun_open     = 6         -- In order to open the quickfix when asyncrun is launched
 vim.g.floaterm_opener   = "edit"    -- In order to open the quickfix when asyncrun is launched
 
 set.list								= true
 set.listchars						= "tab:›\\ ,eol:¬,trail:⋅"
-
-vim.g.tokyonight_colors = { fg_gutter = "#707cb2", comment = "#709db2", dark5 = "#709db2" }
 

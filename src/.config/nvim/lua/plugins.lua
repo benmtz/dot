@@ -13,7 +13,25 @@ end
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   --  INIT plugins --
+  { 'junegunn/fzf.vim',
+    lazy = false ,
+    dependencies = {
+      'junegunn/fzf'
+    },
+  },
+  {
+    "ibhagwan/fzf-lua",
+    -- optional for icon support
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("fzf-lua").setup({})
+    end
+  },
 	{ 'nvim-treesitter/nvim-treesitter', lazy = false, priority = 1000 },
+  {
+    'MetriC-DT/balance-theme.nvim', -- has a light theme for outdoor sessions
+    lazy = false,
+  },
   {
     'sainnhe/gruvbox-material',
     lazy = false,
@@ -29,13 +47,6 @@ require("lazy").setup({
   { 'sheerun/vim-polyglot' },
   { 'saadparwaiz1/cmp_luasnip' },
   { 'voldikss/vim-floaterm' },
-  { 'nvim-telescope/telescope.nvim',
-    dependencies = {
- 		  {'nvim-lua/plenary.nvim'},
- 			{'nvim-telescope/telescope-file-browser.nvim'},
- 			{ 'benmtz/telescope-go-task.nvim' }
-    }
-  },
   { "williamboman/mason.nvim" },
   { "williamboman/mason-lspconfig.nvim" },
   { "neovim/nvim-lspconfig" },
@@ -68,6 +79,6 @@ require("lazy").setup({
     config = function()
         require('Comment').setup()
     end
-  }
+  },
 })
 
