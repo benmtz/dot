@@ -43,7 +43,7 @@ def link_config(src: str, dest: str, options):
   """
   try:
     log.info(f"Linking {dest} to {src}")
-    os.symlink(src, dest)
+    os.link(src, dest)
   except (FileExistsError, FileNotFoundError):
     if options.force:
       if os.path.islink(dest):
@@ -57,7 +57,7 @@ def link_config(src: str, dest: str, options):
         os.remove(dest)
       else:
         log.debug(f"nothing to clean")
-      return os.symlink(src, dest)
+      return os.link(src, dest)
     log.debug(options)
     log.error(f"""Cannot link to {dest} because this \
 file exists, use the --force option if you are sure""")
