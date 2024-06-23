@@ -11,17 +11,71 @@ vim.api.nvim_set_keymap('', '<F2>', '<cmd>lua vim.diagnostic.goto_next()<CR>', {
 
 vim.api.nvim_set_keymap('t', '<F12>', '<C-\\><C-n><ESC>', { noremap = true })
 vim.api.nvim_set_keymap('i', '<F12>', '<ESC>', { noremap = true })
+
+vim.api.nvim_set_keymap('n', '<D-Right>', '<cmd>bnext<cr>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<D-Left>', '<cmd>bprev<cr>', { noremap = true })
+
 vim.api.nvim_set_keymap('', '<C-_>', 'gc', { })
+vim.api.nvim_set_keymap('', '<C-/>', 'gc', { })
+
 vim.api.nvim_set_keymap('t', '<A-ESC>', '<C-\\><C-n>', { noremap = true })
+-- <D-e><D-r><D-y><D-l><D-;><Right><D-o>
+-- <D-Right><D-Left>
+
+-- Reminders
+-- <C-X> is Control - C-X
+-- <S-F12> is Shift - F12
+-- <A-X> or <M-X> - is the alt key (what is on macOS ?)
+-- <D-X> is the command key on macOS
+
+ftask = function()
+  require'fzf-lua'.fzf_exec(
+    "task --list-all"
+      .. " | sed -e '1d; s/\\* \\(.*\\):\\s*\\(.*\\)\\s*(aliases.*/\\1\\t\\2/' -e 's/\\* \\(.*\\):\\s*\\(.*\\)/\\1\\t\\2/'"
+      .. " | awk '{$1= $1};1'",
+      {
+        actions = {
+          ['default'] = function(selected)
+            vim.cmd("e term://task " .. selected[1])
+          end,
+          ['ctrl-x'] = function(selected, opts)
+            vim.cmd("sp term://task " .. selected[1])
+          end,
+          ['ctrl-v'] = function(selected, opts)
+            vim.cmd("vsp term://task " .. selected[1])
+          end,
+        }
+      }
+  )
+end
+
+gg = function()
+  require'fzf-lua'.fzf_exec(
+    "fd --no-ignore-vcs -d 5 -H -g '**/.git'"
+      .. " | sed -E 's/\\/?\\.git\\/?$//g'",
+      {
+        actions = {
+          ['default'] = function(selected)
+            local repo = selected[1]
+            if (repo == nil or repo == '') then
+              vim.cmd("FloatermNew --width=0.98 --height=0.98 lazygit")
+              feedkeys("a")
+            else
+              vim.cmd("FloatermNew --width=0.98 --height=0.98 lazygit -p " .. selected[1])
+              feedkeys("a")
+            end
+          end,
+        }
+      }
+  )
+
+  
+end
+
 
 local wk = require("which-key")
 wk.register({
   ["<leader>"] = {
-    r = {
-      name = "Tasks",
-      e = { "<cmd>e .tasks<cr>", "Edit tasks" },
-      r = { '<cmd>lua require("telescope").extensions.asynctasks.all()<cr>', 'Find asynctask' },
-    },
     t = {
       name = "Tabs",
       e = { "<cmd>tabe<cr>", "New tab" },
@@ -49,7 +103,8 @@ wk.register({
       t = { '<cmd>tabe term://fish<cr>', 'Term in tab' }
     },
     g = {
-      g = { '<cmd>FloatermNew --width=0.98 --height=0.98 lazygit<cr>', 'lazygit' },
+      g = { '<cmd>lua gg()<cr>', 'Git' },
+      -- g = { '<cmd>FloatermNew --width=0.98 --height=0.98 lazygit<cr>', 'lazygit' },
     },
     w = {
       name = "External Apps",
@@ -94,15 +149,14 @@ wk.register({
     },
     f = {
       name = "Find",
-      f = { '<cmd>lua require("telescope.builtin").git_files()<cr>', 'Find file (.gitignored)' },
-      a = { '<cmd>lua require("telescope.builtin").find_files({follow = true})<cr>', 'Find file (All)' },
-      m = { '<cmd>lua require("telescope.builtin").marks()<cr>', 'Find mark' },
-      g = { '<cmd>lua require("telescope.builtin").live_grep({additional_args="--no-ignore-vcs"})<cr>', 'Find text (grep)' },
-      e = { '<cmd>Telescope file_browser<cr>', 'File browser' },
-      b = { '<cmd>lua require("telescope.builtin").buffers()<cr>', 'Find browser' },
-      r = { '<cmd>lua require("telescope").extensions.asynctasks.all()<cr>', 'Find asynctask' },
-      p = { '<cmd>lua require("telescope").extensions.project.project{}<cr>', 'Find project' },
-      t = { '<cmd>lua require("telescope").extensions.go_task.go_task{}<cr>', 'Run task' }
+      f = { '<cmd>lua require("fzf-lua").files()<cr>', 'Find files' },
+      m = { '<cmd>lua require("fzf-lua").marks()<cr>', 'Find mark' },
+      h = { '<cmd>lua require("fzf-lua").git_bcommits()<cr>', 'Buffer history' },
+      g = { '<cmd>lua require("fzf-lua").live_grep_native()<cr>', 'Find text (grep)' },
+      b = { '<cmd>lua require("fzf-lua").buffers({sort_lastused = true})<cr>', 'Find in buffers' },
+      p = { '<cmd>lua require("fzf-lua").colorschemes()<cr>', 'Fuzzy colorschemes' },
+      j = { '<cmd>lua require("fzf-lua").jumps()<cr>', 'Fuzzy jumps' },
+      t = { '<cmd>lua ftask()<cr>', 'Run task' }
     },
     y = {
       name = "Yank",
