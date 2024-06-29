@@ -62,10 +62,10 @@ gg = function()
             local repo = selected[1]
             if (repo == nil or repo == '') then
               vim.cmd("FloatermNew --width=0.98 --height=0.98 lazygit")
-              feedkeys("a")
+              vim.api.nvim_feedkeys("a", "n", true)
             else
               vim.cmd("FloatermNew --width=0.98 --height=0.98 lazygit -p " .. selected[1])
-              feedkeys("a")
+              vim.api.nvim_feedkeys("a", "n", true)
             end
           end,
         }
