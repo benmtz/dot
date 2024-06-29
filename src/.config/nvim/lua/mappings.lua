@@ -29,20 +29,23 @@ vim.api.nvim_set_keymap('t', '<A-ESC>', '<C-\\><C-n>', { noremap = true })
 -- <D-X> is the command key on macOS
 
 ftask = function()
+  build_task_command =function(selected)
+    return "direnv exec " .. vim.fn.getcwd() .. " task " .. selected
+  end
   require'fzf-lua'.fzf_exec(
     "task --list-all"
       .. " | sed -e '1d; s/\\* \\(.*\\):\\s*\\(.*\\)\\s*(aliases.*/\\1\\t\\2/' -e 's/\\* \\(.*\\):\\s*\\(.*\\)/\\1\\t\\2/'"
-      .. " | awk '{$1= $1};1'",
+      .. " | awk '{$1= $1};1'"
       {
         actions = {
           ['default'] = function(selected)
-            vim.cmd("e term://task " .. selected[1])
+            vim.cmd("e term://" .. build_task_command(selected[1]))
           end,
           ['ctrl-x'] = function(selected, opts)
-            vim.cmd("sp term://task " .. selected[1])
+            vim.cmd("sp term://" .. build_task_command(selected[1]))
           end,
           ['ctrl-v'] = function(selected, opts)
-            vim.cmd("vsp term://task " .. selected[1])
+            vim.cmd("vsp term://" .. build_task_command(selected[1]))
           end,
         }
       }
