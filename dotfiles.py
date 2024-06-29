@@ -1,22 +1,24 @@
-from ast import parse
 from configparser import ConfigParser, ExtendedInterpolation
-from os.path import islink
 import jinja2
-from dataclasses import dataclass
-from pathlib import Path
-import tempfile
-import zipfile
-import argparse
 import argparse
 import os
 import shutil
+import tempfile
+import zipfile
+from configparser import ConfigParser, ExtendedInterpolation
+from dataclasses import dataclass
+from pathlib import Path
 from urllib import request
-from utility.current_os import get_current_os
-from utility.logger import log
-from utility.jinja_templates import hex_to_rgb
-from utility.files import flat_walk, ensure_dir
-from utility.dict_util import flatten_dict_with_dots
+
+import jinja2
 from jinja2.filters import FILTERS
+
+from utility.current_os import get_current_os
+from utility.dict_util import flatten_dict_with_dots
+from utility.files import flat_walk, ensure_dir
+from utility.jinja_templates import hex_to_rgb
+from utility.logger import log
+
 FILTERS["hex_to_rgb"] = hex_to_rgb
 
 
@@ -79,9 +81,10 @@ def link_configs(options):
       link_config(link_to, link_from, options)
 
 
-def download_font_to(font_url: str, target_path: str):
+def download_url(url: str, target_path: str):
   log.info("Downloading nerdfont...")
-  request.urlretrieve(font_url, target_path)
+  request.urlretrieve(url, target_path)
+
 
 def install_macos_font_from(zip_path: str):
   font_dir = os.path.join(Path.home(), "Library", "Fonts")
@@ -89,11 +92,13 @@ def install_macos_font_from(zip_path: str):
   with zipfile.ZipFile(zip_path, 'r') as zip_ref:
     zip_ref.extractall(font_dir)
 
+
 def install_linux_font_from(zip_path: str):
   font_dir = os.path.join(Path.home(), ".fonts")
   ensure_dir(font_dir)
   with zipfile.ZipFile(zip_path, 'r') as zip_ref:
     zip_ref.extractall(font_dir)
+
 
 def install_termux_font_from(zip_path:str, theme_data):
   font_dir = os.path.join(Path.home(), ".termux")
@@ -108,7 +113,7 @@ def install_font(theme_data):
   theme_data = read_config()
   with tempfile.TemporaryDirectory() as tmpdir:
     temp_zip_path = f"{tmpdir}/font.zip"
-    download_font_to(theme_data["font"]["zip_url"], temp_zip_path)
+    download_url(theme_data["font"]["zip_url"], temp_zip_path)
     current_os = get_current_os()
     log.debug(f"{current_os} font install")
     if current_os == "linux":
@@ -136,6 +141,7 @@ def hydrate(src: str, dest: str, values: dict):
     shutil.copyfile(src, dest)
     shutil.copymode(src, dest)
 
+
 def compile(args):
   """
   Compile takes files from the src directory and hydrate to the dist folder
@@ -153,6 +159,7 @@ def compile(args):
       old_path = os.path.join(file_root, filename)
       new_path = old_path.replace(src_root, target_root)
       hydrate(old_path, new_path, options)
+
 
 def extract(args):
   src_dir = get_filepath("src")
