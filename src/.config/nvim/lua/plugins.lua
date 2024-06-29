@@ -11,6 +11,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 
 vim.opt.rtp:prepend(lazypath)
+
 require("lazy").setup({
   --  INIT plugins --
   { 'junegunn/fzf.vim',
@@ -24,7 +25,23 @@ require("lazy").setup({
     -- optional for icon support
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      require("fzf-lua").setup({})
+      local actions = require("fzf-lua").actions
+      require("fzf-lua").setup({
+        files = {
+          actions = {
+            ["ctrl-h"] = actions.file_split,
+            ["ctrl-v"] = actions.file_vsplit,
+            ["ctrl-t"] = actions.file_tabedit,
+          }
+        },
+        buffers= {
+          actions = {
+            ["ctrl-h"] = actions.buf_split,
+            ["ctrl-v"] = actions.buf_vsplit,
+            ["ctrl-t"] = actions.buf_tabedit,
+          }
+        }
+      })
     end
   },
 	{ 'nvim-treesitter/nvim-treesitter', lazy = false, priority = 1000 },
