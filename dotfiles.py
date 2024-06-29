@@ -15,11 +15,13 @@ from jinja2.filters import FILTERS
 
 from utility.current_os import get_current_os
 from utility.dict_util import flatten_dict_with_dots
-from utility.files import flat_walk, ensure_dir
-from utility.jinja_templates import hex_to_rgb
-from utility.logger import log
 
-FILTERS["hex_to_rgb"] = hex_to_rgb
+from utility.files import flat_walk, ensure_dir
+from utility.logger import log
+from utility.template_renderer import TemplateRenderer
+
+
+template_renderer = TemplateRenderer()
 
 
 @dataclass
@@ -131,12 +133,7 @@ def hydrate(src: str, dest: str, values: dict):
   file_dir = os.path.split(dest)[0]
   ensure_dir(file_dir)
   if (src.endswith(".j2")):
-    with open(src) as file_:
-      template = jinja2.Template(file_.read())
-      output = template.render(values)
-      with open(dest.replace(".j2", ""), 'w') as f:
-        f.write(output)
-        f.close()
+    template_renderer.render(src, dest, values)
   else:
     shutil.copyfile(src, dest)
     shutil.copymode(src, dest)
