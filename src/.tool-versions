@@ -2,7 +2,7 @@ awscli 2.15.40
 azure-cli 2.45.0
 direnv 2.33.0
 fd 9.0.0
-flux2 2.2.3
+flux2 2.3.0
 fly 7.9.1
 fzf 0.37.0
 helm 3.14.4
