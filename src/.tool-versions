@@ -21,4 +21,4 @@ trivy 0.49.1
 age 1.1.1
 sops 3.8.1
 ruby 3.3.0
-golang 1.22.1
+golang 1.22.5
