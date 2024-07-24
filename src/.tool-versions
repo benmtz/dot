@@ -16,7 +16,7 @@ rclone 1.65.2
 ripgrep 14.1.0
 stern 1.23.0
 task 3.34.1
-terraform 1.7.3
+terraform 1.9.3
 trivy 0.49.1
 age 1.1.1
 sops 3.8.1
