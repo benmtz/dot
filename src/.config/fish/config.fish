@@ -23,6 +23,7 @@ if test -d /home/linuxbrew/.linuxbrew
 end
 
 set XDG_CONFIG_HOME "$HOME/.config"
+set PATH $HOME/.local/bin $PATH
 set PATH $HOME/.cargo/bin $PATH
 set PATH $HOME/go/bin $PATH
 
