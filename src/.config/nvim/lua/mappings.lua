@@ -54,7 +54,7 @@ end
 
 gg = function()
   require'fzf-lua'.fzf_exec(
-    "fd --no-ignore-vcs -d 5 -H -g '**/.git'"
+    "fd --no-ignore-vcs -d 3 -H -g '**/.git'"
       .. " | sed -E 's/\\/?\\.git\\/?$//g'",
       {
         actions = {
@@ -71,8 +71,6 @@ gg = function()
         }
       }
   )
-
-  
 end
 
 
