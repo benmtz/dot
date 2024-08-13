@@ -5,7 +5,8 @@ function ftask
   set result $(task --list-all | sed -e '1d; s/\* \(.*\):\s*\(.*\)\s*(aliases.*/\1\t\2/' -e 's/\* \(.*\):\s*\(.*\)/\1\t\2/' | awk '{$1= $1};1' | fzf)
   if test -n $result
     task $result
-    echo "--= task $result =--"
+    echo "-- task name =--"
+    echo task $result
   end
 
   if set -ql _flag_loop
