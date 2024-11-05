@@ -25,7 +25,11 @@ end
 set XDG_CONFIG_HOME "$HOME/.config"
 set PATH $HOME/.local/bin $PATH
 set PATH $HOME/.cargo/bin $PATH
-set PATH $HOME/go/bin $PATH
+
+if type -q go
+  set GOPATH go env GOPATH
+  set PATH $GOPATH/bin $PATH
+end
 
 direnv hook fish | source
 
