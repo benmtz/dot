@@ -44,6 +44,24 @@ require("lazy").setup({
       })
     end
   },
+  {
+      "zbirenbaum/copilot.lua",
+      cmd = "Copilot",
+      event = "InsertEnter",
+  },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    branch = "canary",
+    dependencies = {
+      { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
+      { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+    },
+    build = "make tiktoken", -- Only on MacOS or Linux
+    opts = {
+      debug = false, -- Enable debugging
+      -- See Configuration section for rest
+    }
+  },
 	{ 'nvim-treesitter/nvim-treesitter', lazy = false, priority = 1000 },
   {
     'MetriC-DT/balance-theme.nvim', -- has a light theme for outdoor sessions
