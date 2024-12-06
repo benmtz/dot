@@ -16,7 +16,7 @@ local ensure_installed = {
   "pyright",
   "html",
   "jsonls",
-  "tsserver",
+  "ts_ls",
   "yamlls",
   "terraformls",
   "tflint"
@@ -70,7 +70,7 @@ require("lspconfig")["gopls"].setup {
 require("lspconfig")["rust_analyzer"].setup { on_attach = on_attach }
 require("lspconfig")["tflint"].setup { on_attach = on_attach }
 require("lspconfig")["terraformls"].setup { on_attach = on_attach }
-require("lspconfig")["tsserver"].setup { on_attach = on_attach }
+require("lspconfig")["ts_ls"].setup { on_attach = on_attach }
 require("lspconfig")["jsonls"].setup { on_attach = on_attach }
 require("lspconfig")["html"].setup { on_attach = on_attach }
 require("lspconfig")["eslint"].setup { on_attach = on_attach }
