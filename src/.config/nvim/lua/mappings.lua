@@ -75,102 +75,66 @@ end
 
 
 local wk = require("which-key")
-wk.register({
-  ["<leader>"] = {
-    t = {
-      name = "Tabs",
-      e = { "<cmd>tabe<cr>", "New tab" },
-      n = { "<cmd>tabn<cr>", "Next tab" },
-      p = { "<cmd>tabp<cr>", "Previous tab" },
-    },
-    i = {
-      name = "Issues",
-      s = { '<cmd>lua vim.diagnostic.open_float()<CR>', 'Show issues' },
-      p = { '<cmd>lua vim.diagnostic.goto_prev()<CR>', 'Previous issue' },
-      n = { '<cmd>lua vim.diagnostic.goto_next()<CR>', 'Next issue' },
-      -- l = { '<cmd>lua vim.diagnostic.setloclist()<CR>', 'List issues' },
-      -- nnoremap <leader>xx <cmd>TroubleToggle<cr>
-      w = {'<cmd>TroubleToggle workspace_diagnostics<cr>', 'Toggle trouble workspace' },
-      d = {'<cmd>TroubleToggle document_diagnostics<cr>', 'Toggle trouble focument'},
-      q = {'<cmd>TroubleToggle quickfix<cr>', 'Toggle trouble quickfix'},
-      l = {'<cmd>TroubleToggle loclist<cr>','Toggle trouble loclist' },
-      -- R = {'<cmd>TroubleToggle lsp_references<cr>'}
-    },
-    z = {
-      name = "Terminal",
-      x = { '<cmd>15sp term://fish<cr>', 'Term in split' },
-      v = { '<cmd>vsp term://fish<cr>', 'Term in vsplit' },
-      e = { '<cmd>e term://fish<cr>', 'Term in buffer' },
-      t = { '<cmd>tabe term://fish<cr>', 'Term in tab' }
-    },
-    g = {
-      g = { '<cmd>lua gg()<cr>', 'Git' },
-      -- g = { '<cmd>FloatermNew --width=0.98 --height=0.98 lazygit<cr>', 'lazygit' },
-    },
-    w = {
-      name = "External Apps",
-      e = { '<cmd>FloatermNew --width=0.98 --height=0.98 yazi<cr>', 'yazi' },
-      k = { '<cmd>FloatermNew --width=0.98 --height=0.98 k9s<cr>', 'k9s' },
-      t = { '<cmd>FloatermNew taskwarrior-tui<cr>', 'taskwarrior' }
-    },
-    c = {
-      name = "Code",
-      g = {
-        name = "Go to...",
-        D = { '<cmd>lua vim.lsp.buf.declaration()<CR>', 'declaration' },
-        d = { '<cmd>lua vim.lsp.buf.definition()<CR>', 'definition' },
-        i = { '<cmd>lua vim.lsp.buf.implementation()<CR>', 'implementation' },
-        r = { '<cmd>lua vim.lsp.buf.references()<CR>', 'References' },
-
-      },
-      h = {
-        name = "Code help and suggestions",
-        o = { '<cmd>lua vim.lsp.buf.hover()<CR>', 'Hover code' },
-        e = { '<cmd>lua vim.lsp.buf.signature_help()<CR>', 'Signature' },
-      },
-      w = {
-        name = "Workspace",
-        a = { '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', 'Add folder to workspace' },
-        r = { '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', 'Remove folder from workspace' },
-        l = { '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', 'List folder workspaces' },
-      },
-      -- vim.api.nvim_buf_set_keymap(bufnr, 'n', k.type_definition, '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-      rn = { '<cmd>lua vim.lsp.buf.rename()<CR>', 'Rename symbol' },
-      a = { '<cmd>lua vim.lsp.buf.code_action()<CR>', 'Actions' },
-      o = { '<cmd>copen<cr>', 'Open quickfixes' },
-      c = { '<cmd>cclose<cr>', 'Close quickfixes' },
-      f = {
-        name = "Format",
-        m = {'<cmd>lua vim.lsp.buf.formatting()<CR>', 'Format' }
-      },
-      l = {
-        name = "Lint",
-        j = { '<cmd>lua require("jenkinsfile_linter").validate()<CR>', 'Validate Jenkinsfile' }
-      }
-    },
-    f = {
-      name = "Find",
-      f = { '<cmd>lua require("fzf-lua").files()<cr>', 'Find files' },
-      m = { '<cmd>lua require("fzf-lua").marks()<cr>', 'Find mark' },
-      h = { '<cmd>lua require("fzf-lua").git_bcommits()<cr>', 'Buffer history' },
-      g = { '<cmd>lua require("fzf-lua").live_grep_native()<cr>', 'Find text (grep)' },
-      b = { '<cmd>lua require("fzf-lua").buffers({sort_lastused = true})<cr>', 'Find in buffers' },
-      p = { '<cmd>lua require("fzf-lua").colorschemes()<cr>', 'Fuzzy colorschemes' },
-      j = { '<cmd>lua require("fzf-lua").jumps()<cr>', 'Fuzzy jumps' },
-      t = { '<cmd>lua ftask()<cr>', 'Run task' }
-    },
-    y = {
-      name = "Yank",
-      p = { '<cmd>let @+=expand("%")<cr>', 'Yank path' },
-      g = { '<cmd>let @+=system("git-remote-url " . expand("%") . " -l " . line("."))<cr>', 'Yank git path' },
-      b = { [[ mzggVG"+y'z ]], 'Yank buffer' },
-    },
-    m = {
-      name = "Misc",
-      n = {
-        name = "Nvim",
-        r = { '<cmd>source $MYVIMRC<cr>', 'Reload nvim config' }
-      }
-    }
+wk.add(
+  {
+    { "<leader>c", group = "Code" },
+    { "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", desc = "Actions" },
+    { "<leader>cc", "<cmd>cclose<cr>", desc = "Close quickfixes" },
+    { "<leader>cf", group = "Format" },
+    { "<leader>cfm", "<cmd>lua vim.lsp.buf.formatting()<CR>", desc = "Format" },
+    { "<leader>cg", group = "Go to..." },
+    { "<leader>cgD", "<cmd>lua vim.lsp.buf.declaration()<CR>", desc = "declaration" },
+    { "<leader>cgd", "<cmd>lua vim.lsp.buf.definition()<CR>", desc = "definition" },
+    { "<leader>cgi", "<cmd>lua vim.lsp.buf.implementation()<CR>", desc = "implementation" },
+    { "<leader>cgr", "<cmd>lua vim.lsp.buf.references()<CR>", desc = "References" },
+    { "<leader>ch", group = "Code help and suggestions" },
+    { "<leader>che", "<cmd>lua vim.lsp.buf.signature_help()<CR>", desc = "Signature" },
+    { "<leader>cho", "<cmd>lua vim.lsp.buf.hover()<CR>", desc = "Hover code" },
+    { "<leader>cl", group = "Lint" },
+    { "<leader>clj", '<cmd>lua require("jenkinsfile_linter").validate()<CR>', desc = "Validate Jenkinsfile" },
+    { "<leader>co", "<cmd>copen<cr>", desc = "Open quickfixes" },
+    { "<leader>crn", "<cmd>lua vim.lsp.buf.rename()<CR>", desc = "Rename symbol" },
+    { "<leader>cw", group = "Workspace" },
+    { "<leader>cwa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", desc = "Add folder to workspace" },
+    { "<leader>cwl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", desc = "List folder workspaces" },
+    { "<leader>cwr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", desc = "Remove folder from workspace" },
+    { "<leader>f", group = "Find" },
+    { "<leader>fb", '<cmd>lua require("fzf-lua").buffers({sort_lastused = true})<cr>', desc = "Find in buffers" },
+    { "<leader>ff", '<cmd>lua require("fzf-lua").files()<cr>', desc = "Find files" },
+    { "<leader>fg", '<cmd>lua require("fzf-lua").live_grep_native()<cr>', desc = "Find text (grep)" },
+    { "<leader>fh", '<cmd>lua require("fzf-lua").git_bcommits()<cr>', desc = "Buffer history" },
+    { "<leader>fj", '<cmd>lua require("fzf-lua").jumps()<cr>', desc = "Fuzzy jumps" },
+    { "<leader>fm", '<cmd>lua require("fzf-lua").marks()<cr>', desc = "Find mark" },
+    { "<leader>fp", '<cmd>lua require("fzf-lua").colorschemes()<cr>', desc = "Fuzzy colorschemes" },
+    { "<leader>ft", "<cmd>lua ftask()<cr>", desc = "Run task" },
+    { "<leader>gg", "<cmd>lua gg()<cr>", desc = "Git" },
+    { "<leader>i", group = "Issues" },
+    { "<leader>id", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Toggle trouble focument" },
+    { "<leader>il", "<cmd>TroubleToggle loclist<cr>", desc = "Toggle trouble loclist" },
+    { "<leader>in", "<cmd>lua vim.diagnostic.goto_next()<CR>", desc = "Next issue" },
+    { "<leader>ip", "<cmd>lua vim.diagnostic.goto_prev()<CR>", desc = "Previous issue" },
+    { "<leader>iq", "<cmd>TroubleToggle quickfix<cr>", desc = "Toggle trouble quickfix" },
+    { "<leader>is", "<cmd>lua vim.diagnostic.open_float()<CR>", desc = "Show issues" },
+    { "<leader>iw", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Toggle trouble workspace" },
+    { "<leader>m", group = "Misc" },
+    { "<leader>mn", group = "Nvim" },
+    { "<leader>mnr", "<cmd>source $MYVIMRC<cr>", desc = "Reload nvim config" },
+    { "<leader>t", group = "Tabs" },
+    { "<leader>te", "<cmd>tabe<cr>", desc = "New tab" },
+    { "<leader>tn", "<cmd>tabn<cr>", desc = "Next tab" },
+    { "<leader>tp", "<cmd>tabp<cr>", desc = "Previous tab" },
+    { "<leader>w", group = "External Apps" },
+    { "<leader>we", "<cmd>FloatermNew --width=0.98 --height=0.98 yazi<cr>", desc = "yazi" },
+    { "<leader>wk", "<cmd>FloatermNew --width=0.98 --height=0.98 k9s<cr>", desc = "k9s" },
+    { "<leader>wt", "<cmd>FloatermNew taskwarrior-tui<cr>", desc = "taskwarrior" },
+    { "<leader>y", group = "Yank" },
+    { "<leader>yb", " mzggVG\"+y'z ", desc = "Yank buffer" },
+    { "<leader>yg", '<cmd>let @+=system("git-remote-url " . expand("%") . " -l " . line("."))<cr>', desc = "Yank git path" },
+    { "<leader>yp", '<cmd>let @+=expand("%")<cr>', desc = "Yank path" },
+    { "<leader>z", group = "Terminal" },
+    { "<leader>ze", "<cmd>e term://fish<cr>", desc = "Term in buffer" },
+    { "<leader>zt", "<cmd>tabe term://fish<cr>", desc = "Term in tab" },
+    { "<leader>zv", "<cmd>vsp term://fish<cr>", desc = "Term in vsplit" },
+    { "<leader>zx", "<cmd>15sp term://fish<cr>", desc = "Term in split" },
   }
-})
+)
