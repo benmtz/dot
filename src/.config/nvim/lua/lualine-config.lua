@@ -136,7 +136,9 @@ ins_left {
 }
 
 ins_left {
-  'filename',
+  function()
+    return string.gsub(vim.api.nvim_buf_get_name(0), vim.loop.cwd(), '')
+  end,
   cond = conditions.buffer_not_empty,
   color = { fg = colors.magenta, gui = 'bold' },
 }

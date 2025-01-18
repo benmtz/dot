@@ -1,4 +1,6 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+--local prompts = require(vim.fn.stdpath("config") .. "/lua/prompts.lua")
+
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   vim.fn.system({
     "git",
@@ -51,33 +53,68 @@ require("lazy").setup({
   },
   {
     "CopilotC-Nvim/CopilotChat.nvim",
-    branch = "canary",
+    branch = "main",
     dependencies = {
-      { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
-      { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+      { "zbirenbaum/copilot.lua" },
+      { "nvim-lua/plenary.nvim" },
     },
     build = "make tiktoken", -- Only on MacOS or Linux
-    opts = {
-      debug = false, -- Enable debugging
-      -- See Configuration section for rest
-    }
+    opts = function()
+      -- local prompts = require("prompts")
+      return {
+        debug = false, -- Enable debugging
+        -- See Configuration section for rest
+        prompts = {
+          GitStage = {
+            prompt = '> #git:staged\n\nSuggest optimizations about the code staged',
+            system_prompt = 'You are a rockstar developer, specializing in cmake jenkins c++ and typescript. You do not hallucinate, and are very good at explaining context and giving sources. You know that sometimes it is ok to say that something is good enough.',
+            description = 'Optimize my git staging area'
+          },
+          EdgeCase = {
+            prompt = 'Find edge cases in the current buffer',
+            system_prompt = 'You are a rockstar developer, specializing in cmake jenkins c++ and typescript. You do not hallucinate, and are very good at explaining context and giving sources, you are concise. You know that sometimes it is ok to say that something is good enough.',
+            description = 'Find edge cases in the current buffer'
+          },
+          CodeSmells = {
+            prompt = 'Find code smells cases in the current buffer',
+            system_prompt = 'You are a rockstar developer, specializing in cmake jenkins c++ and typescript. You do not hallucinate, and are very good at explaining context and giving sources, you are concise. You know that sometimes it is ok to say that something is good enough.',
+            description = 'Find code smells in the current buffer'
+          }
+
+        }
+      }
+    end
+
   },
 	{ 'nvim-treesitter/nvim-treesitter', lazy = false, priority = 1000 },
   {
     'MetriC-DT/balance-theme.nvim', -- has a light theme for outdoor sessions
     lazy = false,
   },
-  {
-    'sainnhe/gruvbox-material',
-    lazy = false,
-    priority = 1000,
+  -- {
+  --   "folke/tokyonight.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   opts = {},
+  -- },
+  { 
+    "rose-pine/neovim",
+    name = "rose-pine",
     config = function()
-      vim.g.gruvbox_material_transparent_background = 2
-      vim.g.gruvbox_material_background = 'hard'
-      vim.g.gruvbox_material_enable_italic = true
-      vim.cmd.colorscheme('gruvbox-material')
+        vim.cmd.colorscheme('rose-pine')
     end
-  },
+},
+  --{
+  --  'sainnhe/gruvbox-material',
+  --  lazy = false,
+  --  priority = 1000,
+  --  config = function()
+  --    vim.g.gruvbox_material_transparent_background = 2
+  --    vim.g.gruvbox_material_background = 'hard'
+  --    vim.g.gruvbox_material_enable_italic = true
+  --    vim.cmd.colorscheme('gruvbox-material')
+  --  end
+  --},
 	{ 'norcalli/nvim-colorizer.lua' },
 	{ 'folke/which-key.nvim', lazy = true },
   { 'sheerun/vim-polyglot' },

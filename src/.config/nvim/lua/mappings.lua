@@ -136,5 +136,11 @@ wk.add(
     { "<leader>zt", "<cmd>tabe term://fish<cr>", desc = "Term in tab" },
     { "<leader>zv", "<cmd>vsp term://fish<cr>", desc = "Term in vsplit" },
     { "<leader>zx", "<cmd>15sp term://fish<cr>", desc = "Term in split" },
+    { "<leader>a", group = "Assistant" },
+    { "<leader>at", "<cmd>CopilotChatToggle<cr>", desc = "Toggle chat" },
+    { "<leader>am", "<cmd>CopilotChatModels<cr>", desc = "Change model" },
+    { "<leader>ag", "<cmd>CopilotChatGitStage<cr>", desc = "Optimize staged" },
+    { "<leader>ae", "<cmd>CopilotChatEdgeCase<cr>", desc = "Find edge cases" },
+    { "<leader>as", "<cmd>CopilotChatCodeSmells<cr>", desc = "Find code smells" },
   }
 )
