@@ -38,7 +38,7 @@ if test $(uname -s) = "Darwin"
   set -x OBJC_DISABLE_INITIALIZE_FORK_SAFETY YES
   set PATH $ANDROID_HOME/emulator $PATH
   set PATH $ANDROID_HOME/platform-tools $PATH
-  set -x DOCKER_HOST unix://$HOME/.colima/docker.sock
+  # set -x DOCKER_HOST unix://$HOME/.colima/docker.sock
 end
 
 if not is-jetbrains-terminal;
