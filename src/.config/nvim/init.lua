@@ -1,4 +1,5 @@
-require("plugins")
+require("config.lazy")
+
 require("mappings")
 require("global-settings")
 require("telescope-config")
@@ -28,9 +29,6 @@ require("ibl").setup {
 
 require'colorizer'.setup()
 
-
--- Theming
--- require("dashboard-setup")
 require("lualine-config")
 
 require("auto-session").setup {
