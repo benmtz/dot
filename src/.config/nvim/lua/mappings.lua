@@ -108,6 +108,7 @@ wk.add(
     { "<leader>fp", '<cmd>lua require("fzf-lua").colorschemes()<cr>', desc = "Fuzzy colorschemes" },
     { "<leader>ft", "<cmd>lua ftask()<cr>", desc = "Run task" },
     { "<leader>gg", "<cmd>lua gg()<cr>", desc = "Git" },
+    { "<leader>gb", "<cmd>GitBlameToggle<cr>", desc = "Git" },
     { "<leader>i", group = "Issues" },
     { "<leader>id", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Toggle trouble focument" },
     { "<leader>il", "<cmd>TroubleToggle loclist<cr>", desc = "Toggle trouble loclist" },
