@@ -24,7 +24,7 @@ return {
     opts = function()
 
       -- https://github.com/CopilotC-Nvim/CopilotChat.nvim/blob/main/lua/CopilotChat/prompts.lua
-      local base_prompts = require("CopilotChat.prompts")
+      local base_prompts = require("CopilotChat.config.prompts")
 
       return {
         debug = false, -- Enable debugging
