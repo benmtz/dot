@@ -52,6 +52,8 @@ map <leader>mo <Action>(ShowBookmarks)
 map <leader>mt <Action>(ToggleBookmark)
 map <leader>mb <Action>(ToggleLineBreakpoint)
 
+" a for ai
+map <leader>aa <Action>(AIAssistant.Editor.AskAiAssistantInEditor)
 
 " f for find
 unmap <leader>f

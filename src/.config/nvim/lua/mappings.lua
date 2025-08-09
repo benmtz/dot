@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+local actions = require("fzf-lua").actions
 
 vim.api.nvim_set_keymap('n', '<SPACE>', '<Nop>', { noremap = true })
 
@@ -52,9 +53,29 @@ ftask = function()
   )
 end
 
+
+ff_with_follow = function()
+  require("fzf-lua").fzf_exec(
+    "fd --no-ignore-vcs --hidden -L",
+      {
+        actions = {
+          ["enter"]       = actions.file_edit_or_qf,
+          ["ctrl-s"]      = actions.file_split,
+          ["ctrl-v"]      = actions.file_vsplit,
+          ["ctrl-t"]      = actions.file_tabedit,
+          ["alt-q"]       = actions.file_sel_to_qf,
+          ["alt-Q"]       = actions.file_sel_to_ll,
+          ["alt-i"]       = actions.toggle_ignore,
+          ["alt-h"]       = actions.toggle_hidden,
+          ["alt-f"]       = actions.toggle_follow,
+        }
+    }
+  )
+end
+
 gg = function()
   require'fzf-lua'.fzf_exec(
-    "fd --no-ignore-vcs -d 3 -H -g '**/.git'"
+    "fd --no-ignore-vcs -L -d 3 -H -g '**/.git'"
       .. " | sed -E 's/\\/?\\.git\\/?$//g'",
       {
         actions = {
@@ -100,8 +121,10 @@ wk.add(
     { "<leader>cwr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", desc = "Remove folder from workspace" },
     { "<leader>f", group = "Find" },
     { "<leader>fb", '<cmd>lua require("fzf-lua").buffers({sort_lastused = true})<cr>', desc = "Find in buffers" },
-    { "<leader>ff", '<cmd>lua require("fzf-lua").files()<cr>', desc = "Find files" },
-    { "<leader>fg", '<cmd>lua require("fzf-lua").live_grep_native()<cr>', desc = "Find text (grep)" },
+    { "<leader>fe", '<cmd>lua require("fzf-lua").files({ fd_opts = "-L" })<cr>', desc = "Find files" },
+    { "<leader>ffe", '<cmd>lua require("fzf-lua").files({ fd_opts = "--no-ignore-vcs --hidden -L" })<cr>', desc = "Find files" },
+    { "<leader>fg", '<cmd>lua require("fzf-lua").live_grep_native({ rg_opts = "--follow --fixed-strings --ignore-case --line-number --column" })<cr>', desc = "Find text (grep)" },
+    { "<leader>ffg", '<cmd>lua require("fzf-lua").live_grep_native({ rg_opts = "--follow --fixed-strings --no-ignore-vcs --ignore-case --line-number --column" })<cr>', desc = "Find text (grep)" },
     { "<leader>fh", '<cmd>lua require("fzf-lua").git_bcommits()<cr>', desc = "Buffer history" },
     { "<leader>fj", '<cmd>lua require("fzf-lua").jumps()<cr>', desc = "Fuzzy jumps" },
     { "<leader>fm", '<cmd>lua require("fzf-lua").marks()<cr>', desc = "Find mark" },
@@ -125,12 +148,13 @@ wk.add(
     { "<leader>tn", "<cmd>tabn<cr>", desc = "Next tab" },
     { "<leader>tp", "<cmd>tabp<cr>", desc = "Previous tab" },
     { "<leader>w", group = "External Apps" },
+    { "<leader>ws", "<cmd>FloatermNew --width=0.98 --height=0.98 prs<cr>", desc = "prs" },
     { "<leader>we", "<cmd>FloatermNew --width=0.98 --height=0.98 yazi<cr>", desc = "yazi" },
     { "<leader>wk", "<cmd>FloatermNew --width=0.98 --height=0.98 k9s<cr>", desc = "k9s" },
     { "<leader>wt", "<cmd>FloatermNew taskwarrior-tui<cr>", desc = "taskwarrior" },
     { "<leader>y", group = "Yank" },
     { "<leader>yb", " mzggVG\"+y'z ", desc = "Yank buffer" },
-    { "<leader>yg", '<cmd>let @+=system("git-remote-url " . expand("%") . " -l " . line("."))<cr>', desc = "Yank git path" },
+    { "<leader>yg", '<cmd>let @+=system("git-remote-url --path " . expand("%") . " -l " . line("."))<cr>', desc = "Yank git path" },
     { "<leader>yp", '<cmd>let @+=expand("%")<cr>', desc = "Yank path" },
     { "<leader>z", group = "Terminal" },
     { "<leader>ze", "<cmd>e term://fish<cr>", desc = "Term in buffer" },
@@ -138,9 +162,8 @@ wk.add(
     { "<leader>zv", "<cmd>vsp term://fish<cr>", desc = "Term in vsplit" },
     { "<leader>zx", "<cmd>15sp term://fish<cr>", desc = "Term in split" },
     { "<leader>a", group = "Assistant" },
-    { "<leader>at", "<cmd>CopilotChatToggle<cr>", desc = "Toggle chat" },
-    { "<leader>am", "<cmd>CopilotChatModels<cr>", desc = "Change model" },
-    { "<leader>ag", "<cmd>CopilotChatGitStage<cr>", desc = "Optimize staged" },
+    { "<leader>at", "<cmd>CodeCompanionChat<cr>", desc = "Toggle chat" },
+    { "<leader>ag", "<cmd>CodeCompanion /commit<cr>", desc = "Optimize staged" },
     { "<leader>ae", "<cmd>CopilotChatEdgeCase<cr>", desc = "Find edge cases" },
     { "<leader>as", "<cmd>CopilotChatCodeSmells<cr>", desc = "Find code smells" },
   }

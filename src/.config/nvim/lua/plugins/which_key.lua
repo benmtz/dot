@@ -1,4 +1,4 @@
 return {
-  { 'voldikss/vim-floaterm' },
+  { 'voldikss/vim-floaterm', lazy = true },
 	{ 'folke/which-key.nvim', lazy = true }
 }
