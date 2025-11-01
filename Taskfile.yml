@@ -1,9 +1,8 @@
 # https://taskfile.dev
 
-version: '3'
+version: "3"
 
 tasks:
-
   setup:
     sources:
       - requirements.txt
@@ -15,36 +14,38 @@ tasks:
         python3 -m pip freeze > requirements.lock.txt
 
   link:
-    deps: [ setup ]
+    deps: [setup]
     cmds:
       - python3 dotfiles.py link --force
 
   build:
-    deps: [ setup ]
+    deps: [setup]
     cmds:
       - python3 dotfiles.py compile --force
 
   install-fonts:
-    deps: [ setup ]
+    deps: [setup]
     cmds:
       - python3 dotfiles.py install-font
 
   extract-code-settings:
-    deps: [ setup ]
+    deps: [setup]
     cmds:
       - python3 dotfiles.py extract ~/.config/code/settings.json
 
   extract-code-keybindings:
-    deps: [ setup ]
+    deps: [setup]
     cmds:
       - python3 dotfiles.py extract ~/.config/code/keybindings.json
 
   full:
-    deps: [ setup ]
+    deps: [setup]
+    env:
+      PATH: venv/bin:{{env "PATH"}}
+      VIRTUAL_ENV: venv 
     cmds:
       - |
         rm -rf ~/.config/fish/greeters
         rm -rf dist
         python3 dotfiles.py compile --force
         python3 dotfiles.py link --force
-

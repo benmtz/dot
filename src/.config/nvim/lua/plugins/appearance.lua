@@ -1,6 +1,5 @@
 return {
   { 'sheerun/vim-polyglot' },
-  { "lukas-reineke/indent-blankline.nvim" },
   {
     'MetriC-DT/balance-theme.nvim', -- has a light theme for outdoor sessions
     lazy = false,
@@ -14,11 +13,21 @@ return {
       end,
       set_light_mode = function()
           vim.api.nvim_set_option_value("background", "light", {})
-          vim.cmd("colorscheme monokai-nightasty") -- Use vim.cmd to set colorscheme
+          vim.cmd("colorscheme cyberdream") -- Use vim.cmd to set colorscheme
       end,
       update_interval = 3000,
       fallback = "dark",
     }
+  },
+  {
+    "scottmckendry/cyberdream.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("cyberdream").setup({
+          borderless_pickers = false,
+      })
+    end
   },
   {
     "polirritmico/monokai-nightasty.nvim",

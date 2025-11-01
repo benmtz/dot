@@ -53,6 +53,12 @@ ftask = function()
   )
 end
 
+get_listed_bufs = function()
+    return vim.tbl_filter(function(bufnr)
+       return vim.api.nvim_buf_get_option(bufnr, "buflisted")
+    end, vim.api.nvim_list_bufs())
+end
+
 
 ff_with_follow = function()
   require("fzf-lua").fzf_exec(
@@ -73,25 +79,52 @@ ff_with_follow = function()
   )
 end
 
+
+-- Store persistent buffer references
+local persistent_buffers = {}
+
+-- Generic function to open or switch to a persistent terminal buffer
+open_persistent_buffer = function(buffer_name, command)
+  -- Check if buffer exists and is valid
+  if persistent_buffers[buffer_name] and vim.api.nvim_buf_is_valid(persistent_buffers[buffer_name]) then
+    -- Buffer exists, just switch to it
+    vim.cmd("buffer " .. persistent_buffers[buffer_name])
+  else
+    -- Create new buffer
+    vim.cmd("enew")
+    local bufnr = vim.api.nvim_get_current_buf()
+    persistent_buffers[buffer_name] = bufnr
+    
+    -- Set buffer name for easy identification
+    vim.api.nvim_buf_set_name(bufnr, "term://" .. buffer_name)
+    
+    -- Start command in the terminal buffer
+    vim.fn.termopen(command, {
+      on_exit = function()
+        -- Clean up the buffer reference when process exits
+        persistent_buffers[buffer_name] = nil
+      end
+    })
+    
+    -- Enter terminal mode automatically
+    vim.cmd("startinsert")
+  end
+end
+
 gg = function()
-  require'fzf-lua'.fzf_exec(
-    "fd --no-ignore-vcs -L -d 3 -H -g '**/.git'"
-      .. " | sed -E 's/\\/?\\.git\\/?$//g'",
-      {
-        actions = {
-          ['default'] = function(selected)
-            local repo = selected[1]
-            if (repo == nil or repo == '') then
-              vim.cmd("FloatermNew --width=0.98 --height=0.98 lazygit")
-              vim.api.nvim_feedkeys("a", "n", true)
-            else
-              vim.cmd("FloatermNew --width=0.98 --height=0.98 lazygit -p " .. selected[1])
-              vim.api.nvim_feedkeys("a", "n", true)
-            end
-          end,
-        }
-      }
-  )
+  open_persistent_buffer("lazygit", "zsh -l -c 'gg'")
+end
+
+local copilot_panel_state = {
+  is_initialized = false,
+}
+
+open_htop = function()
+  open_persistent_buffer("htop", "htop")
+end
+
+open_copilot = function()
+  open_persistent_buffer("copilot_cli", "zsh -l -c 'copilot_cli'")
 end
 
 
@@ -151,16 +184,18 @@ wk.add(
     { "<leader>ws", "<cmd>FloatermNew --width=0.98 --height=0.98 prs<cr>", desc = "prs" },
     { "<leader>we", "<cmd>FloatermNew --width=0.98 --height=0.98 yazi<cr>", desc = "yazi" },
     { "<leader>wk", "<cmd>FloatermNew --width=0.98 --height=0.98 k9s<cr>", desc = "k9s" },
+    { "<leader>wh", "<cmd>lua open_htop()<cr>", desc = "htop" },
     { "<leader>wt", "<cmd>FloatermNew taskwarrior-tui<cr>", desc = "taskwarrior" },
+    { "<leader>pp", "<cmd>lua open_copilot()<cr>", desc = "copilot-cli" },
     { "<leader>y", group = "Yank" },
     { "<leader>yb", " mzggVG\"+y'z ", desc = "Yank buffer" },
     { "<leader>yg", '<cmd>let @+=system("git-remote-url --path " . expand("%") . " -l " . line("."))<cr>', desc = "Yank git path" },
     { "<leader>yp", '<cmd>let @+=expand("%")<cr>', desc = "Yank path" },
     { "<leader>z", group = "Terminal" },
-    { "<leader>ze", "<cmd>e term://fish<cr>", desc = "Term in buffer" },
-    { "<leader>zt", "<cmd>tabe term://fish<cr>", desc = "Term in tab" },
-    { "<leader>zv", "<cmd>vsp term://fish<cr>", desc = "Term in vsplit" },
-    { "<leader>zx", "<cmd>15sp term://fish<cr>", desc = "Term in split" },
+    { "<leader>ze", "<cmd>e term://zsh<cr>", desc = "Term in buffer" },
+    { "<leader>zt", "<cmd>tabe term://zsh<cr>", desc = "Term in tab" },
+    { "<leader>zv", "<cmd>vsp term://zsh<cr>", desc = "Term in vsplit" },
+    { "<leader>zx", "<cmd>15sp term://zsh<cr>", desc = "Term in split" },
     { "<leader>a", group = "Assistant" },
     { "<leader>at", "<cmd>CodeCompanionChat<cr>", desc = "Toggle chat" },
     { "<leader>ag", "<cmd>CodeCompanion /commit<cr>", desc = "Optimize staged" },
