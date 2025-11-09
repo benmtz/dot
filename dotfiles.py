@@ -1,5 +1,3 @@
-from configparser import ConfigParser, ExtendedInterpolation
-import jinja2
 import argparse
 import os
 import shutil
@@ -15,8 +13,7 @@ from jinja2.filters import FILTERS
 
 from utility.current_os import get_current_os
 from utility.dict_util import flatten_dict_with_dots
-
-from utility.files import flat_walk, ensure_dir
+from utility.files import ensure_dir, flat_walk
 from utility.logger import log
 from utility.template_renderer import TemplateRenderer
 
@@ -66,6 +63,34 @@ def link_config(src: str, dest: str, options):
     log.error(f"""Cannot link to {dest} because this \
 file exists, use the --force option if you are sure""")
 
+    
+def copy_config(src: str, dest: str, options):
+  """
+  link_config create a symlink from dest to src and handle edge cases, unlinking
+  or removing the files found in dest if needed
+  """
+  try:
+    log.info(f"Linking {dest} to {src}")
+    shutil.copy(src, dest)
+  except (FileExistsError, FileNotFoundError):
+    if options.force:
+      if os.path.islink(dest):
+        log.debug(f"unlink {dest}")
+        os.unlink(dest)
+      elif os.path.isdir(dest):
+        log.debug(f"rmdir {dest}")
+        shutil.rmtree(dest)
+      elif os.path.isfile(dest):
+        log.debug(f"rm {dest}")
+        os.remove(dest)
+      else:
+        log.debug(f"nothing to clean")
+      shutil.copy(src, dest)
+      return
+    log.debug(options)
+    log.error(f"""Cannot link to {dest} because this \
+file exists, use the --force option if you are sure""")
+
 
 def link_configs(options):
   """
@@ -80,7 +105,7 @@ def link_configs(options):
       ensure_dir(target_dir)
   for link_to in files:
       link_from = link_to.replace(config_dir, os.getenv("HOME"))
-      link_config(link_to, link_from, options)
+      copy_config(link_to, link_from, options)
 
 
 def download_url(url: str, target_path: str):
