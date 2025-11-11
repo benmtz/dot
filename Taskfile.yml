@@ -1,9 +1,10 @@
-# https://taskfile.dev
-
 version: "3"
 
 tasks:
   setup:
+    env:
+      PATH: venv/bin:{{env "PATH"}}
+      VIRTUAL_ENV: venv 
     sources:
       - requirements.txt
     generates:
