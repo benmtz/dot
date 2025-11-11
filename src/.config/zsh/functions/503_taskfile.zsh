@@ -1,6 +1,12 @@
 # https://taskfile.dev/docs/experiments/env-precedence
 export TASK_X_ENV_PRECEDENCE=1
 
+# On arch task is named go-task,
+# align it with other systems
+if [[ `command -v go-task` ]]; then
+  alias task="go-task"
+fi
+
 registr add ftask "Fuzzy find and run task commands with optional looping" "ftask -l"
 function ftask() {
   local loop_flag=0
