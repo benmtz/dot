@@ -112,7 +112,7 @@ open_persistent_buffer = function(buffer_name, command)
 end
 
 gg = function()
-  open_persistent_buffer("lazygit", "zsh -l -c 'gg'")
+  open_persistent_buffer("lazygit", "zsh -l -c 'lazygit'")
 end
 
 local copilot_panel_state = {
