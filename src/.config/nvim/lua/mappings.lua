@@ -83,6 +83,8 @@ end
 -- Store persistent buffer references
 local persistent_buffers = {}
 
+
+
 -- Generic function to open or switch to a persistent terminal buffer
 open_persistent_buffer = function(buffer_name, command)
   -- Check if buffer exists and is valid
@@ -158,6 +160,7 @@ wk.add(
     { "<leader>ffe", '<cmd>lua require("fzf-lua").files({ fd_opts = "--no-ignore-vcs --hidden -L" })<cr>', desc = "Find files" },
     { "<leader>fg", '<cmd>lua require("fzf-lua").live_grep_native({ rg_opts = "--follow --fixed-strings --ignore-case --line-number --column" })<cr>', desc = "Find text (grep)" },
     { "<leader>ffg", '<cmd>lua require("fzf-lua").live_grep_native({ rg_opts = "--follow --fixed-strings --no-ignore-vcs --ignore-case --line-number --column" })<cr>', desc = "Find text (grep)" },
+    { "<leader>ffc", '<cmd>lua require("fzf-lua").live_grep_native({ rg_opts = "--follow --fixed-strings --no-ignore-vcs --ignore-case --line-number --column \"CMake\"" })<cr>', desc = "Find text (grep)" },
     { "<leader>fh", '<cmd>lua require("fzf-lua").git_bcommits()<cr>', desc = "Buffer history" },
     { "<leader>fj", '<cmd>lua require("fzf-lua").jumps()<cr>', desc = "Fuzzy jumps" },
     { "<leader>fm", '<cmd>lua require("fzf-lua").marks()<cr>', desc = "Find mark" },
@@ -180,6 +183,8 @@ wk.add(
     { "<leader>te", "<cmd>tabe<cr>", desc = "New tab" },
     { "<leader>tn", "<cmd>tabn<cr>", desc = "Next tab" },
     { "<leader>tp", "<cmd>tabp<cr>", desc = "Previous tab" },
+    { "<leader>v", group = "VSCode" },
+    { "<leader>vv", "<cmd>lua vim.fn.system { 'code', vim.loop.cwd() }<cr>", desc = "start VSCode" },
     { "<leader>w", group = "External Apps" },
     { "<leader>ws", "<cmd>FloatermNew --width=0.98 --height=0.98 prs<cr>", desc = "prs" },
     { "<leader>we", "<cmd>FloatermNew --width=0.98 --height=0.98 yazi<cr>", desc = "yazi" },
@@ -196,6 +201,12 @@ wk.add(
     { "<leader>zt", "<cmd>tabe term://zsh<cr>", desc = "Term in tab" },
     { "<leader>zv", "<cmd>vsp term://zsh<cr>", desc = "Term in vsplit" },
     { "<leader>zx", "<cmd>15sp term://zsh<cr>", desc = "Term in split" },
+    { "<leader>d", group = "Doc" },
+    { "<leader>s", group = "Special inserts" },
+    { "<leader>sd", "<cmd>lua vim.fn.append(vim.fn.line('.'), {'## ' .. os.date('%Y-%m-%d'), '', ''})<CR>jj", desc = "Insert date as h2 title" },
+    { "<leader>sc", "<cmd>let save_pos = getpos('.')<CR><cmd>s/- \\[ \\]/- [x]/<CR>:nohlsearch<CR><cmd>call setpos('.', save_pos)<CR>", desc = "Check box" },
+    { "<leader>se", "<cmd>let save_pos = getpos('.')<CR><cmd>s/- \\[x\\]/- [ ]/<CR>:nohlsearch<CR><cmd>call setpos('.', save_pos)<CR>", desc = "Uncheck box" },
+    { "<leader>sn", "o- [ ] ", desc = "New checkable item" },
     { "<leader>a", group = "Assistant" },
     { "<leader>at", "<cmd>CodeCompanionChat<cr>", desc = "Toggle chat" },
     { "<leader>ag", "<cmd>CodeCompanion /commit<cr>", desc = "Optimize staged" },

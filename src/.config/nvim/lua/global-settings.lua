@@ -19,5 +19,5 @@ set.ff                  = "unix"    -- Will make wsl experience less painfull
 vim.g.floaterm_opener   = "edit"    -- In order to open the quickfix when asyncrun is launched
 
 set.list								= true
-set.listchars						= "tab:›\\ ,eol:¬,trail:⋅"
+set.listchars						= "tab:›\\ ,trail:⋅"
 

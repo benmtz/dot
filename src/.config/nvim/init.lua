@@ -10,7 +10,6 @@ require("telescope-config")
 require("trouble").setup { }
 require("autocompletion")
 require("language-servers")
-require("ai-assistant")
 
 require'colorizer'.setup()
 

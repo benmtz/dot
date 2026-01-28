@@ -34,8 +34,7 @@ require("mason-lspconfig").setup({
 })
 
 
-require("lspconfig")["yamlls"].setup {
-  on_attach = on_attach,
+vim.lsp.config("yamlls", {
   settings = {
     yaml = {
       schemas = {
@@ -47,38 +46,22 @@ require("lspconfig")["yamlls"].setup {
       }
     }
   }
-}
+})
 
-
-
-require("lspconfig")["gopls"].setup {
-  on_attach = on_attach,
-  cmd = { "gopls" },
-  settings = {
-    gopls = {
-      experimentalPostfixCompletions = true,
-      analyses = {
-        unusedparams = true,
-        shadow = true,
-      },
-    },
-    staticcheck = true,
-  }
-}
-
-
-require("lspconfig")["rust_analyzer"].setup { on_attach = on_attach }
-require("lspconfig")["tflint"].setup { on_attach = on_attach }
-require("lspconfig")["terraformls"].setup { on_attach = on_attach }
-require("lspconfig")["ts_ls"].setup { on_attach = on_attach }
-require("lspconfig")["jsonls"].setup { on_attach = on_attach }
-require("lspconfig")["html"].setup { on_attach = on_attach }
-require("lspconfig")["eslint"].setup { on_attach = on_attach }
-require("lspconfig")["dockerls"].setup { on_attach = on_attach }
-require("lspconfig")["cmake"].setup { on_attach = on_attach }
-require("lspconfig")["pyright"].setup { on_attach = on_attach }
-require("lspconfig")["bashls"].setup { on_attach = on_attach }
-require('lspconfig')["ansiblels"].setup { on_attach = on_attach }
+vim.lsp.enable("ansiblels")
+vim.lsp.enable("bashls")
+vim.lsp.enable("clangd")
+vim.lsp.enable("cmake")
+vim.lsp.enable("dockerls")
+vim.lsp.enable("eslint")
+vim.lsp.enable("gopls")
+vim.lsp.enable("html")
+vim.lsp.enable("jsonls")
+vim.lsp.enable("pyright")
+vim.lsp.enable("rust_analyzer")
+vim.lsp.enable("terraformls")
+vim.lsp.enable("ts_ls")
+vim.lsp.enable('tflint')
 
 -- vim.api.nvim_exec([[ autocmd BufRead */ansible/*.yaml ]], false)
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
@@ -92,32 +75,54 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   command = "set ft=yaml.ansible",
 })
 
-require'lspconfig'.clangd.setup{}
 
 
-local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, "lua/?.lua")
-table.insert(runtime_path, "lua/?/init.lua")
-require('lspconfig')["lua_ls"].setup {
-  on_attach = on_attach,
-  settings = {
-    Lua = {
+
+vim.lsp.config('lua_ls', {
+  on_init = function(client)
+    if client.workspace_folders then
+      local path = client.workspace_folders[1].name
+      if
+        path ~= vim.fn.stdpath('config')
+        and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
+      then
+        return
+      end
+    end
+
+    client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
       runtime = {
-        version = 'LuaJIT', -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        path = runtime_path, -- Setup your lua path
-      },
-      diagnostics = {
-        globals = {
-          'vim',
-          'use', -- Packer
+        -- Tell the language server which version of Lua you're using (most
+        -- likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+        -- Tell the language server how to find Lua modules same way as Neovim
+        -- (see `:h lua-module-load`)
+        path = {
+          'lua/?.lua',
+          'lua/?/init.lua',
         },
       },
+      -- Make the server aware of Neovim runtime files
       workspace = {
-        library = vim.api.nvim_get_runtime_file("", true), -- Make the server aware of Neovim runtime files
-      },
-      telemetry = {
-        enable = false,
-      },
-    }
+        checkThirdParty = false,
+        library = {
+          vim.env.VIMRUNTIME
+          -- Depending on the usage, you might want to add additional paths
+          -- here.
+          -- '${3rd}/luv/library'
+          -- '${3rd}/busted/library'
+        }
+        -- Or pull in all of 'runtimepath'.
+        -- NOTE: this is a lot slower and will cause issues when working on
+        -- your own configuration.
+        -- See https://github.com/neovim/nvim-lspconfig/issues/3189
+        -- library = {
+        --   vim.api.nvim_get_runtime_file('', true),
+        -- }
+      }
+    })
+  end,
+  settings = {
+    Lua = {}
   }
-}
+})
