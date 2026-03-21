@@ -19,6 +19,6 @@ task 3.34.1
 terraform 1.7.3
 trivy 0.69.3
 age 1.1.1
-sops 3.8.1
+sops 3.12.2
 ruby 4.0.2
 golang 1.26.1
