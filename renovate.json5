@@ -9,6 +9,7 @@
     },
     {
       matchManagers: ["asdf"],
+      matchUpdateTypes: ["major", "minor", "patch"],
       groupName: "ASDF",
       groupSlug: "asdf",
       enabled: true,
