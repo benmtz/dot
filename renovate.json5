@@ -1,0 +1,19 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: ["config:recommended"],
+  packageRules: [
+    // First disable every package managers
+    {
+      matchPackagePatterns: ["*"],
+      enabled: false,
+    },
+    {
+      matchManagers: ["asdf"],
+      groupName: "ASDF",
+      groupSlug: "asdf",
+      enabled: true,
+      minimumReleaseAge: "3 days",
+    },
+  ],
+  updatePinnedDependencies: true,
+}
