@@ -31,3 +31,4 @@ task 3.34.1
 terraform 1.14.8
 trivy 0.69.3
 uv 0.11.4
+zig 0.15.2
