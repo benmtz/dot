@@ -1,34 +1,35 @@
-act 0.2.87
-actionlint 1.7.12
-age 1.1.1
-awscli 2.34.24
-azure-cli 2.84.0
-difftastic 0.68.0
-direnv 2.37.1
-dotnet 10.0.201
-fd 9.0.0
-flux2 2.8.4
-fly 7.9.1
-fzf 0.37.0
-github-cli 2.89.0
-golang 1.26.1
-helm 4.1.3
-java zulu-17.46.19
-jq 1.8.1
-just 1.49.0
-k3d 5.4.7
-k9s 0.31.9
-kubectl 1.35.3
-lazygit 0.61.0
-neovim 0.12.1
-nodejs 24.14.1
-packer 1.15.1
-rclone 1.65.2
-ripgrep 14.1.0
-sops 3.12.2
-stern 1.23.0
-task 3.34.1
-terraform 1.14.8
-trivy 0.69.3
-uv 0.11.4
-zig 0.15.2
+act         0.2.87          # 77ede46c98f2dc36f1657c01b6cdfded40c07344 https://github.com/gr1m0h/asdf-act
+actionlint  1.7.12          # f8df3cfa05a1c875415b015808548bc8bac3b3a4 https://github.com/crazy-matt/asdf-actionlint
+age         1.1.1           # 17c3f2beebd3b8052f87d6b06409c07a06688996 https://github.com/threkk/asdf-age
+awscli      2.34.24         # 8489e240cead79912147087f9a3f0ea8ef69616e https://github.com/MetricMike/asdf-awscli
+azure-cli   2.84.0          # 4735c27817f5720f5df7099345fbe6b697059594 https://github.com/sourcesense/asdf-azure-cli
+difftastic  0.68.0          # 40e619c33efa43493867954d12417391a6f01561 https://github.com/volf52/asdf-difftastic
+direnv      2.37.1          # 0c76b1629a21293233bc4060fbea85e51d59edfb https://github.com/asdf-community/asdf-direnv
+dotnet      10.0.201        # b2aabccb28c73f56966147588268579a4564ab0e https://github.com/hensou/asdf-dotnet
+fd          10.4.2          # 17d56e06158d074df735224b2c267f0c53fe1afe https://gitlab.com/wt0f/asdf-fd
+flux2       2.8.4           # 771755e66120e95626ec798d26bcd473aca93795 https://github.com/tablexi/asdf-flux2
+fzf         0.71.0          # f8fcea1065bc0ba46ae9dc6be2dd8b44165ca7d1 https://github.com/kompiro/asdf-fzf
+github-cli  2.89.0          # e0605b704ef3829e10a9353b91b4c0bafa5e5582 https://github.com/bartlomiejdanek/asdf-github-cli
+golang      1.26.1          # a75b761963d8e6eda1a185c73476da8a75b8d300 https://github.com/asdf-community/asdf-golang
+helm        4.1.3           # 3a6dcbba19ca2a7c4bd7c43eb0e2a35736e6bce7 https://github.com/Antiarchitect/asdf-helm
+java        zulu-17.46.19   # 7ade6a410c178cb1655b68fe00bcfd3cdc819fd2 https://github.com/halcyon/asdf-java
+jq          1.8.1           # addae5118090263aa43ca9eb998b250b10c7d2dd https://github.com/lsanwick/asdf-jq
+just        1.49.0          # f8fc702c8521c9fd6ef32042fad0549387679ad0 https://github.com/olofvndrhr/asdf-just
+k3d         5.4.7           # 57d85e49f6aaff81e6e69ccb28aca49f2d4957a1 https://github.com/spencergilbert/asdf-k3d
+k9s         0.31.9          # fae8e8eb436defde23db6b536960e5ac11b826e6 https://github.com/looztra/asdf-k9s
+kubectl     1.35.3          # 95b2e20e381b10dba52b4f66bea94fa2ee083f43 https://github.com/asdf-community/asdf-kubectl
+lazygit     0.61.0          # b121c742f09ce8b8ac015a4e5611986754b33eee https://github.com/nklmilojevic/asdf-lazygit
+neovim      0.12.1          # cc53c899a5a830ef6dc2e74afb8ef3b8abf4e51a https://github.com/richin13/asdf-neovim 
+nodejs      24.14.1         # 779c8dc84b3bdab38c2c80622d315c2c3267f74b https://github.com/asdf-vm/asdf-nodejs
+packer      1.15.1          # d2557f97752761eecb50f63cd31b64c236d23089 https://github.com/asdf-community/asdf-hashicorp
+rclone      1.65.2          # 6a87924297fbafcc2d595c24ee200cb3ca477d46 https://github.com/johnlayton/asdf-rclone
+ripgrep     15.1.0          # 738a361f28c8070f200b3944da8c783f4cae304e https://gitlab.com/wt0f/asdf-ripgrep
+sops        3.12.2          # dbe0d1079423fd9afff380e7c86c5a8528cdc4fb https://github.com/feniix/asdf-sops
+stern       1.23.0          # e17efbae3f39f9231840adf7daf1a94a4c17f637 https://github.com/looztra/asdf-stern
+task        3.34.1          # 0831b3c2a6383b46a99c225aa8ae76db03cbbd1a https://github.com/particledecay/asdf-task
+terraform   1.14.8          # d2557f97752761eecb50f63cd31b64c236d23089 https://github.com/asdf-community/asdf-hashicorp
+trivy       0.69.3          # b5c7961a1d38b6a1b7291cd90af8ccc03b23e319 https://github.com/zufardhiyaulhaq/asdf-trivy
+uv          0.11.4          # 1d44a50b8006921f3cb55b4e4d14b1d90472b201 https://github.com/asdf-community/asdf-uv
+zig         0.15.2          # 61d19e7ca2d4bb7412271634936422690f59468b https://github.com/cheetah/asdf-zig
+rust        1.94.1          # 6b521d15017696e8faf1c6bc4be789656e538ea3 https://github.com/code-lever/asdf-rust
+tmux        3.6a            # cf489164e3bd28b1b13a0f405ca31b0220cf8394 https://github.com/benmtz/asdf-tmux-prebuilt
