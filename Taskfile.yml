@@ -17,17 +17,17 @@ tasks:
   link:
     deps: [setup]
     cmds:
-      - python3 dotfiles.py link --force
+      - ./venv/bin/python3 dotfiles.py link --force
 
   build:
     deps: [setup]
     cmds:
-      - python3 dotfiles.py compile --force
+      - ./venv/bin/python3 dotfiles.py compile --force
 
   install-fonts:
     deps: [setup]
     cmds:
-      - python3 dotfiles.py install-font
+      - ./venv/bin/python3 dotfiles.py install-font
 
   extract-code-settings:
     deps: [setup]
@@ -48,5 +48,5 @@ tasks:
       - |
         rm -rf ~/.config/fish/greeters
         rm -rf dist
-        python3 dotfiles.py compile --force
-        python3 dotfiles.py link --force
+        ./venv/bin/python3 dotfiles.py compile --force
+        ./venv/bin/python3 dotfiles.py link --force
