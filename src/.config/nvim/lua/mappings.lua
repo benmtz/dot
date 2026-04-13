@@ -114,7 +114,7 @@ open_persistent_buffer = function(buffer_name, command)
 end
 
 gg = function()
-  open_persistent_buffer("lazygit", "zsh -l -c 'lazygit'")
+  open_persistent_buffer("lazygit", "fish -l -c 'lazygit'")
 end
 
 local copilot_panel_state = {
@@ -126,7 +126,7 @@ open_htop = function()
 end
 
 open_copilot = function()
-  open_persistent_buffer("copilot_cli", "zsh -l -c 'copilot_cli'")
+  open_persistent_buffer("copilot_cli", "fish -l -c 'copilot_cli'")
 end
 
 
@@ -197,10 +197,10 @@ wk.add(
     { "<leader>yg", '<cmd>let @+=system("git-remote-url --path " . expand("%") . " -l " . line("."))<cr>', desc = "Yank git path" },
     { "<leader>yp", '<cmd>let @+=expand("%")<cr>', desc = "Yank path" },
     { "<leader>z", group = "Terminal" },
-    { "<leader>ze", "<cmd>e term://zsh<cr>", desc = "Term in buffer" },
-    { "<leader>zt", "<cmd>tabe term://zsh<cr>", desc = "Term in tab" },
-    { "<leader>zv", "<cmd>vsp term://zsh<cr>", desc = "Term in vsplit" },
-    { "<leader>zx", "<cmd>15sp term://zsh<cr>", desc = "Term in split" },
+    { "<leader>ze", "<cmd>e term://fish<cr>", desc = "Term in buffer" },
+    { "<leader>zt", "<cmd>tabe term://fish<cr>", desc = "Term in tab" },
+    { "<leader>zv", "<cmd>vsp term://fish<cr>", desc = "Term in vsplit" },
+    { "<leader>zx", "<cmd>15sp term://fish<cr>", desc = "Term in split" },
     { "<leader>d", group = "Doc" },
     { "<leader>s", group = "Special inserts" },
     { "<leader>sd", "<cmd>lua vim.fn.append(vim.fn.line('.'), {'## ' .. os.date('%Y-%m-%d'), '', ''})<CR>jj", desc = "Insert date as h2 title" },
