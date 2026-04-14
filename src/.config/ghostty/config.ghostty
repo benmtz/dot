@@ -1,0 +1,4 @@
+background = 000000
+foreground = ffffff
+command = TERM=xterm-256color /usr/bin/fish
+
