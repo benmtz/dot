@@ -33,3 +33,4 @@ uv          0.11.4          # 1d44a50b8006921f3cb55b4e4d14b1d90472b201 https://g
 zig         0.15.2          # 61d19e7ca2d4bb7412271634936422690f59468b https://github.com/cheetah/asdf-zig
 rust        1.94.1          # 6b521d15017696e8faf1c6bc4be789656e538ea3 https://github.com/code-lever/asdf-rust
 tmux        3.6a            # cf489164e3bd28b1b13a0f405ca31b0220cf8394 https://github.com/benmtz/asdf-tmux-prebuilt
+yazi        26.1.22         # 1ec45e496b8a5ddc169c2c3fffb1c8ec9868fac3 https://github.com/benmtz/asdf-yazi
