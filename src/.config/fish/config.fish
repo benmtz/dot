@@ -14,6 +14,8 @@ if status is-interactive
   alias ts3dCli="cd ~/Code/repos/local-tools; poetry run python src/main.py"
 
   alias ansibleLint="docker run -v $INFRA_MANAGEMENT_DIR/ansible:/sources quay.io/ansible/creator-ee:latest bash -c 'cd /sources; ansible-lint --offline -f md --force-color'"
+
+  direnv hook fish | source
 end
 
 fish_vi_key_bindings
@@ -31,14 +33,11 @@ if type -q go
   set PATH $GOPATH/bin $PATH
 end
 
-direnv hook fish | source
-
 if test $(uname -s) = "Darwin"
   set -x ANDROID_HOME $HOME/Library/Android/sdk
   set -x OBJC_DISABLE_INITIALIZE_FORK_SAFETY YES
   set PATH $ANDROID_HOME/emulator $PATH
   set PATH $ANDROID_HOME/platform-tools $PATH
-  # set -x DOCKER_HOST unix://$HOME/.colima/docker.sock
 end
 
 if not is-jetbrains-terminal;
