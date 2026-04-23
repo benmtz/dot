@@ -1,4 +1,3 @@
-background = 000000
-foreground = ffffff
-command = TERM=xterm-256color /usr/bin/fish
-
+theme = Symfonic
+clipboard-paste-protection = false
+shell-integration-features = ssh-env,ssh-terminfo
