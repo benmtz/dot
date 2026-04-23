@@ -1,0 +1,29 @@
+run '/opt/homebrew/opt/tpm/share/tpm/tpm'
+
+set -g @plugin 'Morantron/tmux-fingers'
+
+# Change prefix from C-b to C-Space
+unbind C-b
+set -g prefix C-Space
+bind C-Space send-prefix
+
+set-option -g aggressive-resize on
+set-option -g allow-rename off
+
+bind -n C-m choose-window
+bind -n C-_ run -b "#{@fingers-cli} start #{pane_id}"
+bind -n C-s source-file ~/.config/tmux/tmux.conf
+
+bind-key p kill-session
+
+set -g status-justify left
+set -g status-keys vi
+set -g status-position top
+set -g status-right '%Y-%m-%d %H:%M '
+
+set -g visual-activity on
+
+set -g status-style 'fg={{ glob.white_faint }}'
+set -g window-status-current-format '#[fg={{ glob.grey_intense }} bg={{ glob.green_faint }}] #I #W #F '
+set -g window-status-format '#[fg={{ glob.green_faint }}]#I #[fg={{ glob.green_faint }}]#W #F '
+
