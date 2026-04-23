@@ -10,9 +10,11 @@ bind C-Space send-prefix
 set-option -g aggressive-resize on
 set-option -g allow-rename off
 
-bind -n C-m choose-window
-bind -n C-_ run -b "#{@fingers-cli} start #{pane_id}"
-bind -n C-s source-file ~/.config/tmux/tmux.conf
+bind -n     C-m       choose-window
+bind -n     C-_       run -b "#{@fingers-cli} start #{pane_id}"
+bind -n     C-s       source-file ~/.config/tmux/tmux.conf
+bind -n     C-r       command-prompt -I "#W" { rename-window "%%" }
+# unbind      prefix p
 
 bind-key p kill-session
 

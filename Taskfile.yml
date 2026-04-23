@@ -50,3 +50,13 @@ tasks:
         rm -rf dist
         ./venv/bin/python3 dotfiles.py compile --force
         ./venv/bin/python3 dotfiles.py link --force
+
+  loop:
+    deps: [setup]
+    env:
+      PATH: venv/bin:{{env "PATH"}}
+      VIRTUAL_ENV: venv 
+    cmds:
+      - fd -H . src/ | entr -s 'task full'
+
+
