@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# docker-log-all.sh
+#
+# Goal:
+#   Stream logs from all running Docker containers in one terminal.
+#   Automatically attaches to new containers as they start.
+#
+# Usage:
+#   ./docker-log-all.sh
+#
+# Output:
+#   Each line is prefixed with the container name: [container-name] <log line>
+#
+# Requirements:
+#   - Docker CLI available in PATH
+#   - Docker daemon running
+#
+# Notes:
+#   - Shows last 10 lines of existing logs at startup (--tail=10)
+#   - Ctrl+C cleanly stops all background log processes
+
+set -euo pipefail
+
+trap 'kill 0' SIGINT SIGTERM EXIT
+
+attach() {
+  local id="$1"
+  local name
+  name=$(docker inspect --format '{{.Name}}' "$id" | sed 's|^/||')
+  docker logs -f --tail=10 "$id" 2>&1 | awk -v name="[$name]" '{ print name, $0; fflush() }' &
+}
+
+# Attach to all currently running containers
+while IFS= read -r id; do
+  [[ -z "$id" ]] && continue
+  attach "$id"
+done < <(docker ps -q)
+
+# Watch for new containers starting
+docker events --filter event=start --format '{{.Actor.ID}}' | while IFS= read -r id; do
+  attach "$id"
+done
+
