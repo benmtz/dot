@@ -19,7 +19,7 @@ k3d         5.4.7           # 57d85e49f6aaff81e6e69ccb28aca49f2d4957a1 https://g
 k9s         0.31.9          # fae8e8eb436defde23db6b536960e5ac11b826e6 https://github.com/looztra/asdf-k9s
 kubectl     1.35.3          # 95b2e20e381b10dba52b4f66bea94fa2ee083f43 https://github.com/asdf-community/asdf-kubectl
 lazygit     0.61.0          # b121c742f09ce8b8ac015a4e5611986754b33eee https://github.com/nklmilojevic/asdf-lazygit
-neovim      0.12.1          # cc53c899a5a830ef6dc2e74afb8ef3b8abf4e51a https://github.com/richin13/asdf-neovim 
+neovim      0.12.2          # cc53c899a5a830ef6dc2e74afb8ef3b8abf4e51a https://github.com/richin13/asdf-neovim 
 nodejs      24.14.1         # 779c8dc84b3bdab38c2c80622d315c2c3267f74b https://github.com/asdf-vm/asdf-nodejs
 packer      1.15.1          # d2557f97752761eecb50f63cd31b64c236d23089 https://github.com/asdf-community/asdf-hashicorp
 rclone      1.65.2          # 6a87924297fbafcc2d595c24ee200cb3ca477d46 https://github.com/johnlayton/asdf-rclone
