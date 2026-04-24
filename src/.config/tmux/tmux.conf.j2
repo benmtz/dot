@@ -14,9 +14,8 @@ bind -n     C-m       choose-window
 bind -n     C-_       run -b "#{@fingers-cli} start #{pane_id}"
 bind -n     C-s       source-file ~/.config/tmux/tmux.conf
 bind -n     C-r       command-prompt -I "#W" { rename-window "%%" }
-# unbind      prefix p
 
-bind-key p kill-session
+bind -n     C-k       kill-session
 
 set -g status-justify left
 set -g status-keys vi
