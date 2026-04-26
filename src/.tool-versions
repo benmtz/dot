@@ -6,7 +6,7 @@ azure-cli   2.84.0          # 4735c27817f5720f5df7099345fbe6b697059594 https://g
 difftastic  0.68.0          # 40e619c33efa43493867954d12417391a6f01561 https://github.com/volf52/asdf-difftastic
 direnv      2.37.1          # 0c76b1629a21293233bc4060fbea85e51d59edfb https://github.com/asdf-community/asdf-direnv
 dotnet      10.0.201        # b2aabccb28c73f56966147588268579a4564ab0e https://github.com/hensou/asdf-dotnet
-fd          10.4.2          # 17d56e06158d074df735224b2c267f0c53fe1afe https://gitlab.com/wt0f/asdf-fd
+fd          10.3.0          # 17d56e06158d074df735224b2c267f0c53fe1afe https://gitlab.com/wt0f/asdf-fd
 flux2       2.8.4           # 771755e66120e95626ec798d26bcd473aca93795 https://github.com/tablexi/asdf-flux2
 fzf         0.71.0          # f8fcea1065bc0ba46ae9dc6be2dd8b44165ca7d1 https://github.com/kompiro/asdf-fzf
 github-cli  2.89.0          # e0605b704ef3829e10a9353b91b4c0bafa5e5582 https://github.com/bartlomiejdanek/asdf-github-cli
