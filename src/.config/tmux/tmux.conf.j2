@@ -1,6 +1,6 @@
 run '/opt/homebrew/opt/tpm/share/tpm/tpm'
 
-set -g @plugin 'Morantron/tmux-fingers'
+run-shell ~/.tmux/plugins/tmux-fingers/tmux-fingers.tmux
 
 # Change prefix from C-b to C-Space
 unbind C-b
@@ -11,11 +11,13 @@ set-option -g aggressive-resize on
 set-option -g allow-rename off
 
 bind -n     C-m       choose-window
-bind -n     C-_       run -b "#{@fingers-cli} start #{pane_id}"
+bind -n     C-f       run -b "#{@fingers-cli} start #{pane_id}"
 bind -n     C-s       source-file ~/.config/tmux/tmux.conf
 bind -n     C-r       command-prompt -I "#W" { rename-window "%%" }
 
 bind -n     C-k       kill-session
+
+set -g @fingers-ctrl-action "xargs ~/.local/bin/open"
 
 set -g status-justify left
 set -g status-keys vi
