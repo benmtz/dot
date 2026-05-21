@@ -3,4 +3,5 @@ clipboard-paste-protection = false
 shell-integration-features = ssh-env,ssh-terminfo
 right-click-action = copy-or-paste
 copy-on-select = clipboard
+keybind = global:ctrl+`=toggle_quick_terminal
 

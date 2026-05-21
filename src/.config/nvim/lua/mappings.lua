@@ -1,7 +1,5 @@
-vim.g.mapleader = " "
+vim.g.mapleader = vim.api.nvim_replace_termcodes('<F12>', true, true, true)
 local actions = require("fzf-lua").actions
-
-vim.api.nvim_set_keymap('n', '<SPACE>', '<Nop>', { noremap = true })
 
 vim.api.nvim_set_keymap('n', '<C-j>', '<C-w><C-j>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-w><C-h>', { noremap = true })
@@ -10,8 +8,13 @@ vim.api.nvim_set_keymap('n', '<C-l>', '<C-w><C-l>', { noremap = true })
 
 vim.api.nvim_set_keymap('', '<F2>', '<cmd>lua vim.diagnostic.goto_next()<CR>', { noremap = true } )
 
-vim.api.nvim_set_keymap('t', '<F12>', '<C-\\><C-n><ESC>', { noremap = true })
-vim.api.nvim_set_keymap('i', '<F12>', '<ESC>', { noremap = true })
+vim.keymap.set('t', '<F12>', '<C-\\><C-n><ESC>', { remap = true })
+vim.keymap.set('i', '<F12>', function()
+  vim.cmd('stopinsert')
+  vim.schedule(function()
+    vim.api.nvim_input('<F12>')
+  end)
+end)
 
 vim.api.nvim_set_keymap('n', '<D-Right>', '<cmd>bnext<cr>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<D-Left>', '<cmd>bprev<cr>', { noremap = true })
@@ -28,6 +31,10 @@ vim.api.nvim_set_keymap('t', '<A-ESC>', '<C-\\><C-n>', { noremap = true })
 -- <S-F12> is Shift - F12
 -- <A-X> or <M-X> - is the alt key (what is on macOS ?)
 -- <D-X> is the command key on macOS
+
+-- search = function()
+--   :global/^\s*##\s\+/print
+-- end
 
 ftask = function()
   build_task_command =function(selected)
@@ -129,10 +136,15 @@ open_copilot = function()
   open_persistent_buffer("copilot_cli", "fish -l -c 'copilot_cli'")
 end
 
+open_term_buffer = function(command)
+  vim.cmd("enew")
+  vim.fn.termopen(command)
+  vim.cmd("startinsert")
+end
+
 
 local wk = require("which-key")
-wk.add(
-  {
+wk.add({
     { "<leader>c", group = "Code" },
     { "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", desc = "Actions" },
     { "<leader>cc", "<cmd>cclose<cr>", desc = "Close quickfixes" },
@@ -188,6 +200,7 @@ wk.add(
     { "<leader>w", group = "External Apps" },
     { "<leader>ws", "<cmd>FloatermNew --width=0.98 --height=0.98 prs<cr>", desc = "prs" },
     { "<leader>we", "<cmd>FloatermNew --width=0.98 --height=0.98 yazi<cr>", desc = "yazi" },
+    { "<leader>ee", "<cmd>lua open_term_buffer('fish -l -c ee')<cr>", desc = "ee" },
     { "<leader>wk", "<cmd>FloatermNew --width=0.98 --height=0.98 k9s<cr>", desc = "k9s" },
     { "<leader>wh", "<cmd>lua open_htop()<cr>", desc = "htop" },
     { "<leader>wt", "<cmd>FloatermNew taskwarrior-tui<cr>", desc = "taskwarrior" },
@@ -201,16 +214,16 @@ wk.add(
     { "<leader>zt", "<cmd>tabe term://fish<cr>", desc = "Term in tab" },
     { "<leader>zv", "<cmd>vsp term://fish<cr>", desc = "Term in vsplit" },
     { "<leader>zx", "<cmd>15sp term://fish<cr>", desc = "Term in split" },
-    { "<leader>d", group = "Doc" },
-    { "<leader>s", group = "Special inserts" },
-    { "<leader>sd", "<cmd>lua vim.fn.append(vim.fn.line('.'), {'## ' .. os.date('%Y-%m-%d'), '', ''})<CR>jj", desc = "Insert date as h2 title" },
-    { "<leader>sc", "<cmd>let save_pos = getpos('.')<CR><cmd>s/- \\[ \\]/- [x]/<CR>:nohlsearch<CR><cmd>call setpos('.', save_pos)<CR>", desc = "Check box" },
-    { "<leader>se", "<cmd>let save_pos = getpos('.')<CR><cmd>s/- \\[x\\]/- [ ]/<CR>:nohlsearch<CR><cmd>call setpos('.', save_pos)<CR>", desc = "Uncheck box" },
-    { "<leader>sn", "o- [ ] ", desc = "New checkable item" },
+    { "<leader>o", group = "o" },
+    { "<leader>od", "<cmd>lua vim.fn.append(vim.fn.line('.'), {'## ' .. os.date('%Y-%m-%d'), '', ''})<CR>jj", desc = "Insert date as h2 title" },
+    { "<leader>oc", "<cmd>let save_pos = getpos('.')<CR><cmd>s/- \\[ \\]/- [x]/<CR>:nohlsearch<CR><cmd>call setpos('.', save_pos)<CR>", desc = "Check box" },
+    { "<leader>ou", "<cmd>let save_pos = getpos('.')<CR><cmd>s/- \\[[x|~]\\]/- [ ]/<CR>:nohlsearch<CR><cmd>call setpos('.', save_pos)<CR>", desc = "Uncheck box" },
+    { "<leader>oi", "<cmd>let save_pos = getpos('.')<CR><cmd>s/- \\[[~|x]\\]/- [ ]/<CR>:nohlsearch<CR><cmd>call setpos('.', save_pos)<CR>", desc = "Undeterminate box" },
+    { "<leader>oh2", "<cmd>lua require('md').fzf_headings(2)<CR>", desc = "fzf h2" },
+    { "<leader>on", "o- [ ] ", desc = "New checkable item" },
     { "<leader>a", group = "Assistant" },
     { "<leader>at", "<cmd>CodeCompanionChat<cr>", desc = "Toggle chat" },
     { "<leader>ag", "<cmd>CodeCompanion /commit<cr>", desc = "Optimize staged" },
     { "<leader>ae", "<cmd>CopilotChatEdgeCase<cr>", desc = "Find edge cases" },
     { "<leader>as", "<cmd>CopilotChatCodeSmells<cr>", desc = "Find code smells" },
-  }
-)
+  })
