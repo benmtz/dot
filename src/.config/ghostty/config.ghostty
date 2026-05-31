@@ -1,7 +1,8 @@
 theme = Symfonic
 clipboard-paste-protection = false
 shell-integration-features = ssh-env,ssh-terminfo
+macos-option-as-alt = left
+background-blur = macos-glass-regular
 right-click-action = copy-or-paste
 copy-on-select = clipboard
 keybind = global:ctrl+`=toggle_quick_terminal
-
