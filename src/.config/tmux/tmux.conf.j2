@@ -15,6 +15,9 @@ bind -n     C-f       run -b "#{@fingers-cli} start #{pane_id}"
 bind -n     C-s       source-file ~/.config/tmux/tmux.conf
 bind -n     C-r       command-prompt -I "#W" { rename-window "%%" }
 
+bind -n     C-End     next-window
+bind -n     C-Home    previous-window
+
 bind -n     C-k       kill-session
 
 set -g @fingers-ctrl-action "xargs ~/.local/bin/open"
