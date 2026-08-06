@@ -10,6 +10,9 @@ bind C-Space send-prefix
 set-option -g aggressive-resize on
 set-option -g allow-rename off
 
+set -s set-clipboard on
+set -as terminal-features ',xterm-256color:clipboard'
+
 bind -n     C-m       choose-window
 bind -n     C-f       run -b "#{@fingers-cli} start #{pane_id}"
 bind -n     C-s       source-file ~/.config/tmux/tmux.conf
