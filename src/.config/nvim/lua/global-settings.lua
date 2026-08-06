@@ -19,7 +19,6 @@ set.termguicolors       = true
 
 set.number              = true      -- lines in gutter
 set.relativenumber      = true
-set.clipboard           = "unnamed"
 set.tabstop             = 2         -- 2 tabs space by default
 set.softtabstop         = 2         -- 2 tabs space by default
 set.shiftwidth          = 2         -- 2 tabs space by default
