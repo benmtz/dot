@@ -81,7 +81,7 @@ git:
   parseEmoji: false
   diffContextSize: 3 # how many lines of context are shown around a change in diffs
 os:
-  copyToClipboardCmd: "" # See 'Custom Command for Copying to Clipboard' section
+  copyToClipboardCmd: 'printf "\033]52;c;$(printf %s {{text}} | base64 | tr -d "\n")\a" > /dev/tty' # OSC52: copies over SSH/tmux
   editPreset: "" # see 'Configuring File Editing' section
   edit: ""
   editAtLine: ""
