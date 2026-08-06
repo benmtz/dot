@@ -1,4 +1,6 @@
 theme = Symfonic
+clipboard-read = allow
+clipboard-write = allow
 clipboard-paste-protection = false
 shell-integration-features = ssh-env,ssh-terminfo
 macos-option-as-alt = left
