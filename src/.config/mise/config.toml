@@ -25,6 +25,8 @@ NX_TUI=false
 "aqua:jqlang/jq" = "1.8.1"
 "aqua:junegunn/fzf" = "0.73.1"
 "aqua:kubernetes/kubernetes/kubectl" = "1.36.1"
+"aqua:ahmetb/kubectx" = "latest"
+"aqua:int128/kubelogin" = "latest"
 "aqua:nektos/act" = "0.2.88"
 "aqua:neovim/neovim" = "0.12.2"
 "aqua:nodejs/node" = "26.2.0"
@@ -44,5 +46,4 @@ NX_TUI=false
 "core:zig" = "0.16.0"
 "github:containers/podman" = "5.8.2"
 "go:gitlab.com/IB3n/sbal" = "0.2.0"
-"httpie-go" = "latest"
 
