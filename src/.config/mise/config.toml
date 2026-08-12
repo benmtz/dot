@@ -44,6 +44,7 @@ NX_TUI=false
 "core:python" = "3.9"
 "core:rust" = "1.96.0"
 "core:zig" = "0.16.0"
+"github:agavra/tuicr" = "latest"
 "github:containers/podman" = "5.8.2"
 "go:gitlab.com/IB3n/sbal" = "0.2.0"
 

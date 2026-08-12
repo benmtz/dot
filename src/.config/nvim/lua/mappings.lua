@@ -144,6 +144,10 @@ open_term = function()
   open_persistent_buffer("term", "fish -l")
 end
 
+open_tuicr = function()
+  open_persistent_buffer("tuicr", "fish -l -c 'tuicr'")
+end
+
 open_term_buffer = function(command)
   vim.cmd("enew")
   vim.fn.termopen(command)
@@ -162,6 +166,7 @@ local action = {
   yazi    = { cmd = "<cmd>FloatermNew --width=0.98 --height=0.98 yazi<cr>", desc = "yazi" },
   claude  = { cmd = "<cmd>lua open_claude()<cr>", desc = "Claude" },
   term    = { cmd = "<cmd>lua open_term()<cr>", desc = "Terminal (persistent)" },
+  tuicr   = { cmd = "<cmd>lua open_tuicr()<cr>", desc = "tuicr (persistent)" },
 }
 
 -- <C-S-*> fast paths — twins of the leader binds, pointing at the same action definitions.
@@ -173,6 +178,7 @@ local fast_path = {
   ["<C-S-e>"] = action.yazi,
   ["<C-S-a>"] = action.claude,
   ["<C-S-t>"] = action.term,
+  ["<C-S-r>"] = action.tuicr,
 }
 -- <cmd> mappings run without leaving the current mode, so the same bind works in
 -- normal, insert, and terminal mode.
