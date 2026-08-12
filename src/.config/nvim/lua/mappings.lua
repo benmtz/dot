@@ -136,12 +136,53 @@ open_copilot = function()
   open_persistent_buffer("copilot_cli", "fish -l -c 'copilot_cli'")
 end
 
+open_claude = function()
+  open_persistent_buffer("claude", "fish -l -c 'claude'")
+end
+
+open_term = function()
+  open_persistent_buffer("term", "fish -l")
+end
+
 open_term_buffer = function(command)
   vim.cmd("enew")
   vim.fn.termopen(command)
   vim.cmd("startinsert")
 end
 
+
+-- Shared action definitions: single source of truth for both the <leader> (which-key) binds
+-- and the <C-S-*> fast paths. Leader (<F12>…) works everywhere incl. termux; <C-S-*> is the
+-- ghostty/kitty keyboard-protocol fast path (no termux equivalent — see leader twins below).
+local action = {
+  grep    = { cmd = '<cmd>lua require("fzf-lua").live_grep_native({ rg_opts = "--hidden --follow --fixed-strings --ignore-case --line-number --column" })<cr>', desc = "Find text (grep)" },
+  files   = { cmd = '<cmd>lua require("fzf-lua").files({ fd_opts = "--hidden -L" })<cr>', desc = "Find files" },
+  buffers = { cmd = '<cmd>lua require("fzf-lua").buffers({sort_lastused = true})<cr>', desc = "Find in buffers" },
+  git     = { cmd = "<cmd>lua gg()<cr>", desc = "Git (lazygit)" },
+  yazi    = { cmd = "<cmd>FloatermNew --width=0.98 --height=0.98 yazi<cr>", desc = "yazi" },
+  claude  = { cmd = "<cmd>lua open_claude()<cr>", desc = "Claude" },
+  term    = { cmd = "<cmd>lua open_term()<cr>", desc = "Terminal (persistent)" },
+}
+
+-- <C-S-*> fast paths — twins of the leader binds, pointing at the same action definitions.
+local fast_path = {
+  ["<C-S-f>"] = action.grep,
+  ["<C-S-o>"] = action.files,
+  ["<C-S-b>"] = action.buffers,
+  ["<C-S-g>"] = action.git,
+  ["<C-S-e>"] = action.yazi,
+  ["<C-S-a>"] = action.claude,
+  ["<C-S-t>"] = action.term,
+}
+-- <cmd> mappings run without leaving the current mode, so the same bind works in
+-- normal, insert, and terminal mode.
+for lhs, a in pairs(fast_path) do
+  vim.keymap.set({ "n", "i", "t" }, lhs, a.cmd, { noremap = true, desc = a.desc })
+end
+
+-- Buffer navigation fast paths (no leader twin; mirror <D-Left>/<D-Right>).
+vim.keymap.set({ "n", "i", "t" }, "<C-S-n>", "<cmd>bnext<cr>", { noremap = true, desc = "Next buffer" })
+vim.keymap.set({ "n", "i", "t" }, "<C-S-p>", "<cmd>bprev<cr>", { noremap = true, desc = "Previous buffer" })
 
 local wk = require("which-key")
 wk.add({
@@ -167,10 +208,10 @@ wk.add({
     { "<leader>cwl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", desc = "List folder workspaces" },
     { "<leader>cwr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", desc = "Remove folder from workspace" },
     { "<leader>f", group = "Find" },
-    { "<leader>fb", '<cmd>lua require("fzf-lua").buffers({sort_lastused = true})<cr>', desc = "Find in buffers" },
-    { "<leader>fe", '<cmd>lua require("fzf-lua").files({ fd_opts = "-L" })<cr>', desc = "Find files" },
+    { "<leader>fb", action.buffers.cmd, desc = action.buffers.desc },
+    { "<leader>fe", action.files.cmd, desc = action.files.desc },
     { "<leader>ffe", '<cmd>lua require("fzf-lua").files({ fd_opts = "--no-ignore-vcs --hidden -L" })<cr>', desc = "Find files" },
-    { "<leader>fg", '<cmd>lua require("fzf-lua").live_grep_native({ rg_opts = "--follow --fixed-strings --ignore-case --line-number --column" })<cr>', desc = "Find text (grep)" },
+    { "<leader>fg", action.grep.cmd, desc = action.grep.desc },
     { "<leader>ffg", '<cmd>lua require("fzf-lua").live_grep_native({ rg_opts = "--follow --fixed-strings --no-ignore-vcs --ignore-case --line-number --column" })<cr>', desc = "Find text (grep)" },
     { "<leader>ffc", '<cmd>lua require("fzf-lua").live_grep_native({ rg_opts = "--follow --fixed-strings --no-ignore-vcs --ignore-case --line-number --column \"CMake\"" })<cr>', desc = "Find text (grep)" },
     { "<leader>fh", '<cmd>lua require("fzf-lua").git_bcommits()<cr>', desc = "Buffer history" },
@@ -178,7 +219,7 @@ wk.add({
     { "<leader>fm", '<cmd>lua require("fzf-lua").marks()<cr>', desc = "Find mark" },
     { "<leader>fp", '<cmd>lua require("fzf-lua").colorschemes()<cr>', desc = "Fuzzy colorschemes" },
     { "<leader>ft", "<cmd>lua ftask()<cr>", desc = "Run task" },
-    { "<leader>gg", "<cmd>lua gg()<cr>", desc = "Git" },
+    { "<leader>gg", action.git.cmd, desc = action.git.desc },
     { "<leader>gb", "<cmd>GitBlameToggle<cr>", desc = "Git" },
     { "<leader>i", group = "Issues" },
     { "<leader>id", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Toggle trouble focument" },
@@ -199,7 +240,7 @@ wk.add({
     { "<leader>vv", "<cmd>lua vim.fn.system { 'code', vim.loop.cwd() }<cr>", desc = "start VSCode" },
     { "<leader>w", group = "External Apps" },
     { "<leader>ws", "<cmd>FloatermNew --width=0.98 --height=0.98 prs<cr>", desc = "prs" },
-    { "<leader>we", "<cmd>FloatermNew --width=0.98 --height=0.98 yazi<cr>", desc = "yazi" },
+    { "<leader>we", action.yazi.cmd, desc = action.yazi.desc },
     { "<leader>ee", "<cmd>lua open_term_buffer('fish -l -c ee')<cr>", desc = "ee" },
     { "<leader>wk", "<cmd>FloatermNew --width=0.98 --height=0.98 k9s<cr>", desc = "k9s" },
     { "<leader>wh", "<cmd>lua open_htop()<cr>", desc = "htop" },
@@ -210,6 +251,7 @@ wk.add({
     { "<leader>yg", '<cmd>let @+=system("git-remote-url --path " . expand("%") . " -l " . line("."))<cr>', desc = "Yank git path" },
     { "<leader>yp", '<cmd>let @+=expand("%")<cr>', desc = "Yank path" },
     { "<leader>z", group = "Terminal" },
+    { "<leader>zz", action.term.cmd, desc = action.term.desc },
     { "<leader>ze", "<cmd>e term://fish<cr>", desc = "Term in buffer" },
     { "<leader>zt", "<cmd>tabe term://fish<cr>", desc = "Term in tab" },
     { "<leader>zv", "<cmd>vsp term://fish<cr>", desc = "Term in vsplit" },
@@ -222,6 +264,7 @@ wk.add({
     { "<leader>oh2", "<cmd>lua require('md').fzf_headings(2)<CR>", desc = "fzf h2" },
     { "<leader>on", "o- [ ] ", desc = "New checkable item" },
     { "<leader>a", group = "Assistant" },
+    { "<leader>ac", action.claude.cmd, desc = action.claude.desc },
     { "<leader>at", "<cmd>CodeCompanionChat<cr>", desc = "Toggle chat" },
     { "<leader>ag", "<cmd>CodeCompanion /commit<cr>", desc = "Optimize staged" },
     { "<leader>ae", "<cmd>CopilotChatEdgeCase<cr>", desc = "Find edge cases" },
