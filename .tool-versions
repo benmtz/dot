@@ -1,2 +1,3 @@
-task 3.34.1
-python 3.14.3
+task                     3.34.1
+python                   3.14.3
+go:gitlab.com/IB3n/sbdsp 0.2.0
