@@ -144,9 +144,6 @@ open_term = function()
   open_persistent_buffer("term", "fish -l")
 end
 
-open_tuicr = function()
-  open_persistent_buffer("tuicr", "fish -l -c 'tuicr'")
-end
 
 open_term_buffer = function(command)
   vim.cmd("enew")
@@ -166,7 +163,7 @@ local action = {
   yazi    = { cmd = "<cmd>FloatermNew --width=0.98 --height=0.98 yazi<cr>", desc = "yazi" },
   claude  = { cmd = "<cmd>lua open_claude()<cr>", desc = "Claude" },
   term    = { cmd = "<cmd>lua open_term()<cr>", desc = "Terminal (persistent)" },
-  tuicr   = { cmd = "<cmd>lua open_tuicr()<cr>", desc = "tuicr (persistent)" },
+  miserun = { cmd = "<cmd>FloatermNew --width=0.98 --height=0.98 mise run<cr>", desc = "mise run" },
 }
 
 -- <C-S-*> fast paths — twins of the leader binds, pointing at the same action definitions.
@@ -178,7 +175,7 @@ local fast_path = {
   ["<C-S-e>"] = action.yazi,
   ["<C-S-a>"] = action.claude,
   ["<C-S-t>"] = action.term,
-  ["<C-S-r>"] = action.tuicr,
+  ["<C-S-r>"] = action.miserun,
 }
 -- <cmd> mappings run without leaving the current mode, so the same bind works in
 -- normal, insert, and terminal mode.
@@ -189,6 +186,7 @@ end
 -- Buffer navigation fast paths (no leader twin; mirror <D-Left>/<D-Right>).
 vim.keymap.set({ "n", "i", "t" }, "<C-S-n>", "<cmd>bnext<cr>", { noremap = true, desc = "Next buffer" })
 vim.keymap.set({ "n", "i", "t" }, "<C-S-p>", "<cmd>bprev<cr>", { noremap = true, desc = "Previous buffer" })
+vim.keymap.set({ "n", "i", "t" }, "<C-S-x>", "<cmd>bnext<bar>bdelete #<cr>", { noremap = true, desc = "Close buffer" })
 
 local wk = require("which-key")
 wk.add({
