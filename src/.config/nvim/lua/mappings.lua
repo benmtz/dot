@@ -163,7 +163,7 @@ local action = {
   yazi    = { cmd = "<cmd>FloatermNew --width=0.98 --height=0.98 yazi<cr>", desc = "yazi" },
   claude  = { cmd = "<cmd>lua open_claude()<cr>", desc = "Claude" },
   term    = { cmd = "<cmd>lua open_term()<cr>", desc = "Terminal (persistent)" },
-  miserun = { cmd = "<cmd>FloatermNew --width=0.98 --height=0.98 mise run<cr>", desc = "mise run" },
+  miserun = { cmd = "<cmd>FloatermNew --width=0.98 --height=0.98 --autoclose=0 mise run<cr>", desc = "mise run" },
 }
 
 -- <C-S-*> fast paths — twins of the leader binds, pointing at the same action definitions.
