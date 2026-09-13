@@ -49,4 +49,4 @@ NX_TUI=false
 "github:containers/podman" = "5.8.2"
 "go:gitlab.com/IB3n/sbal" = "0.2.0"
 "go:gitlab.com/IB3n/sbdsp" = "0.1.0"
-
+"aqua:btop" = "1.4.7"
