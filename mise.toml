@@ -1,0 +1,20 @@
+[tools]
+"aqua:astral-sh/uv" = "0.11.17"
+
+
+[tasks.link]
+run = "./dotfiles link --force"
+
+[tasks.build]
+run = "./dotfiles compile --force"
+
+[tasks.install-fonts]
+run = "./dotfiles install-font"
+
+[tasks.full]
+run = """
+rm -rf ~/.config/fish/greeters
+rm -rf dist
+./dotfiles compile --force
+./dotfiles link --force
+"""

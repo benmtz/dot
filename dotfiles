@@ -1,3 +1,14 @@
+#!/usr/bin/env -S uv run --script
+#
+# /// script
+# dependencies = [
+#   "requests<3",
+#   "rich",
+#   "Jinja2",
+#   "colors.py"
+# ]
+# ///
+
 import argparse
 import os
 import shutil
