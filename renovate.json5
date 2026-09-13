@@ -8,10 +8,10 @@
       enabled: false,
     },
     {
-      matchManagers: ["asdf"],
+      matchManagers: ["mise"],
       matchUpdateTypes: ["major", "minor", "patch"],
-      groupName: "ASDF",
-      groupSlug: "asdf",
+      groupName: "MISE",
+      groupSlug: "mise",
       enabled: true,
       minimumReleaseAge: "3 days",
     },
