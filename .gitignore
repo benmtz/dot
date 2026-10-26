@@ -1,5 +1,6 @@
 dist
 venv
+.idea
 .venv
 .task
 .direnv
