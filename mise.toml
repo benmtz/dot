@@ -1,7 +1,6 @@
 [tools]
 "aqua:astral-sh/uv" = "0.11.17"
 
-
 [tasks.link]
 run = "./dotfiles link --force"
 
