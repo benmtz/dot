@@ -166,27 +166,25 @@ local action = {
   miserun = { cmd = "<cmd>FloatermNew --width=0.98 --height=0.98 --autoclose=0 mise run<cr>", desc = "mise run" },
 }
 
--- <C-S-*> fast paths — twins of the leader binds, pointing at the same action definitions.
+-- <A-S-*> fast paths — twins of the leader binds, pointing at the same action definitions.
 local fast_path = {
-  ["<C-S-f>"] = action.grep,
-  ["<C-S-o>"] = action.files,
-  ["<C-S-b>"] = action.buffers,
-  ["<C-S-g>"] = action.git,
-  ["<C-S-e>"] = action.yazi,
-  ["<C-S-a>"] = action.claude,
-  ["<C-S-t>"] = action.term,
-  ["<C-S-r>"] = action.miserun,
+  ["<A-S-f>"] = action.grep,
+  ["<A-S-o>"] = action.files,
+  ["<A-S-b>"] = action.buffers,
+  ["<A-S-g>"] = action.git,
+  ["<A-S-e>"] = action.yazi,
+  ["<A-S-a>"] = action.claude,
+  ["<A-S-t>"] = action.term,
+  ["<A-S-r>"] = action.miserun,
 }
--- <cmd> mappings run without leaving the current mode, so the same bind works in
--- normal, insert, and terminal mode.
 for lhs, a in pairs(fast_path) do
   vim.keymap.set({ "n", "i", "t" }, lhs, a.cmd, { noremap = true, desc = a.desc })
 end
 
 -- Buffer navigation fast paths (no leader twin; mirror <D-Left>/<D-Right>).
-vim.keymap.set({ "n", "i", "t" }, "<C-S-n>", "<cmd>bnext<cr>", { noremap = true, desc = "Next buffer" })
-vim.keymap.set({ "n", "i", "t" }, "<C-S-p>", "<cmd>bprev<cr>", { noremap = true, desc = "Previous buffer" })
-vim.keymap.set({ "n", "i", "t" }, "<C-S-x>", "<cmd>bnext<bar>bdelete #<cr>", { noremap = true, desc = "Close buffer" })
+vim.keymap.set({ "n", "i", "t" }, "<A-S-n>", "<cmd>bnext<cr>", { noremap = true, desc = "Next buffer" })
+vim.keymap.set({ "n", "i", "t" }, "<A-S-p>", "<cmd>bprev<cr>", { noremap = true, desc = "Previous buffer" })
+vim.keymap.set({ "n", "i", "t" }, "<A-S-x>", "<cmd>bnext<bar>bdelete #<cr>", { noremap = true, desc = "Close buffer" })
 
 local wk = require("which-key")
 wk.add({
