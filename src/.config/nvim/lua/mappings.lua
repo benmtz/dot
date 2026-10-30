@@ -121,7 +121,7 @@ open_persistent_buffer = function(buffer_name, command)
 end
 
 gg = function()
-  open_persistent_buffer("lazygit", "fish -l -c 'lazygit'")
+  open_persistent_buffer("lazygit", "zsh -l -c 'lazygit'")
 end
 
 local copilot_panel_state = {
@@ -133,15 +133,15 @@ open_htop = function()
 end
 
 open_copilot = function()
-  open_persistent_buffer("copilot_cli", "fish -l -c 'copilot_cli'")
+  open_persistent_buffer("copilot_cli", "zsh -l -c 'copilot_cli'")
 end
 
 open_claude = function()
-  open_persistent_buffer("claude", "fish -l -c 'claude'")
+  open_persistent_buffer("claude", "zsh -l -c 'claude'")
 end
 
 open_term = function()
-  open_persistent_buffer("term", "fish -l")
+  open_persistent_buffer("term", "zsh -l")
 end
 
 
@@ -243,7 +243,7 @@ wk.add({
     { "<leader>w", group = "External Apps" },
     { "<leader>ws", "<cmd>FloatermNew --width=0.98 --height=0.98 prs<cr>", desc = "prs" },
     { "<leader>we", action.yazi.cmd, desc = action.yazi.desc },
-    { "<leader>ee", "<cmd>lua open_term_buffer('fish -l -c ee')<cr>", desc = "ee" },
+    { "<leader>ee", "<cmd>lua open_term_buffer('zsh -l -c ee')<cr>", desc = "ee" },
     { "<leader>wk", "<cmd>FloatermNew --width=0.98 --height=0.98 k9s<cr>", desc = "k9s" },
     { "<leader>wh", "<cmd>lua open_htop()<cr>", desc = "htop" },
     { "<leader>wt", "<cmd>FloatermNew taskwarrior-tui<cr>", desc = "taskwarrior" },
@@ -254,10 +254,10 @@ wk.add({
     { "<leader>yp", '<cmd>let @+=expand("%")<cr>', desc = "Yank path" },
     { "<leader>z", group = "Terminal" },
     { "<leader>zz", action.term.cmd, desc = action.term.desc },
-    { "<leader>ze", "<cmd>e term://fish<cr>", desc = "Term in buffer" },
-    { "<leader>zt", "<cmd>tabe term://fish<cr>", desc = "Term in tab" },
-    { "<leader>zv", "<cmd>vsp term://fish<cr>", desc = "Term in vsplit" },
-    { "<leader>zx", "<cmd>15sp term://fish<cr>", desc = "Term in split" },
+    { "<leader>ze", "<cmd>e term://zsh<cr>", desc = "Term in buffer" },
+    { "<leader>zt", "<cmd>tabe term://zsh<cr>", desc = "Term in tab" },
+    { "<leader>zv", "<cmd>vsp term://zsh<cr>", desc = "Term in vsplit" },
+    { "<leader>zx", "<cmd>15sp term://zsh<cr>", desc = "Term in split" },
     { "<leader>o", group = "o" },
     { "<leader>od", "<cmd>lua vim.fn.append(vim.fn.line('.'), {'## ' .. os.date('%Y-%m-%d'), '', ''})<CR>jj", desc = "Insert date as h2 title" },
     { "<leader>oc", "<cmd>let save_pos = getpos('.')<CR><cmd>s/- \\[ \\]/- [x]/<CR>:nohlsearch<CR><cmd>call setpos('.', save_pos)<CR>", desc = "Check box" },

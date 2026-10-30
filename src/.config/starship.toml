@@ -1,7 +1,7 @@
 format = """
-[󰽰]({{ glob.cyan }}) \
+[󰽰]({< glob.cyan >}) \
 $directory\
-(fg:{{ glob.red_intense }})\
+(fg:{< glob.red_intense >})\
 $azure\
 $git_branch
 󱍢 
@@ -14,8 +14,8 @@ add_newline = false
 # and use the os module below
 [username]
 show_always = true
-style_user = "fg:{{ glob.cyan }}"
-style_root = "fg:{{ glob.cyan }}"
+style_user = "fg:{< glob.cyan >}"
+style_root = "fg:{< glob.cyan >}"
 format = '[$user ]($style)'
 disabled = false
 
@@ -66,11 +66,11 @@ format = '[ $symbol ($version) ]($style)'
 
 [git_branch]
 symbol = ""
-style = "fg:{{ glob.red_intense }}"
+style = "fg:{< glob.red_intense >}"
 format = '[ $symbol $branch ]($style)'
 
 [git_status]
-style = "fg:{{ glob.red_intense }}"
+style = "fg:{< glob.red_intense >}"
 format = '[ $all_status$ahead_behind ]($style)'
 
 [golang]

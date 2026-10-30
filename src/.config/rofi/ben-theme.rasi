@@ -25,12 +25,12 @@
     background-color:            rgba ( 0, 0, 0, 0 % );
     alternate-active-foreground: @active-foreground;
     active-background:           rgba ( 29, 31, 33, 17 % );
-    selected-active-background:  {{ glob.pink_dark }};
+    selected-active-background:  {< glob.pink_dark >};
 }
 
 window {
     background-color: @background;
-    padding:          {{ glob.p1 }};
+    padding:          {< glob.p1 >};
     border-radius: 10px;
     height: 550;
     width: 800px;
@@ -58,8 +58,8 @@ listview {
 }
 element {
     border:  0;
-    padding: {{ glob.p4 }} ;
-    width: {{ rofi.item_height }};
+    padding: {< glob.p4 >} ;
+    width: {< rofi.item_height >};
     border-radius: 4px;
     orientation: vertical;
     children: [  element-icon,element-text ];

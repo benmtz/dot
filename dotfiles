@@ -168,11 +168,7 @@ def hydrate(src: str, dest: str, values: dict):
   log.debug(f"hydrating {src} to {dest}")
   file_dir = os.path.split(dest)[0]
   ensure_dir(file_dir)
-  if (src.endswith(".j2")):
-    template_renderer.render(src, dest, values)
-  else:
-    shutil.copyfile(src, dest)
-    shutil.copymode(src, dest)
+  template_renderer.render(src, dest, values)
 
 
 def compile(args):
@@ -201,10 +197,10 @@ def extract(args):
   log.debug(f"extract {args.path} to {target_path}")
   with open(args.path, "r") as f:
     content = f.read()
-    for key, value in flatten_dict_with_dots(config).items():
-      content = content.replace(value, "{{ " + key + " }}")
-      with open(f"{target_path}.j2", "w") as t:
-        t.write(content)
+  for key, value in flatten_dict_with_dots(config).items():
+    content = content.replace(value, "{< " + key + " >}")
+  with open(target_path, "w") as t:
+    t.write(content)
 
 
 parser = argparse.ArgumentParser()

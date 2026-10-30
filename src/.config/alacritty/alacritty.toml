@@ -2,15 +2,15 @@
 size = 13
 
 [font.normal]
-family = "{{ font.name }}"
+family = "{< font.name >}"
 
 [window]
 dynamic_title = true
 opacity = 0.8
-{% if platform == "Darwin" %}
+<% if platform == "Darwin" %>
 decorations = "Transparent"
 startup_mode = "SimpleFullscreen"
-{% endif %}
+<% endif %>
 
 [window.padding]
 x = 1

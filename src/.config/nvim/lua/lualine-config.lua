@@ -7,16 +7,16 @@ local lualine = require('lualine')
 -- stylua: ignore
 local colors = {
   bg       = nil,
-  fg       = '{{ glob.white_faint }}',
-  yellow   = '{{ glob.yellow }}',
-  cyan     = '{{ glob.cyan }}',
-  darkblue = '{{ glob.blue_dark }}',
-  green    = '{{ glob.green }}',
-  orange   = '{{ glob.orange }}',
-  violet   = '{{ glob.magenta_faint }}',
-  magenta  = '{{ glob.magenta }}',
-  blue     = '{{ glob.blue }}',
-  red      = '{{ glob.red }}',
+  fg       = '{< glob.white_faint >}',
+  yellow   = '{< glob.yellow >}',
+  cyan     = '{< glob.cyan >}',
+  darkblue = '{< glob.blue_dark >}',
+  green    = '{< glob.green >}',
+  orange   = '{< glob.orange >}',
+  violet   = '{< glob.magenta_faint >}',
+  magenta  = '{< glob.magenta >}',
+  blue     = '{< glob.blue >}',
+  red      = '{< glob.red >}',
 }
 
 local conditions = {

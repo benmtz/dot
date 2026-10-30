@@ -1,4 +1,5 @@
 import platform
+import shutil
 from typing import Any
 
 from jinja2 import Environment, PackageLoader, select_autoescape
@@ -14,7 +15,14 @@ filters = {
 
 class TemplateRenderer:
     def __init__(self):
-        self.env = Environment()
+        self.env = Environment(
+            variable_start_string="{<",
+            variable_end_string=">}",
+            block_start_string="<%",
+            block_end_string="%>",
+            comment_start_string="{!",
+            comment_end_string="!}",
+        )
 
         for g_key in globs:
             print(f"Injecting {g_key}:{globs[g_key]} into globals")
@@ -31,11 +39,16 @@ class TemplateRenderer:
         dest: str,
         values: Any
     ):
-        with open(src) as file:
+        try:
+            with open(src, encoding="utf-8") as file:
+                output = self.env.from_string(file.read()).render(values)
+        except UnicodeDecodeError:
+            shutil.copyfile(src, dest)
+            shutil.copymode(src, dest)
+            return
 
-            output = self.env.from_string(file.read()).render(values)
+        with open(dest, "w") as f:
+            f.write(output)
 
-            with open(dest.replace(".j2", ""), 'w') as f:
-                f.write(output)
-                f.close()
+        shutil.copymode(src, dest)
 
