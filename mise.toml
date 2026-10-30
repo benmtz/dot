@@ -11,6 +11,7 @@ run = "./dotfiles compile --force"
 run = "./dotfiles install-font"
 
 [tasks.full]
+sources = ["src/**/*"]
 run = """
 rm -rf ~/.config/fish/greeters
 rm -rf dist
