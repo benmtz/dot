@@ -40,6 +40,7 @@ NX_TUI=false
 "aqua:uv" = "0.11.17"
 "aqua:yazi" = "26.5.6"
 "asdf:benmtz/asdf-tmux-prebuilt" = "3.6b"
+"core:deno" = "latest"
 "core:dotnet" = "10.0.300"
 "core:go" = "1.26.3"
 "core:java" = "26.0.1"
