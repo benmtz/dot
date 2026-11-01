@@ -1,5 +1,5 @@
-from unittest import IsolatedAsyncioTestCase, TestCase, main
-from dict_util import flatten_dict_with_dots
+from unittest import TestCase, main
+from utility.dict_util import flatten_dict_with_dots
 
 class Test(TestCase):
 

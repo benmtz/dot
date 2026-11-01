@@ -1,23 +1,29 @@
-## Debian setup
+# dot
+
+Dotfiles managed with [mise](https://mise.jdx.dev): `src/` holds jinja-templated
+sources, `./dotfiles compile` hydrates them into `dist/`, and `./dotfiles link`
+copies them into `$HOME`.
+
+## Bootstrap (any OS)
 
 ```
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
-. "$HOME/.asdf/asdf.sh"
-. "$HOME/.asdf/completions/asdf.bash"
-asdf plugin-add task python
-asdf install
-# git clone here
-python3 -m venv venv
-. ./venv/bin/activate
-python3 -m pip install -r requirements.txt
+# install mise, then from this repo:
+mise install            # toolchain from src/.config/mise/config.toml
+mise run full           # compile + link everything
+./dotfiles install-font # nerdfont, OS-aware
+```
 
-# random
-sudo apt install fish
+## Commands
+
+```
+./dotfiles compile      # src/ -> dist/ (theme.ini provides the values)
+./dotfiles link --force # dist/ -> $HOME
+./dotfiles extract PATH # reverse-hydrate a live config back into src/
 ```
 
 ## Termux
 
-in order to install ansible on termux follow the following 
+in order to install ansible on termux follow the following
 
 ```
 pkg install -y \
@@ -33,7 +39,3 @@ export RUSTFLAGS="-C lto=n"
 pip install --upgrade cryptography ansible pywinrm[credssp]
 ```
 if failing see https://gist.github.com/kuttor/5540b0b7ee18ea62283068b03813693e#file-ansible-termux-sh-L5
-
-then 
-```
-ansible-pull https://github.com/benmtz/dot.git ansible/install-termux.yaml

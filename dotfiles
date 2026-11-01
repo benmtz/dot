@@ -2,7 +2,6 @@
 #
 # /// script
 # dependencies = [
-#   "requests<3",
 #   "rich",
 #   "Jinja2",
 #   "colors.py"
@@ -20,7 +19,6 @@ from pathlib import Path
 from urllib import request
 
 import jinja2
-from jinja2.filters import FILTERS
 
 from utility.current_os import get_current_os
 from utility.dict_util import flatten_dict_with_dots

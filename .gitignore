@@ -5,3 +5,4 @@ venv
 .task
 .direnv
 __pycache__
+cleanup-home.sh
