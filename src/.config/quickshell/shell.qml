@@ -29,8 +29,8 @@ ShellRoot {
     margins.top: ramWidget.margins.top + ramWidget.implicitHeight + shell.widgetSpacing
   }
 
-  ContainerWidget {
-    margins.top: nvidiaGpuWidget.margins.top + nvidiaGpuWidget.implicitHeight + shell.widgetSpacing
-  }
+  // ContainerWidget {
+  //   margins.top: nvidiaGpuWidget.margins.top + nvidiaGpuWidget.implicitHeight + shell.widgetSpacing
+  // }
 
 }
