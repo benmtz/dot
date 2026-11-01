@@ -29,7 +29,7 @@ Rectangle {
 
   Process {
     id: cpuTemperature
-    command: ["/bin/bash", "-c", "sensors -j | jq '.\"coretemp-isa-0000\".\"Package id 0\".temp1_input'"]
+    command: ["/bin/bash", "-c", "sensors -j | jq '.\"coretemp-isa-0000\".\"Package id 0\".temp1_input' | sed -E 's/\\.[0-9]+//g'"]
     stdout: StdioCollector {
       onStreamFinished: root.temperatureCelsius = text.trim()
     }
@@ -51,5 +51,6 @@ Rectangle {
     text: `\uf4bc ${root.usagePercent} \uf2c7 ${root.temperatureCelsius}°C`
     color: Style.text.foreground
     font.family: Style.text.family
+    font.pointSize: Style.text.pointSize
   }
 }
